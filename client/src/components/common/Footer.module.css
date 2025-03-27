@@ -1,0 +1,56 @@
+.footer {
+  background-color: #1f2937; /* Màu nền tối */
+  color: #ffffff; /* Màu chữ trắng */
+  padding: 20px 0;
+  font-size: 14px;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 20px;
+  padding: 0 15px;
+}
+
+.column {
+  flex: 1;
+  min-width: 200px;
+}
+
+.column h3 {
+  font-size: 16px;
+  margin-bottom: 10px;
+  color: #ff9800;
+}
+
+.column ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.column ul li {
+  margin-bottom: 8px;
+}
+
+.column ul li a {
+  color: #d1d5db;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.column ul li a:hover {
+  color: #9ca3af;
+}
+
+.bottomBar {
+  text-align: center;
+  margin-top: 20px;
+  padding-top: 10px;
+  border-top: 1px solid #4b5563;
+  font-size: 13px;
+  color: #aaa;
+}
