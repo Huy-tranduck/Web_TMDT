@@ -1,0 +1,90 @@
+.bannerContainer {
+  width: 100%;
+  max-width: 1050px; /* Đồng bộ với phần khung sản phẩm nổi bật */
+  margin: 0 auto;
+  padding: 0; /* Loại bỏ padding */
+  height: 400px;
+}
+
+.bannerSlider {
+  position: relative;
+  height: 400px; /* Tăng chiều cao */
+  overflow: hidden;
+  border-radius: 0; /* Loại bỏ bo góc nếu không cần */
+  background: none; /* Loại bỏ màu nền */
+}
+
+.slide {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  opacity: 0; 
+  transition: opacity 0.5s ease-in-out;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.slide.active {
+  opacity: 1;
+}
+
+.slide img {
+  width: 100%; /* Đảm bảo ảnh chiếm toàn bộ chiều rộng của khung */
+  height: 100%; /* Đảm bảo ảnh chiếm toàn bộ chiều cao của khung */
+  max-width: 1050px; /* Đặt chiều rộng tối đa bằng phần sản phẩm nổi bật */
+  max-height: 400px; /* Đặt chiều cao tối đa bằng phần sản phẩm nổi bật */
+  object-fit: cover; /* Đảm bảo ảnh không bị méo */
+  margin: 0 auto; /* Căn giữa ảnh */
+  display: block; /* Đảm bảo ảnh không bị ảnh hưởng bởi inline spacing */
+}
+
+.controls {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  transform: translateY(-50%);
+  display: flex;
+  justify-content: space-between;
+  padding: 0 20px;
+}
+
+.prevBtn,
+.nextBtn {
+  background: rgba(0, 0, 0, 0.5);
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  cursor: pointer;
+  border-radius: 50%;
+  transition: background 0.3s ease;
+}
+
+.prevBtn:hover,
+.nextBtn:hover {
+  background: rgba(0, 0, 0, 0.8);
+}
+
+.indicators {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 10px;
+}
+
+.indicator {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.5);
+  border: none;
+  cursor: pointer;
+  padding: 0;
+}
+
+.indicator.active {
+  background: white;
+}

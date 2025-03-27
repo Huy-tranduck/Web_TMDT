@@ -1,0 +1,209 @@
+.featuredProducts {
+  padding: 20px; /* Giảm padding để khung gọn hơn */
+  background: #f8f9fa;
+  border: 2px solid #ff9800; /* Thêm viền màu cam */
+  border-radius: 8px; /* Bo góc */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Tạo hiệu ứng đổ bóng */
+  margin: 20px auto; /* Căn giữa phần khung */
+  max-width: 1050px; /* Giảm chiều rộng để vừa với 5 sản phẩm */
+}
+
+.container {
+  max-width: 100%; /* Đảm bảo container chiếm toàn bộ chiều rộng của khung */
+  margin: 0 auto;
+  padding: 0 10px; /* Giảm padding để khung gọn hơn */
+}
+
+.sectionTitle {
+  font-size: 26px; /* Giảm kích thước tiêu đề */
+  margin-bottom: 15px; /* Giảm khoảng cách giữa tiêu đề và lưới sản phẩm */
+  text-align: center;
+  color: #ff5722; /* Đổi màu tiêu đề để nổi bật hơn */
+  font-weight: bold;
+  background: #ffe0b2; /* Nền màu cam nhạt */
+  padding: 8px 0; /* Giảm padding của tiêu đề */
+  border-radius: 4px;
+  box-shadow: inset 0 -2px 4px rgba(0, 0, 0, 0.1); /* Hiệu ứng chìm */
+}
+
+.productGrid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr); /* 5 cột sản phẩm */
+  gap: 12px; /* Giảm khoảng cách giữa các sản phẩm */
+}
+
+.productCard {
+  background: white;
+  border-radius: 8px;
+  padding: 8px; /* Giảm padding để sản phẩm gọn hơn */
+  position: relative;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  width: 100%;
+}
+
+.productLink {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+}
+
+.imageWrapper {
+  position: relative;
+  padding-top: 85%; /* Giảm chiều cao của ảnh để phù hợp với kích thước nhỏ hơn */
+  overflow: hidden;
+}
+
+.imageWrapper img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  transition: transform 0.3s ease;
+}
+
+.productCard:hover {
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.productCard:hover .imageWrapper img {
+  transform: scale(1.05);
+}
+
+.productName {
+  font-size: 13px; /* Giảm kích thước font để phù hợp với khung nhỏ hơn */
+  margin: 8px 0 5px;
+  color: #333;
+  font-weight: 600;
+}
+
+.productDesc {
+  font-size: 11px; /* Giảm kích thước font mô tả */
+  color: #666;
+  margin-bottom: 6px;
+}
+
+.priceBox {
+  margin: 8px 0; /* Giảm khoảng cách giữa giá và các thành phần khác */
+}
+
+.price {
+  font-size: 16px; /* Giảm kích thước font giá */
+  font-weight: bold;
+  color: #e63946;
+}
+
+.originalPrice {
+  font-size: 11px; /* Giảm kích thước font giá gốc */
+  color: #999;
+  text-decoration: line-through;
+  margin-left: 6px;
+}
+
+.discountTag {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  background: #e63946;
+  color: white;
+  padding: 3px 6px; /* Giảm padding của tag giảm giá */
+  border-radius: 4px;
+  font-size: 11px; /* Giảm kích thước font của tag giảm giá */
+  font-weight: bold;
+}
+
+.addToCartBtn {
+  width: 100%;
+  padding: 6px; /* Giảm padding của nút thêm vào giỏ */
+  background: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  margin-top: 6px; /* Giảm khoảng cách trên của nút */
+}
+
+.addToCartBtn:hover {
+  background: #0056b3;
+}
+
+.viewAllWrapper {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.viewAllButton {
+  display: inline-block;
+  padding: 10px 20px;
+  background: #007bff;
+  color: white;
+  font-size: 16px;
+  font-weight: bold;
+  text-decoration: none;
+  border-radius: 4px;
+  transition: background 0.3s ease;
+}
+
+.viewAllButton:hover {
+  background: #0056b3;
+}
+
+.viewAllTrigger {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 24px;
+  background: linear-gradient(45deg, #ff9800, #f44336);
+  color: white;
+  font-size: 18px;
+  font-weight: bold;
+  border-radius: 30px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.viewAllTrigger:hover {
+  background: linear-gradient(45deg, #f44336, #ff9800);
+}
+
+.viewAllTrigger i {
+  margin-left: 10px;
+  transition: transform 0.3s ease;
+}
+
+/* Cac lớp màu cho mỗi phần */
+.featured {
+  border-color: #ff9800; /* Orange */
+  background: #fff8e1;    /* Light yellow */
+}
+
+.new {
+  border-color: #4caf50; /* Green */
+  background: #e8f5e9;    /* Light green */
+}
+
+.traGop {
+  border-color: #2196f3; /* Blue */
+  background: #e3f2fd;    /* Light blue */
+}
+
+.giaSoc {
+  border-color: #9c27b0; /* Purple */
+  background: #f3e5f5;    /* Light purple */
+}
+
+.giamGia {
+  border-color: #f44336; /* Red */
+  background: #ffebee;    /* Light red */
+}
+
+.giaRe {
+  border-color: #795548; /* Brown */
+  background: #efebe9;    /* Light brown */
+}
