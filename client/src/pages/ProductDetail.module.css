@@ -1,5 +1,9 @@
 .productDetail {
   display: flex;
+<<<<<<< HEAD
+=======
+  flex-wrap: wrap; /* Allow wrapping for sections */
+>>>>>>> 9afb2f6 (Cập nhật code)
   gap: 20px;
   padding: 20px;
   max-width: 1200px;
@@ -123,3 +127,84 @@
   font-weight: bold;
   color: #333;
 }
+<<<<<<< HEAD
+=======
+
+.relatedProducts {
+  flex: 1 1 100%; /* Make it span the full width */
+  margin-top: 40px;
+  padding: 20px;
+  background: #f8f9fa; /* Match the background color of suggestion sections */
+  border-radius: 8px;
+  border-top: 1px solid #ddd;
+}
+
+.relatedProducts h3 {
+  font-size: 22px;
+  margin-bottom: 20px;
+  color: #ff5722; /* Match the title color of suggestion sections */
+  text-align: center;
+  font-weight: bold;
+  background: #ffe0b2; /* Match the background of suggestion section titles */
+  padding: 8px 0;
+  border-radius: 4px;
+  box-shadow: inset 0 -2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.relatedGrid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr); /* Match the grid layout of suggestion sections */
+  gap: 12px; /* Match the gap between products */
+  justify-items: center;
+}
+
+.relatedGrid .productCard {
+  background: white;
+  border-radius: 8px;
+  padding: 8px;
+  position: relative;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  width: 100%;
+}
+
+.relatedGrid .productCard:hover {
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.relatedGrid .productCard img {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+  object-fit: contain;
+  transition: transform 0.3s ease;
+}
+
+.relatedGrid .productCard:hover img {
+  transform: scale(1.05);
+}
+
+.relatedGrid .productName {
+  font-size: 13px;
+  margin: 8px 0 5px;
+  color: #333;
+  font-weight: 600;
+}
+
+.relatedGrid .priceBox {
+  margin: 8px 0;
+}
+
+.relatedGrid .price {
+  font-size: 16px;
+  font-weight: bold;
+  color: #e63946;
+}
+
+.relatedGrid .originalPrice {
+  font-size: 11px;
+  color: #999;
+  text-decoration: line-through;
+  margin-left: 6px;
+}
+>>>>>>> 9afb2f6 (Cập nhật code)

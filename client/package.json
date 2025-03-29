@@ -14,7 +14,11 @@
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-router-dom": "^7.4.0",
+<<<<<<< HEAD
     "react-scripts": "5.0.1",
+=======
+    "react-scripts": "^5.0.1",
+>>>>>>> 9afb2f6 (Cập nhật code)
     "sass": "^1.86.0",
     "web-vitals": "^2.1.4"
   },
@@ -41,5 +45,13 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+<<<<<<< HEAD
   }
+=======
+  },
+  "description": "backend",
+  "main": "index.js",
+  "author": "dungdepzai",
+  "license": "ISC"
+>>>>>>> 9afb2f6 (Cập nhật code)
 }

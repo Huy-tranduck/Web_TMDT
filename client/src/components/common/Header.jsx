@@ -25,7 +25,11 @@ const Header = () => {
   // Giả lập lấy số lượng giỏ hàng
   useEffect(() => {
     const cart = JSON.parse(localStorage.getItem('cart') || '[]');
+<<<<<<< HEAD
     setCartCount(cart.length);
+=======
+    setCartCount(cart.reduce((total, item) => total + item.quantity, 0));
+>>>>>>> 9afb2f6 (Cập nhật code)
   }, []);
 
   // Xử lý đăng xuất
@@ -46,12 +50,26 @@ const Header = () => {
         </div>
 
         {/* Search Bar */}
+<<<<<<< HEAD
         <div className={styles.searchBar}>
           <input type="text" placeholder="Bạn tìm gì..." />
           <button type="button">
             <i className="fas fa-search"></i>
           </button>
         </div>
+=======
+        <form className={styles.searchBar} onSubmit={handleSearch}>
+          <input
+            type="text"
+            placeholder="Tìm kiếm sản phẩm..."
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+          />
+          <button type="submit">
+            <i className="fas fa-search"></i>
+          </button>
+        </form>
+>>>>>>> 9afb2f6 (Cập nhật code)
 
         {/* User Actions */}
         <div className={styles.userActions}>
@@ -68,7 +86,11 @@ const Header = () => {
             </button>
           )}
           <Link to="/cart">
+<<<<<<< HEAD
             <i className="fas fa-shopping-cart"></i> Giỏ hàng
+=======
+            <i className="fas fa-shopping-cart"></i> Giỏ hàng ({cartCount})
+>>>>>>> 9afb2f6 (Cập nhật code)
           </Link>
           <Link to="/location">
             <i className="fas fa-map-marker-alt"></i> Hồ Chí Minh

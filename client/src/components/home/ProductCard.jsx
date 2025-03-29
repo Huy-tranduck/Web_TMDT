@@ -10,6 +10,27 @@ const ProductCard = ({ product = {} }) => {
     }).format(price);
   };
 
+<<<<<<< HEAD
+=======
+  const handleAddToCart = () => {
+    const cart = JSON.parse(localStorage.getItem('cart')) || [];
+    const existingProduct = cart.find((item) => item.id === product.id);
+
+    if (existingProduct) {
+      existingProduct.quantity += 1;
+    } else {
+      cart.push({ ...product, quantity: 1 });
+    }
+
+    localStorage.setItem('cart', JSON.stringify(cart));
+
+    // Trigger a storage event to update the cart count in the header
+    window.dispatchEvent(new Event('storage'));
+
+    alert('Sản phẩm đã được thêm vào giỏ hàng!');
+  };
+
+>>>>>>> 9afb2f6 (Cập nhật code)
   return (
     <div className={styles.productCard}>
       <Link to={`/product/${product.id}`} className={styles.productLink}>
@@ -30,6 +51,12 @@ const ProductCard = ({ product = {} }) => {
           )}
         </div>
       </Link>
+<<<<<<< HEAD
+=======
+      <button className={styles.addToCartBtn} onClick={handleAddToCart}>
+        <i className="fas fa-shopping-cart"></i> Thêm vào giỏ hàng
+      </button>
+>>>>>>> 9afb2f6 (Cập nhật code)
     </div>
   );
 };
