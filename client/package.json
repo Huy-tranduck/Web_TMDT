@@ -41,13 +41,9 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-<<<<<<< HEAD
-  }
-=======
   },
   "description": "backend",
   "main": "index.js",
   "author": "dungdepzai",
   "license": "ISC"
->>>>>>> 9afb2f6 (Cập nhật code)
 }
