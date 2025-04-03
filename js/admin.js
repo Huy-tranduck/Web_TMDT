@@ -21,6 +21,7 @@ window.onload = function () {
 
 function logOutAdmin() {
     window.localStorage.removeItem('admin');
+    window.location.href = 'index.html';  // Thay đổi ở đây để trở về trang chủ
 }
 
 function getListRandomColor(length) {

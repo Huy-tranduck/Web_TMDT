@@ -30,8 +30,4 @@ export const AuthProvider = ({ children }) => {
   );
 };
 
-<<<<<<< HEAD
 export const useAuth = () => useContext(AuthContext);
-=======
-export const useAuth = () => useContext(AuthContext);
->>>>>>> 9afb2f6 (Cập nhật code)

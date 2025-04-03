@@ -171,29 +171,50 @@
 }
 
 .dropdownMenu {
+  position: relative;
+  cursor: pointer;
+}
+
+.dropdownMenu span {
+  display: inline-block;
+  padding: 10px 15px;
+  color: #333;
+  transition: color 0.3s ease;
+}
+
+.dropdownMenu:hover span {
+  color: #fff;
+  background-color: #ffcc00;
+  border-radius: 4px;
+}
+
+.dropdownContent {
+  display: none;
   position: absolute;
   top: 100%;
   left: 0;
-  background: white;
-  min-width: 200px;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  background-color: #fff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   border-radius: 4px;
-  padding: 10px 0;
+  z-index: 1000;
+  min-width: 200px;
 }
 
-.dropdownMenu li {
-  list-style: none;
+.dropdownMenu:hover .dropdownContent {
+  display: block;
 }
 
-.dropdownMenu a {
+.dropdownContent a {
   color: #333;
-  padding: 8px 20px;
+  padding: 10px 20px;
   display: block;
   text-decoration: none;
+  transition: background-color 0.3s ease;
 }
 
-.dropdownMenu a:hover {
-  background: #f5f5f5;
+.dropdownContent a:hover {
+  background-color: #ffcc00;
+  color: #fff;
 }
 
 .logoutBtn {
@@ -236,26 +257,28 @@
   list-style: none;
   display: flex;
   justify-content: space-around;
+  align-items: center;
   margin: 0;
   padding: 0;
 }
 
 .navMenu li {
-  display: flex;
-  align-items: center;
+  position: relative;
 }
 
-.navMenu a {
+.navMenu a, .navMenu span {
   color: #333;
   text-decoration: none;
   font-size: 14px;
-  display: flex;
-  align-items: center;
-  gap: 5px;
+  padding: 10px 15px;
+  display: inline-block;
+  transition: color 0.3s ease, background-color 0.3s ease;
 }
 
-.navMenu a:hover {
-  text-decoration: underline;
+.navMenu a:hover, .navMenu span:hover {
+  color: #fff;
+  background-color: #ffcc00;
+  border-radius: 4px;
 }
 
 .navMenu i {
@@ -313,5 +336,25 @@
 
   .mainMenu {
     display: none;
+  }
+
+  .navMenu ul {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .navMenu li {
+    width: 100%;
+  }
+
+  .dropdownContent {
+    position: static;
+    box-shadow: none;
+    border-radius: 0;
+    padding: 0;
+  }
+
+  .dropdownContent a {
+    padding: 10px;
   }
 }

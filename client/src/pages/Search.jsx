@@ -7,26 +7,34 @@ const Search = () => {
   const location = useLocation();
   const [query, setQuery] = useState('');
   const [results, setResults] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     const params = new URLSearchParams(location.search);
-    const searchQuery = params.get('q') || '';
+    const searchQuery = params.get('query') || '';
     setQuery(searchQuery);
 
-    // Giả lập danh sách sản phẩm
-    const products = [
-      { id: 1, name: "iPhone 15 Pro Max", price: 29990000, image: "https://cdn.tgdd.vn/Products/Images/42/305658/iphone-15-pro-max-blue-thumbnew-600x600.jpg" },
-      { id: 2, name: "Samsung Galaxy S23 Ultra", price: 23990000, image: "/images/products/s23ultra.jpg" },
-      { id: 3, name: "Xiaomi 13T Pro", price: 15990000, image: "/images/products/xiaomi13t.jpg" },
-      // ... thêm sản phẩm khác
-    ];
+    const fetchResults = async () => {
+      try {
+        const response = await fetch(`http://localhost:5000/api/products/search?query=${searchQuery}`);
+        if (!response.ok) throw new Error('Search failed');
+        const data = await response.json();
+        setResults(data);
+      } catch (err) {
+        setError(err.message);
+      } finally {
+        setLoading(false);
+      }
+    };
 
-    // Lọc sản phẩm theo từ khóa
-    const filteredResults = products.filter(product =>
-      product.name.toLowerCase().includes(searchQuery.toLowerCase())
-    );
-    setResults(filteredResults);
+    if (searchQuery) {
+      fetchResults();
+    }
   }, [location.search]);
+
+  if (loading) return <div>Loading...</div>;
+  if (error) return <div>Error: {error}</div>;
 
   return (
     <div className={styles.searchContainer}>

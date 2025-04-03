@@ -22,8 +22,4 @@ const Home = () => {
   );
 };
 
-<<<<<<< HEAD
 export default Home;
-=======
-export default Home;
->>>>>>> 9afb2f6 (Cập nhật code)

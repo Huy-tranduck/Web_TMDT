@@ -1,68 +1,48 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../contexts/AuthContext';
 import styles from './LoginModal.module.css';
 
-const LoginModal = ({ onClose }) => {
-  const [credentials, setCredentials] = useState({ username: '', password: '' });
-  const [error, setError] = useState('');
+const LoginModal = ({ onClose, message }) => {
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
   const { login } = useAuth();
-  const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    setError('');
-
-    if (credentials.username === 'admin' && credentials.password === 'admin123') {
-      login({ username: credentials.username, role: 'admin' });
+    try {
+      await login(username, password);
       onClose();
-      navigate('/admin');
-      return;
-    }
-
-    if (credentials.username === 'test' && credentials.password === 'test123') {
-      login({ username: credentials.username, role: 'user' });
-      onClose();
-      return;
-    }
-
-    setError('Tên đăng nhập hoặc mật khẩu không chính xác');
-  };
-
-  const handleOverlayClick = (e) => {
-    if (e.target === e.currentTarget) {
-      onClose();
+    } catch (error) {
+      alert('Đăng nhập thất bại. Vui lòng kiểm tra lại thông tin!');
     }
   };
 
   return (
-    <div className={styles.overlay} onClick={handleOverlayClick}>
+    <div className={styles.overlay}>
       <div className={styles.modal}>
+        <button className={styles.closeButton} onClick={onClose}>&times;</button>
         <h2>Đăng nhập</h2>
+        {message && <p className={styles.message}>{message}</p>}
         <form onSubmit={handleSubmit}>
-          {error && <div className={styles.error}>{error}</div>}
-          
-          <div className={styles.inputGroup}>
+          <div className={styles.formGroup}>
+            <label>Tên đăng nhập:</label>
             <input
               type="text"
-              placeholder="Tên đăng nhập"
-              value={credentials.username}
-              onChange={(e) => setCredentials({...credentials, username: e.target.value})}
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+              required
             />
           </div>
-
-          <div className={styles.inputGroup}>
+          <div className={styles.formGroup}>
+            <label>Mật khẩu:</label>
             <input
               type="password"
-              placeholder="Mật khẩu"
-              value={credentials.password}
-              onChange={(e) => setCredentials({...credentials, password: e.target.value})}
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
             />
           </div>
-
-          <button type="submit" className={styles.loginButton}>
-            Đăng nhập
-          </button>
+          <button type="submit" className={styles.submitButton}>Đăng nhập</button>
         </form>
       </div>
     </div>

@@ -207,3 +207,16 @@
   border-color: #795548; /* Brown */
   background: #efebe9;    /* Light brown */
 }
+
+.rating {
+  margin-top: 5px;
+}
+
+.rating i {
+  color: #ddd;
+  font-size: 14px;
+}
+
+.rating i.active {
+  color: #ffd700;  /* Màu vàng cho sao được active */
+}

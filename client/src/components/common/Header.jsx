@@ -18,18 +18,14 @@ const Header = () => {
   const handleSearch = (e) => {
     e.preventDefault();
     if (searchTerm.trim()) {
-      navigate(`/search?q=${encodeURIComponent(searchTerm)}`);
+      navigate(`/search?query=${encodeURIComponent(searchTerm)}`);
     }
   };
 
   // Giả lập lấy số lượng giỏ hàng
   useEffect(() => {
     const cart = JSON.parse(localStorage.getItem('cart') || '[]');
-<<<<<<< HEAD
-    setCartCount(cart.length);
-=======
     setCartCount(cart.reduce((total, item) => total + item.quantity, 0));
->>>>>>> 9afb2f6 (Cập nhật code)
   }, []);
 
   // Xử lý đăng xuất
@@ -50,14 +46,6 @@ const Header = () => {
         </div>
 
         {/* Search Bar */}
-<<<<<<< HEAD
-        <div className={styles.searchBar}>
-          <input type="text" placeholder="Bạn tìm gì..." />
-          <button type="button">
-            <i className="fas fa-search"></i>
-          </button>
-        </div>
-=======
         <form className={styles.searchBar} onSubmit={handleSearch}>
           <input
             type="text"
@@ -69,7 +57,6 @@ const Header = () => {
             <i className="fas fa-search"></i>
           </button>
         </form>
->>>>>>> 9afb2f6 (Cập nhật code)
 
         {/* User Actions */}
         <div className={styles.userActions}>
@@ -86,11 +73,7 @@ const Header = () => {
             </button>
           )}
           <Link to="/cart">
-<<<<<<< HEAD
-            <i className="fas fa-shopping-cart"></i> Giỏ hàng
-=======
             <i className="fas fa-shopping-cart"></i> Giỏ hàng ({cartCount})
->>>>>>> 9afb2f6 (Cập nhật code)
           </Link>
           <Link to="/location">
             <i className="fas fa-map-marker-alt"></i> Hồ Chí Minh
@@ -110,6 +93,26 @@ const Header = () => {
           <li><Link to="/category/screens"><i className="fas fa-tv"></i> Màn hình, Máy in</Link></li>
           <li><Link to="/category/sim"><i className="fas fa-sim-card"></i> Sim, Thẻ cào</Link></li>
           <li><Link to="/category/services"><i className="fas fa-tools"></i> Dịch vụ tiện ích</Link></li>
+          <li className={styles.dropdownMenu}>
+            <span>Hãng sản xuất</span>
+            <div className={styles.dropdownContent}>
+              <Link to="/search?company=Apple">Apple</Link>
+              <Link to="/search?company=Samsung">Samsung</Link>
+              <Link to="/search?company=Oppo">Oppo</Link>
+              <Link to="/search?company=Nokia">Nokia</Link>
+              <Link to="/search?company=Huawei">Huawei</Link>
+              <Link to="/search?company=Xiaomi">Xiaomi</Link>
+              <Link to="/search?company=Realme">Realme</Link>
+              <Link to="/search?company=Vivo">Vivo</Link>
+              <Link to="/search?company=Philips">Philips</Link>
+              <Link to="/search?company=Mobell">Mobell</Link>
+              <Link to="/search?company=Mobiistar">Mobiistar</Link>
+              <Link to="/search?company=Itel">Itel</Link>
+              <Link to="/search?company=Coolpad">Coolpad</Link>
+              <Link to="/search?company=HTC">HTC</Link>
+              <Link to="/search?company=Motorola">Motorola</Link>
+            </div>
+          </li>
         </ul>
       </nav>
 
