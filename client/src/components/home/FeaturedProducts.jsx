@@ -1,10 +1,18 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import ProductCard from './ProductCard';
 import styles from './FeaturedProducts.module.css';
 import { Link } from 'react-router-dom';
 
 const FeaturedProducts = () => {
   const [showAll, setShowAll] = useState(false);
+
+  useEffect(() => {
+    const savedScrollPosition = sessionStorage.getItem('scrollPosition');
+    if (savedScrollPosition) {
+      window.scrollTo(0, parseInt(savedScrollPosition, 10)); // Restore scroll position
+      sessionStorage.removeItem('scrollPosition'); // Clear the saved position
+    }
+  }, []);
 
   const products = [
     {

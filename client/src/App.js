@@ -5,10 +5,7 @@ import Home from './pages/Home';
 import Login from './pages/Login';
 import ProductDetail from './pages/ProductDetail';
 import AdminLayout from './components/layout/AdminLayout';
-<<<<<<< HEAD
-=======
 import Cart from './pages/Cart';
->>>>>>> 9afb2f6 (Cập nhật code)
 
 // Component bảo vệ route admin
 const PrivateRoute = ({ children }) => {
@@ -27,10 +24,7 @@ function App() {
           <Route path="/" element={<Home />} />
           {/* <Route path="/login" element={<Login />} /> */}
           <Route path="/product/:id" element={<ProductDetail />} />
-<<<<<<< HEAD
-=======
           <Route path="/cart" element={<Cart />} />
->>>>>>> 9afb2f6 (Cập nhật code)
           <Route 
             path="/admin/*" 
             element={

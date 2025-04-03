@@ -1,8 +1,10 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import styles from './FeaturedProducts.module.css';
 
 const ProductCard = ({ product = {} }) => {
+  const navigate = useNavigate();
+
   const formatPrice = (price) => {
     return new Intl.NumberFormat('vi-VN', {
       style: 'currency',
@@ -10,9 +12,14 @@ const ProductCard = ({ product = {} }) => {
     }).format(price);
   };
 
-<<<<<<< HEAD
-=======
   const handleAddToCart = () => {
+    const isLoggedIn = localStorage.getItem('user'); // Check if user is logged in
+    if (!isLoggedIn) {
+      alert('Bạn cần đăng nhập để sử dụng giỏ hàng!');
+      navigate('/login'); // Redirect to login page
+      return;
+    }
+
     const cart = JSON.parse(localStorage.getItem('cart')) || [];
     const existingProduct = cart.find((item) => item.id === product.id);
 
@@ -30,7 +37,6 @@ const ProductCard = ({ product = {} }) => {
     alert('Sản phẩm đã được thêm vào giỏ hàng!');
   };
 
->>>>>>> 9afb2f6 (Cập nhật code)
   return (
     <div className={styles.productCard}>
       <Link to={`/product/${product.id}`} className={styles.productLink}>
@@ -51,12 +57,9 @@ const ProductCard = ({ product = {} }) => {
           )}
         </div>
       </Link>
-<<<<<<< HEAD
-=======
       <button className={styles.addToCartBtn} onClick={handleAddToCart}>
         <i className="fas fa-shopping-cart"></i> Thêm vào giỏ hàng
       </button>
->>>>>>> 9afb2f6 (Cập nhật code)
     </div>
   );
 };

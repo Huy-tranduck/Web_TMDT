@@ -1,28 +1,16 @@
 {
-  "dependencies": {
-    "@fortawesome/free-solid-svg-icons": "^6.7.2",
-    "@fortawesome/react-fontawesome": "^0.2.2",
-    "react-router-dom": "^7.4.0"
-<<<<<<< HEAD
-  }
-=======
-  },
-  "name": "web_tmdt_main",
+  "name": "web_tmdt",
   "version": "1.0.0",
   "private": true,
-  "description": "back end website",
-  "main": "index.js",
-  "devDependencies": {},
-  "scripts": {
-    "start": "cd client && npm start",
-    "install-client": "cd client && npm install",
-    "test": "echo \"Error: no test specified\" && exit 1"
+  "dependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-router-dom": "^7.4.0"
   },
-  "keywords": [
-    "nodejs",
-    "react"
-  ],
-  "author": "dungdepzai",
-  "license": "ISC"
->>>>>>> 9afb2f6 (Cập nhật code)
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  }
 }

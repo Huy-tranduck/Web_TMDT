@@ -16,11 +16,13 @@ export const AuthProvider = ({ children }) => {
   const login = (userData) => {
     setUser(userData);
     localStorage.setItem('user', JSON.stringify(userData));
+    window.location.reload(); // Reload the page after login
   };
 
   const logout = () => {
     setUser(null);
     localStorage.removeItem('user');
+    window.location.reload(); // Reload the page after logout
   };
 
   return (
@@ -30,8 +32,4 @@ export const AuthProvider = ({ children }) => {
   );
 };
 
-<<<<<<< HEAD
 export const useAuth = () => useContext(AuthContext);
-=======
-export const useAuth = () => useContext(AuthContext);
->>>>>>> 9afb2f6 (Cập nhật code)

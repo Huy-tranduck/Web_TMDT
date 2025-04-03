@@ -1,9 +1,12 @@
-<<<<<<< HEAD
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { AuthProvider } from './contexts/AuthContext';
+import Header from './components/common/Header';
 import Home from './pages/Home';
 import Login from './pages/Login';
 import ProductDetail from './pages/ProductDetail';
+import Search from './pages/Search';
+import Cart from './pages/Cart';
 
 const PrivateRoute = ({ children }) => {
   const { user } = useAuth();
@@ -16,11 +19,14 @@ const PrivateRoute = ({ children }) => {
 const App = () => {
   return (
     <AuthProvider>
-      <BrowserRouter>
+      <Router>
+        <Header />
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
           <Route path="/product/:id" element={<ProductDetail />} />
+          <Route path="/search" element={<Search />} />
+          <Route path="/cart" element={<Cart />} />
           <Route 
             path="/admin/*" 
             element={
@@ -30,30 +36,8 @@ const App = () => {
             } 
           />
         </Routes>
-      </BrowserRouter>
+      </Router>
     </AuthProvider>
-=======
-import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Header from './components/common/Header';
-import Home from './pages/Home';
-import ProductDetail from './pages/ProductDetail';
-import SearchResults from './pages/SearchResults';
-import Cart from './pages/Cart';
-import Search from './pages/Search';
-
-const App = () => {
-  return (
-    <Router>
-      <Header />
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/product/:id" element={<ProductDetail />} />
-        <Route path="/search" element={<Search />} />
-        <Route path="/cart" element={<Cart />} />
-      </Routes>
-    </Router>
->>>>>>> 9afb2f6 (Cập nhật code)
   );
 };
 

@@ -1,9 +1,6 @@
 .productDetail {
   display: flex;
-<<<<<<< HEAD
-=======
   flex-wrap: wrap; /* Allow wrapping for sections */
->>>>>>> 9afb2f6 (Cập nhật code)
   gap: 20px;
   padding: 20px;
   max-width: 1200px;
@@ -127,8 +124,6 @@
   font-weight: bold;
   color: #333;
 }
-<<<<<<< HEAD
-=======
 
 .relatedProducts {
   flex: 1 1 100%; /* Make it span the full width */
@@ -207,4 +202,3 @@
   text-decoration: line-through;
   margin-left: 6px;
 }
->>>>>>> 9afb2f6 (Cập nhật code)

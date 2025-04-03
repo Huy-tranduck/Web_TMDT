@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom'; // Added useLocation
 import { useAuth } from '../../contexts/AuthContext';
 import LoginModal from './LoginModal';
 import styles from './Header.module.css';
@@ -13,6 +13,7 @@ const Header = () => {
   const [showLoginModal, setShowLoginModal] = useState(false);
   const { user, logout } = useAuth();
   const navigate = useNavigate();
+  const location = useLocation(); // Get current route
 
   // Xử lý tìm kiếm
   const handleSearch = (e) => {
@@ -22,14 +23,19 @@ const Header = () => {
     }
   };
 
-  // Giả lập lấy số lượng giỏ hàng
+  // Update cart count dynamically
   useEffect(() => {
-    const cart = JSON.parse(localStorage.getItem('cart') || '[]');
-<<<<<<< HEAD
-    setCartCount(cart.length);
-=======
-    setCartCount(cart.reduce((total, item) => total + item.quantity, 0));
->>>>>>> 9afb2f6 (Cập nhật code)
+    const updateCartCount = () => {
+      const cart = JSON.parse(localStorage.getItem('cart') || '[]');
+      setCartCount(cart.reduce((total, item) => total + item.quantity, 0));
+    };
+
+    updateCartCount();
+    window.addEventListener('storage', updateCartCount);
+
+    return () => {
+      window.removeEventListener('storage', updateCartCount);
+    };
   }, []);
 
   // Xử lý đăng xuất
@@ -50,14 +56,6 @@ const Header = () => {
         </div>
 
         {/* Search Bar */}
-<<<<<<< HEAD
-        <div className={styles.searchBar}>
-          <input type="text" placeholder="Bạn tìm gì..." />
-          <button type="button">
-            <i className="fas fa-search"></i>
-          </button>
-        </div>
-=======
         <form className={styles.searchBar} onSubmit={handleSearch}>
           <input
             type="text"
@@ -69,7 +67,6 @@ const Header = () => {
             <i className="fas fa-search"></i>
           </button>
         </form>
->>>>>>> 9afb2f6 (Cập nhật code)
 
         {/* User Actions */}
         <div className={styles.userActions}>
@@ -85,13 +82,11 @@ const Header = () => {
               <i className="fas fa-user"></i> Đăng nhập
             </button>
           )}
-          <Link to="/cart">
-<<<<<<< HEAD
-            <i className="fas fa-shopping-cart"></i> Giỏ hàng
-=======
-            <i className="fas fa-shopping-cart"></i> Giỏ hàng ({cartCount})
->>>>>>> 9afb2f6 (Cập nhật code)
-          </Link>
+          {user && location.pathname !== '/cart' && ( // Show cart button only if logged in
+            <Link to="/cart">
+              <i className="fas fa-shopping-cart"></i> Giỏ hàng ({cartCount})
+            </Link>
+          )}
           <Link to="/location">
             <i className="fas fa-map-marker-alt"></i> Hồ Chí Minh
           </Link>

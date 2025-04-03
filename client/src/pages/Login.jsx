@@ -70,8 +70,4 @@ const Login = () => {
   );
 };
 
-<<<<<<< HEAD
 export default Login;
-=======
-export default Login;
->>>>>>> 9afb2f6 (Cập nhật code)
