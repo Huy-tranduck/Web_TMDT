@@ -13,6 +13,12 @@ export const CartProvider = ({ children }) => {
   }, []);
 
   const addToCart = (product) => {
+    const isLoggedIn = localStorage.getItem('user'); // Check if user is logged in
+    if (!isLoggedIn) {
+      alert('Bạn cần đăng nhập để sử dụng giỏ hàng!');
+      return;
+    }
+
     const updatedCart = [...cartItems];
     const existingProduct = updatedCart.find((item) => item.id === product.id);
 

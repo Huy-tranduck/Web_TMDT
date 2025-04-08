@@ -1,5 +1,8 @@
 .header {
-  background: #ffd700;
+  position: sticky; /* Make the header sticky */
+  top: 0; /* Stick to the top of the viewport */
+  z-index: 1000; /* Ensure it stays above other elements */
+  background: #ffd700; /* Retain the background color */
   width: 100%;
   font-family: Arial, sans-serif;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);

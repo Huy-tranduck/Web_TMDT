@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom'; // Added useLocation
 import { useAuth } from '../../contexts/AuthContext';
 import LoginModal from './LoginModal';
 import styles from './Header.module.css';
@@ -13,6 +13,7 @@ const Header = () => {
   const [showLoginModal, setShowLoginModal] = useState(false);
   const { user, logout } = useAuth();
   const navigate = useNavigate();
+  const location = useLocation(); // Get current route
 
   // Xử lý tìm kiếm
   const handleSearch = (e) => {
@@ -22,10 +23,19 @@ const Header = () => {
     }
   };
 
-  // Giả lập lấy số lượng giỏ hàng
+  // Update cart count dynamically
   useEffect(() => {
-    const cart = JSON.parse(localStorage.getItem('cart') || '[]');
-    setCartCount(cart.reduce((total, item) => total + item.quantity, 0));
+    const updateCartCount = () => {
+      const cart = JSON.parse(localStorage.getItem('cart') || '[]');
+      setCartCount(cart.reduce((total, item) => total + item.quantity, 0));
+    };
+
+    updateCartCount();
+    window.addEventListener('storage', updateCartCount);
+
+    return () => {
+      window.removeEventListener('storage', updateCartCount);
+    };
   }, []);
 
   // Xử lý đăng xuất
@@ -72,9 +82,11 @@ const Header = () => {
               <i className="fas fa-user"></i> Đăng nhập
             </button>
           )}
-          <Link to="/cart">
-            <i className="fas fa-shopping-cart"></i> Giỏ hàng ({cartCount})
-          </Link>
+          {user && location.pathname !== '/cart' && ( // Show cart button only if logged in
+            <Link to="/cart">
+              <i className="fas fa-shopping-cart"></i> Giỏ hàng ({cartCount})
+            </Link>
+          )}
           <Link to="/location">
             <i className="fas fa-map-marker-alt"></i> Hồ Chí Minh
           </Link>

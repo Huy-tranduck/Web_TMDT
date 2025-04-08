@@ -1,10 +1,20 @@
 .cartContainer {
-  padding: 20px;
-  max-width: 800px;
+  padding: 30px; /* Increase padding for better spacing */
+  max-width: 1200px; /* Increase the container width */
   margin: 0 auto;
-  background-color: #f9f9f9;
+  background-color: #ffffff; /* Change background to white */
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+  font-size: 40px; /* Increase font size */
+  font-weight: bold; /* Make it bold */
+  color: #12161a; /* Change color to blue */
+  text-align: center; /* Center align the heading */
+  margin-bottom: 40px; /* Add more spacing below the heading */
+  text-transform: uppercase; /* Make text uppercase */
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2); /* Add a subtle shadow */
 }
 
 .cartList {
@@ -27,6 +37,7 @@
   object-fit: cover;
   margin-right: 20px;
   border-radius: 4px;
+  border: 1px solid #ddd; /* Add border around images */
 }
 
 .cartDetails {
@@ -68,19 +79,89 @@
   color: white;
   border: none;
   border-radius: 3px;
-  font-size: 16px;
+  font-size: 18px; /* Increase font size */
   cursor: pointer;
   margin-top: 20px;
   text-align: center;
+  text-transform: uppercase; /* Make text uppercase */
+  transition: background-color 0.3s ease; /* Add smooth hover effect */
 }
 
 .checkoutButton:hover {
-  background-color: #218838;
+  background-color: #1e7e34; /* Darker green on hover */
 }
 
 .cartEmpty {
   text-align: center;
   font-size: 18px;
-  color: #777;
+  font-style: italic; /* Add italic style for emphasis */
+  color: #999; /* Lighten text color */
   margin-top: 20px;
+}
+
+.cartTable {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+  border: 1px solid #ddd; /* Add border to the table */
+  border-radius: 8px; /* Round table corners */
+  overflow: hidden; /* Ensure rounded corners apply */
+  margin-top: 20px; /* Add spacing between the heading and the table */
+}
+
+.cartTable th, .cartTable td {
+  border: 1px solid #ddd;
+  padding: 10px;
+  text-align: center;
+}
+
+.cartTable th {
+  background-color: #4caf50;
+  color: white;
+  font-size: 16px; /* Increase font size for better readability */
+  text-transform: uppercase; /* Make headers uppercase */
+}
+
+.cartTable td {
+  vertical-align: middle; /* Center align content vertically */
+}
+
+.cartTable img {
+  width: 70px; /* Increase image size */
+  height: 70px;
+  object-fit: cover;
+  margin-right: 10px;
+}
+
+.cartTable button {
+  padding: 5px 10px;
+  margin: 0 5px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+  transition: background-color 0.3s ease; /* Add smooth hover effect */
+}
+
+.cartTable button:hover {
+  background-color: #004085; /* Darker blue on hover */
+}
+
+.totalSummary {
+  text-align: right;
+  font-size: 18px; /* Increase font size */
+  font-weight: bold;
+  margin-top: 10px;
+  color: #0a1015; /* Highlight with blue color */
+  text-transform: uppercase; /* Make text uppercase */
+}
+
+.totalPrice {
+  text-align: right;
+  font-size: 20px; /* Increase font size */
+  font-weight: bold;
+  margin-top: 10px;
+  color: #e63946; /* Highlight with red color */
+  text-transform: uppercase; /* Make text uppercase */
 }
