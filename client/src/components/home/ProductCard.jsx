@@ -2,66 +2,70 @@ import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import styles from './FeaturedProducts.module.css';
 
-const ProductCard = ({ product = {} }) => {
-  const navigate = useNavigate();
+const ProductCard = ({ product }) => {
+    const navigate = useNavigate();
 
-  const formatPrice = (price) => {
-    return new Intl.NumberFormat('vi-VN', {
-      style: 'currency',
-      currency: 'VND'
-    }).format(price);
-  };
+    const formatPrice = (priceStr) => {
+        return priceStr + '₫';
+    };
 
-  const handleAddToCart = () => {
-    const isLoggedIn = localStorage.getItem('user'); // Check if user is logged in
-    if (!isLoggedIn) {
-      alert('Bạn cần đăng nhập để sử dụng giỏ hàng!');
-      navigate('/login'); // Redirect to login page
-      return;
-    }
+    const handleAddToCart = () => {
+        const isLoggedIn = localStorage.getItem('user');
+        if (!isLoggedIn) {
+            alert('Bạn cần đăng nhập để sử dụng giỏ hàng!');
+            navigate('/login');
+            return;
+        }
 
-    const cart = JSON.parse(localStorage.getItem('cart')) || [];
-    const existingProduct = cart.find((item) => item.id === product.id);
+        const cart = JSON.parse(localStorage.getItem('cart')) || [];
+        const existingProduct = cart.find((item) => item.id === product.masp); // Thay đổi product.id thành product.masp
 
-    if (existingProduct) {
-      existingProduct.quantity += 1;
-    } else {
-      cart.push({ ...product, quantity: 1 });
-    }
+        if (existingProduct) {
+            existingProduct.quantity += 1;
+        } else {
+            cart.push({
+                id: product.masp,
+                name: product.name,
+                image: product.img,
+                price: product.price,
+                quantity: 1
+            });
+        }
 
-    localStorage.setItem('cart', JSON.stringify(cart));
+        localStorage.setItem('cart', JSON.stringify(cart));
+        window.dispatchEvent(new Event('storage'));
+        alert('Sản phẩm đã được thêm vào giỏ hàng!');
+    };
 
-    // Trigger a storage event to update the cart count in the header
-    window.dispatchEvent(new Event('storage'));
-
-    alert('Sản phẩm đã được thêm vào giỏ hàng!');
-  };
-
-  return (
-    <div className={styles.productCard}>
-      <Link to={`/product/${product.id}`} className={styles.productLink}>
-        <div className={styles.imageWrapper}>
-          <img src={product.image} alt={product.name} />
-          {product.discount > 0 && (
-            <span className={styles.discountTag}>-{product.discount}%</span>
-          )}
+    return (
+        <div className={styles.productCard}>
+            <Link to={`/product/${product.masp}`} className={styles.productLink}>
+                <div className={styles.imageWrapper}>
+                    <img src={product.img} alt={product.name} />
+                    {product.promo && product.promo.name === 'giamgia' && (
+                        <span className={styles.discountTag}>
+                            -{product.promo.value}₫
+                        </span>
+                    )}
+                </div>
+                <h3 className={styles.productName}>{product.name}</h3>
+                <div className={styles.priceBox}>
+                    <span className={styles.price}>{formatPrice(product.price)}</span>
+                </div>
+                <div className={styles.rating}>
+                    {[...Array(5)].map((_, index) => (
+                        <i 
+                            key={index}
+                            className={`fa fa-star ${index < product.star ? styles.active : ''}`}
+                        />
+                    ))}
+                </div>
+            </Link>
+            <button className={styles.addToCartBtn} onClick={handleAddToCart}>
+                <i className="fas fa-shopping-cart"></i> Thêm vào giỏ hàng
+            </button>
         </div>
-        <h3 className={styles.productName}>{product.name}</h3>
-        <p className={styles.productDesc}>{product.description}</p>
-        <div className={styles.priceBox}>
-          <span className={styles.price}>{formatPrice(product.price)}</span>
-          {product.originalPrice > product.price && (
-            <span className={styles.originalPrice}>
-              {formatPrice(product.originalPrice)}
-            </span>
-          )}
-        </div>
-      </Link>
-      <button className={styles.addToCartBtn} onClick={handleAddToCart}>
-        <i className="fas fa-shopping-cart"></i> Thêm vào giỏ hàng
-      </button>
-    </div>
-  );
+    );
 };
 
 export default ProductCard;

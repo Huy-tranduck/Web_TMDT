@@ -1,140 +1,62 @@
 import React, { useState, useEffect } from 'react';
 import ProductCard from './ProductCard';
 import styles from './FeaturedProducts.module.css';
-import { Link } from 'react-router-dom';
 
 const FeaturedProducts = () => {
-  const [showAll, setShowAll] = useState(false);
+    const [products, setProducts] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
+    const [showAll, setShowAll] = useState(false); // Thêm state showAll
 
-  useEffect(() => {
-    const savedScrollPosition = sessionStorage.getItem('scrollPosition');
-    if (savedScrollPosition) {
-      window.scrollTo(0, parseInt(savedScrollPosition, 10)); // Restore scroll position
-      sessionStorage.removeItem('scrollPosition'); // Clear the saved position
-    }
-  }, []);
+    useEffect(() => {
+        const fetchProducts = async () => {
+            try {
+                const response = await fetch('http://localhost:5000/api/products/featured');
+                const data = await response.json();
+                setProducts(data);
+                setLoading(false);
+            } catch (err) {
+                setError('Failed to fetch products');
+                setLoading(false);
+            }
+        };
 
-  const products = [
-    {
-      id: 1,
-      name: "iPhone 15 Pro Max",
-      price: 29990000,
-      originalPrice: 34990000,
-      image: "https://cdn.tgdd.vn/Products/Images/42/305658/iphone-15-pro-max-blue-thumbnew-600x600.jpg",
-      discount: 15,
-      description: "6.7 inch, 8GB RAM, 256GB"
-    },
-    {
-      id: 2,
-      name: "Samsung Galaxy S23 Ultra",
-      price: 23990000,
-      originalPrice: 26990000,
-      image: "/images/products/s23ultra.jpg",
-      discount: 12,
-      description: "6.8 inch, 12GB RAM, 256GB"
-    },
-    {
-      id: 3,
-      name: "Xiaomi 13T Pro",
-      price: 15990000,
-      originalPrice: 17990000,
-      image: "/images/products/xiaomi13t.jpg",
-      discount: 10,
-      description: "6.67 inch, 12GB RAM, 256GB"
-    },
-    {
-      id: 4,
-      name: "OPPO Find N3",
-      price: 44990000,
-      originalPrice: 46990000,
-      image: "/images/products/oppon3.jpg",
-      discount: 5,
-      description: "7.8 inch, 16GB RAM, 512GB"
-    },
-    {
-      id: 5,
-      name: "Nokia 123",
-      price: 44990000,
-      originalPrice: 46990000,
-      image: "/images/products/oppon3.jpg",
-      discount: 5,
-      description: "7.8 inch, 16GB RAM, 512GB"
-    },
-    {
-      id: 6,
-      name: "iPhone 15 Pro Max",
-      price: 29990000,
-      originalPrice: 34990000,
-      image: "https://cdn.tgdd.vn/Products/Images/42/305658/iphone-15-pro-max-blue-thumbnew-600x600.jpg",
-      discount: 15,
-      description: "6.7 inch, 8GB RAM, 256GB"
-    },
-    {
-      id: 7,
-      name: "Samsung Galaxy S23 Ultra",
-      price: 23990000,
-      originalPrice: 26990000,
-      image: "/images/products/s23ultra.jpg",
-      discount: 12,
-      description: "6.8 inch, 12GB RAM, 256GB"
-    },
-    {
-      id: 8,
-      name: "Xiaomi 13T Pro",
-      price: 15990000,
-      originalPrice: 17990000,
-      image: "/images/products/xiaomi13t.jpg",
-      discount: 10,
-      description: "6.67 inch, 12GB RAM, 256GB"
-    },
-    {
-      id: 9,
-      name: "OPPO Find N3",
-      price: 44990000,
-      originalPrice: 46990000,
-      image: "/images/products/oppon3.jpg",
-      discount: 5,
-      description: "7.8 inch, 16GB RAM, 512GB"
-    },
-    {
-      id: 10,
-      name: "Nokia 123",
-      price: 44990000,
-      originalPrice: 46990000,
-      image: "/images/products/oppon3.jpg",
-      discount: 5,
-      description: "7.8 inch, 16GB RAM, 512GB"
-    }
-  ];
+        fetchProducts();
+    }, []);
 
-  const featuredProducts = products.slice(0, 5);
-  const remainingProducts = products.slice(5);
+    if (loading) return <div>Loading...</div>;
+    if (error) return <div>{error}</div>;
 
-  return (
-    <section className={`${styles.featuredProducts} ${styles.featured}`}>
-      <div className={styles.container}>
-        <h2 className={styles.sectionTitle}>SẢN PHẨM NỔI BẬT NHẤT</h2>
-        <div className={styles.productGrid}>
-          {featuredProducts.map(product => (
-            <ProductCard key={product.id} product={product} />
-          ))}
-        </div>
-        {showAll && (
-          <div className={styles.productGrid}>
-            {remainingProducts.map(product => (
-              <ProductCard key={product.id} product={product} />
-            ))}
-          </div>
-        )}
-        <div className={styles.viewAllWrapper}>
-          <div onClick={() => setShowAll(!showAll)} className={styles.viewAllTrigger}>
-            <span>{showAll ? 'Thu gọn' : 'Xem tất cả sản phẩm'}</span>
-            <i className={`fas ${showAll ? 'fa-chevron-up' : 'fa-chevron-down'}`}></i>
-          </div>
-        </div>
-      </div>
-    </section>
-  );
+    // Logic hiển thị sản phẩm dựa vào showAll
+    const displayedProducts = showAll ? products : products.slice(0, 5);
+
+    return (
+        <section className={`${styles.featuredProducts} ${styles.featured}`}>
+            <div className={styles.container}>
+                <h2 className={styles.sectionTitle}>SẢN PHẨM NỔI BẬT NHẤT</h2>
+                <div className={styles.productGrid}>
+                    {displayedProducts.map(product => (
+                        <ProductCard 
+                            key={product.masp} 
+                            product={{
+                                ...product,
+                                image: product.img,
+                                originalPrice: product.price
+                            }}
+                        />
+                    ))}
+                </div>
+                {products.length > 5 && (
+                    <div className={styles.viewAllWrapper}>
+                        <div onClick={() => setShowAll(!showAll)} className={styles.viewAllTrigger}>
+                            <span>{showAll ? 'Thu gọn' : 'Xem tất cả sản phẩm'}</span>
+                            <i className={`fas ${showAll ? 'fa-chevron-up' : 'fa-chevron-down'}`}></i>
+                        </div>
+                    </div>
+                )}
+            </div>
+        </section>
+    );
 };
 
 export default FeaturedProducts;

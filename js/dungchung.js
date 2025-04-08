@@ -1,4 +1,4 @@
-var adminInfo = [{
+    var adminInfo = [{
     "username": "admin",
     "pass": "adadad"
 }];
@@ -262,8 +262,11 @@ function signUp(form) {
 }
 
 function logOut() {
-    window.localStorage.removeItem('CurrentUser');
-    location.reload();
+    // Xóa user khỏi localStorage
+    localStorage.removeItem('CurrentUser');
+
+    // Về trang chủ
+    window.location.href = 'index.html';
 }
 
 // Hiển thị form tài khoản, giá trị truyền vào là true hoặc false

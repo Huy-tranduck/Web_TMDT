@@ -1,0 +1,28 @@
+const express = require('express');
+const router = express.Router();
+const { 
+    getProducts,
+    getFeaturedProducts,
+    getNewProducts,
+    getInstallmentProducts,
+    getShockingProducts,
+    getBigDiscountProducts,
+    getCheapProducts,
+    searchProducts,
+    getProductsByCompany,
+    getProductDetail
+} = require('../controllers/productController');
+
+// Define routes in correct order
+router.get('/featured', getFeaturedProducts);
+router.get('/new', getNewProducts);
+router.get('/installment', getInstallmentProducts);
+router.get('/shocking', getShockingProducts);
+router.get('/bigdiscount', getBigDiscountProducts);
+router.get('/cheap', getCheapProducts);
+router.get('/search', searchProducts);
+router.get('/company/:company', getProductsByCompany);
+router.get('/detail/:id', getProductDetail); // Thay đổi route này
+router.get('/', getProducts);
+
+module.exports = router;

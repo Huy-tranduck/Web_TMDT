@@ -19,7 +19,7 @@ const Header = () => {
   const handleSearch = (e) => {
     e.preventDefault();
     if (searchTerm.trim()) {
-      navigate(`/search?q=${encodeURIComponent(searchTerm)}`);
+      navigate(`/search?query=${encodeURIComponent(searchTerm)}`);
     }
   };
 
@@ -105,6 +105,26 @@ const Header = () => {
           <li><Link to="/category/screens"><i className="fas fa-tv"></i> Màn hình, Máy in</Link></li>
           <li><Link to="/category/sim"><i className="fas fa-sim-card"></i> Sim, Thẻ cào</Link></li>
           <li><Link to="/category/services"><i className="fas fa-tools"></i> Dịch vụ tiện ích</Link></li>
+          <li className={styles.dropdownMenu}>
+            <span>Hãng sản xuất</span>
+            <div className={styles.dropdownContent}>
+              <Link to="/search?company=Apple">Apple</Link>
+              <Link to="/search?company=Samsung">Samsung</Link>
+              <Link to="/search?company=Oppo">Oppo</Link>
+              <Link to="/search?company=Nokia">Nokia</Link>
+              <Link to="/search?company=Huawei">Huawei</Link>
+              <Link to="/search?company=Xiaomi">Xiaomi</Link>
+              <Link to="/search?company=Realme">Realme</Link>
+              <Link to="/search?company=Vivo">Vivo</Link>
+              <Link to="/search?company=Philips">Philips</Link>
+              <Link to="/search?company=Mobell">Mobell</Link>
+              <Link to="/search?company=Mobiistar">Mobiistar</Link>
+              <Link to="/search?company=Itel">Itel</Link>
+              <Link to="/search?company=Coolpad">Coolpad</Link>
+              <Link to="/search?company=HTC">HTC</Link>
+              <Link to="/search?company=Motorola">Motorola</Link>
+            </div>
+          </li>
         </ul>
       </nav>
 

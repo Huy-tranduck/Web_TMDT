@@ -1,0 +1,73 @@
+.productDetail {
+  padding: 20px;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.productInfo {
+  display: flex;
+  gap: 20px;
+  margin-bottom: 40px;
+}
+
+.imageSection img {
+  max-width: 300px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+
+.detailsSection {
+  flex: 1;
+}
+
+.price {
+  font-size: 24px;
+  color: red;
+  margin: 10px 0;
+}
+
+.discount {
+  font-size: 14px;
+  color: #888;
+  margin-left: 10px;
+}
+
+.promotions h3,
+.warranty h3 {
+  margin-bottom: 10px;
+}
+
+.promotions ul,
+.warranty ul {
+  list-style: none;
+  padding: 0;
+}
+
+.addToCart {
+  background-color: orange;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  cursor: pointer;
+  margin-top: 20px;
+}
+
+.specificationsSection {
+  flex: 1;
+}
+
+.specificationsSection h3 {
+  margin-bottom: 10px;
+}
+
+.specificationsSection ul {
+  list-style: none;
+  padding: 0;
+}
+
+.relatedProducts {
+  margin-top: 40px;
+}

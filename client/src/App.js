@@ -5,7 +5,8 @@ import Home from './pages/Home';
 import Login from './pages/Login';
 import ProductDetail from './pages/ProductDetail';
 import AdminLayout from './components/layout/AdminLayout';
-import Cart from './pages/Cart';
+import Cart from './pages/Cart'; 
+import SearchResults from './pages/SearchResults';
 
 // Component bảo vệ route admin
 const PrivateRoute = ({ children }) => {
@@ -22,9 +23,10 @@ function App() {
       <Router>
         <Routes>
           <Route path="/" element={<Home />} />
-          {/* <Route path="/login" element={<Login />} /> */}
           <Route path="/product/:id" element={<ProductDetail />} />
+          <Route path="/search" element={<SearchResults />} />
           <Route path="/cart" element={<Cart />} />
+          <Route path="/product/:id" element={<ProductDetail />} />
           <Route 
             path="/admin/*" 
             element={
