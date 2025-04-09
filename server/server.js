@@ -2,7 +2,9 @@ const express = require('express');
 const connectDB = require('./config/db');
 const cors = require('cors');
 const productRoutes = require('./routes/productRoutes');
-
+const authRoutes = require('./routes/authRoutes');
+const cartRoutes = require('./routes/cartRoutes');
+require('dotenv').config();
 const app = express();
 
 // Connect Database
@@ -20,6 +22,8 @@ app.use((req, res, next) => {
 
 // Routes
 app.use('/api/products', productRoutes);
+app.use('/api/auth', authRoutes);
+app.use('/api/cart', cartRoutes);
 
 // Error handling middleware
 app.use((err, req, res, next) => {

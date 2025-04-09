@@ -18,7 +18,7 @@ const ProductDetail = () => {
       try {
         const response = await fetch(`http://localhost:5000/api/products/detail/${id}`);
         const data = await response.json();
-        
+        console.log("Dữ liệu sản phẩm:", data); // Kiểm tra dữ liệu sản phẩm
         if (data.success) {
           setProduct(data.product);
           setSpecifications(data.product.specifications);
@@ -36,7 +36,7 @@ const ProductDetail = () => {
   }, [id]);
 
   if (!product) {
-    return <p>Loading...</p>; // Hiển thị khi đang tải dữ liệu
+    return <p>Đang tải thông tin sản phẩm...</p>; // Hiển thị khi đang tải dữ liệu
   }
 
   const formatPrice = (price) => {
@@ -46,27 +46,35 @@ const ProductDetail = () => {
     }).format(price);
   };
 
-  const handleAddToCart = () => {
-    if (!user) {
+  const handleAddToCart = async () => {
+    const token = localStorage.getItem('token');
+    console.log("Sản phẩm hiện tại:", product);
+
+    if (!token) {
+      alert('Bạn cần đăng nhập để sử dụng giỏ hàng!');
       navigate('/login');
       return;
     }
 
-    const cart = JSON.parse(localStorage.getItem('cart')) || [];
-    const existingProduct = cart.find((item) => item.id === product.id);
+    try {
+      const response = await fetch('http://localhost:5000/api/cart/add', {
+        method: 'POST',
 
-    if (existingProduct) {
-      existingProduct.quantity += 1;
-    } else {
-      cart.push({ ...product, quantity: 1 });
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({ productId: product.idchuan}),
+      });
+      console.log("Dữ liệu gửi lên:", { productId: product.idchuan}) // Kiểm tra dữ liệu gửi lên
+      if (response.ok) {
+        alert('Sản phẩm đã được thêm vào giỏ hàng!');
+      } else {
+        throw new Error('Lỗi khi thêm sản phẩm vào giỏ hàng');
+      }
+    } catch (error) {
+      console.error(error.message);
     }
-
-    localStorage.setItem('cart', JSON.stringify(cart));
-
-    // Trigger a storage event to update the cart count in the header
-    window.dispatchEvent(new Event('storage'));
-
-    alert('Sản phẩm đã được thêm vào giỏ hàng!');
   };
 
   return (
@@ -74,7 +82,7 @@ const ProductDetail = () => {
       <Header />
       <div className={styles.productDetail}>
         <div className={styles.imageSection}>
-          <img src={product.image} alt={product.name} />
+          <img src={product.img} alt={product.name} />
         </div>
 
         <div className={styles.middleSection}>
@@ -102,7 +110,7 @@ const ProductDetail = () => {
             </ul>
           </div>
 
-          <button className={styles.addToCartButton}>
+          <button className={styles.addToCartButton} onClick={handleAddToCart}>
             Thêm vào giỏ hàng
           </button>
         </div>

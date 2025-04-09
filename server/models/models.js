@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 
+// Product schema
 const productSchema = new mongoose.Schema({
     name: String,
     company: String,
@@ -25,9 +26,29 @@ const productSchema = new mongoose.Schema({
     masp: String
 }, {
     timestamps: true,
-    collection: 'Products' // Thêm dòng này để chỉ định rõ tên collection
+    collection: 'Products'
 });
 
 const Product = mongoose.model('Product', productSchema);
-module.exports = Product;
 
+// User schema
+const UserSchema = new mongoose.Schema({
+    username: { type: String, required: true, unique: true },
+    email: { type: String, required: true, unique: true },
+    password: { type: String, required: true },
+    cart: [
+        {
+            productId: { type: mongoose.Schema.Types.ObjectId, ref: 'Product' },
+            quantity: { type: Number, default: 1 }
+        }
+    ]
+}, {
+    timestamps: true
+});
+
+const User = mongoose.model('User', UserSchema);
+
+module.exports = {
+    User,
+    Product
+};

@@ -6,23 +6,22 @@ export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
 
   useEffect(() => {
-    // Kiểm tra localStorage khi khởi động
     const storedUser = localStorage.getItem('user');
     if (storedUser) {
-      setUser(JSON.parse(storedUser));
+      setUser(JSON.parse(storedUser)); // Lấy thông tin user từ localStorage
     }
   }, []);
 
   const login = (userData) => {
-    setUser(userData);
-    localStorage.setItem('user', JSON.stringify(userData));
-    window.location.reload(); // Reload the page after login
+    localStorage.setItem('token', userData.token); // Lưu token vào localStorage
+    localStorage.setItem('user', JSON.stringify(userData)); // Lưu thông tin user vào localStorage
+    setUser(userData); // Cập nhật trạng thái user
   };
 
   const logout = () => {
-    setUser(null);
-    localStorage.removeItem('user');
-    window.location.reload(); // Reload the page after logout
+    localStorage.removeItem('token'); // Xóa token
+    localStorage.removeItem('user');  // Xóa thông tin user
+    setUser(null);                    // Đặt trạng thái user về null
   };
 
   return (
