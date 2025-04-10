@@ -18,6 +18,7 @@
   width: 100%;
   max-width: 400px;
   position: relative;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 .closeButton {
@@ -64,52 +65,7 @@
 }
 
 .submitButton:hover {
-  background-color: #0056b3;
-}
-
-@keyframes slideIn {
-  from {
-    transform: translateY(-100px);
-    opacity: 0;
-  }
-  to {
-    transform: translateY(0);
-    opacity: 1;
-  }
-}
-
-.modal h2 {
-  text-align: center;
-  margin-bottom: 1.5rem;
-  color: #333;
-}
-
-.inputGroup {
-  margin-bottom: 1rem;
-}
-
-.inputGroup input {
-  width: 100%;
-  padding: 0.8rem;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  font-size: 1rem;
-}
-
-.loginButton {
-  width: 100%;
-  padding: 1rem;
-  background: #ff9800;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  font-size: 1rem;
-  cursor: pointer;
-  transition: background 0.3s;
-}
-
-.loginButton:hover {
-  background: #f57c00;
+  background-color: #12d2a5;
 }
 
 .error {

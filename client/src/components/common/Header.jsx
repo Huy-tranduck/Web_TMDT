@@ -80,7 +80,7 @@ const Header = () => {
               </button>
               <button
                 onClick={() => setShowRegisterModal(true)}
-                className={styles.registerButton}
+                className={styles.loginButton}
               >
                 <i className="fas fa-user-plus"></i> Đăng ký
               </button>
