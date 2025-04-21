@@ -1,5 +1,5 @@
 const {Product} = require('../models/models');
-
+const {User} = require('../models/models');
 // @desc    Get all products
 // @route   GET /api/products
 // @access  Public
@@ -218,6 +218,56 @@ const getProductDetail = async (req, res) => {
     }
 };
 
+const addReview = async (req, res) => {
+    const { productId } = req.params;
+    const { rating, comment } = req.body;
+    const userId = req.user.id;
+  
+    try {
+      const product = await Product.findById(productId);
+      if (!product) {
+        return res.status(404).json({ message: 'Sản phẩm không tồn tại' });
+      }
+  
+      const user = await User.findById(userId);
+      if (!user) {
+        return res.status(404).json({ message: 'Người dùng không tồn tại' });
+      }
+  
+      const newReview = {
+        userId,
+        username: user.username,
+        rating,
+        comment,
+      };
+  
+      product.reviews.push(newReview);
+      product.rateCount = product.reviews.length;
+      product.star = product.reviews.reduce((acc, review) => acc + review.rating, 0) / product.rateCount;
+  
+      await product.save();
+  
+      res.status(201).json({ message: 'Đánh giá thành công', reviews: product.reviews });
+    } catch (error) {
+      res.status(500).json({ message: 'Lỗi khi thêm đánh giá', error: error.message });
+    }
+  };
+
+  const getReviews = async (req, res) => {
+    const { productId } = req.params;
+  
+    try {
+      const product = await Product.findById(productId).select('reviews');
+      if (!product) {
+        return res.status(404).json({ message: 'Sản phẩm không tồn tại' });
+      }
+  
+      res.status(200).json({ reviews: product.reviews });
+    } catch (error) {
+      res.status(500).json({ message: 'Lỗi khi lấy đánh giá', error: error.message });
+    }
+  };
+
 module.exports = {
     getProducts,
     getFeaturedProducts,
@@ -228,5 +278,7 @@ module.exports = {
     getCheapProducts,
     searchProducts,
     getProductsByCompany,
-    getProductDetail
+    getProductDetail,
+    addReview, 
+    getReviews
 };

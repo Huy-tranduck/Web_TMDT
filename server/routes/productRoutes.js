@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const { authMiddleware } = require('../middleware/authMiddleware');
 const { 
     getProducts,
     getFeaturedProducts,
@@ -10,7 +11,9 @@ const {
     getCheapProducts,
     searchProducts,
     getProductsByCompany,
-    getProductDetail
+    getProductDetail, 
+    addReview,
+    getReviews
 } = require('../controllers/productController');
 
 // Define routes in correct order
@@ -24,5 +27,7 @@ router.get('/search', searchProducts);
 router.get('/company/:company', getProductsByCompany);
 router.get('/detail/:id', getProductDetail); // Thay đổi route này
 router.get('/', getProducts);
+router.post('/:productId/reviews', authMiddleware, addReview); // Thêm đánh giá
+router.get('/:productId/reviews', getReviews); // Lấy danh sách đánh giá
 
 module.exports = router;

@@ -9,27 +9,36 @@ const productSchema = new mongoose.Schema({
     star: Number,
     rateCount: Number,
     promo: {
-        name: String,
-        value: String
+      name: String,
+      value: String,
     },
     detail: {
-        screen: String,
-        os: String,
-        camara: String,
-        camaraFront: String,
-        cpu: String,
-        ram: String,
-        rom: String,
-        microUSB: String,
-        battery: String
+      screen: String,
+      os: String,
+      camara: String,
+      camaraFront: String,
+      cpu: String,
+      ram: String,
+      rom: String,
+      microUSB: String,
+      battery: String,
     },
-    masp: String
-}, {
+    masp: String,
+    reviews: [
+      {
+        userId: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+        username: String,
+        rating: { type: Number, required: true },
+        comment: { type: String, required: true },
+        createdAt: { type: Date, default: Date.now },
+      },
+    ],
+  }, {
     timestamps: true,
-    collection: 'Products'
-});
-
-const Product = mongoose.model('Product', productSchema);
+    collection: 'Products',
+  });
+  
+  const Product = mongoose.model('Product', productSchema);
 
 // User schema
 const UserSchema = new mongoose.Schema({
