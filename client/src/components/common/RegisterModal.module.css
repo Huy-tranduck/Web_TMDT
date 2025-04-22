@@ -32,16 +32,10 @@
   color: #666;
 }
 
-.loginForm {
+.registerForm {
   display: flex;
   flex-direction: column;
   gap: 1rem;
-}
-
-.loginForm h2 {
-  text-align: center;
-  color: #333;
-  margin-bottom: 20px;
 }
 
 .formGroup {
@@ -69,38 +63,16 @@
   border-radius: 4px;
   font-size: 16px;
   cursor: pointer;
+  transition: background 0.3s;
 }
 
 .submitButton:hover {
   background: #357ABD;
 }
 
-.error {
-  color: red;
-  text-align: center;
-  margin-bottom: 1rem;
-}
-
-.message {
-  text-align: center;
-  color: #666;
-  margin-bottom: 1rem;
-}
-
 .formFooter {
   text-align: center;
   margin-top: 1rem;
-  font-size: 14px;
-  color: #666;
-}
-
-.formFooter a {
-  color: #4A90E2;
-  text-decoration: none;
-}
-
-.formFooter a:hover {
-  text-decoration: underline;
 }
 
 .switchButton {
@@ -111,6 +83,18 @@
   text-decoration: underline;
   padding: 0;
   font: inherit;
+}
+
+.error {
+  color: #f44336;
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.success {
+  color: #4CAF50;
+  text-align: center;
+  margin-bottom: 1rem;
 }
 
 @keyframes slideIn {

@@ -36,6 +36,11 @@ const UserSchema = new mongoose.Schema({
     username: { type: String, required: true, unique: true },
     email: { type: String, required: true, unique: true },
     password: { type: String, required: true },
+    role: { 
+        type: String, 
+        enum: ['user', 'admin'],
+        default: 'user'
+    },
     cart: [
         {
             productId: { type: mongoose.Schema.Types.ObjectId, ref: 'Product' },
@@ -48,7 +53,51 @@ const UserSchema = new mongoose.Schema({
 
 const User = mongoose.model('User', UserSchema);
 
+// Order schema
+const OrderSchema = new mongoose.Schema({
+    userId: { 
+        type: mongoose.Schema.Types.ObjectId, 
+        ref: 'User', 
+        required: true 
+    },
+    products: [{
+        productId: { 
+            type: mongoose.Schema.Types.ObjectId, 
+            ref: 'Product',
+            required: true
+        },
+        quantity: Number,
+        price: Number,
+        name: String,
+        img: String
+    }],
+    totalAmount: { 
+        type: Number, 
+        required: true 
+    },
+    shippingMethod: { 
+        type: String, 
+        required: true 
+    },
+    paymentMethod: { 
+        type: String, 
+        required: true 
+    },
+    status: { 
+        type: String, 
+        enum: ['pending', 'confirmed', 'shipping', 'delivered', 'cancelled'],
+        default: 'pending'
+    },
+    voucher: String
+}, {
+    timestamps: true,
+    collection: 'Orders' // Thêm dòng này để chỉ định collection name
+});
+
+const Order = mongoose.model('Order', OrderSchema);
+
 module.exports = {
     User,
-    Product
+    Product,
+    Order
 };

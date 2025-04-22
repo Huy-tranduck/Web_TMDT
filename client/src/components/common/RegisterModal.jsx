@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
+import styles from './RegisterModal.module.css';
 
-const RegisterModal = ({ isOpen, onClose }) => {
+const RegisterModal = ({ isOpen, onClose, onSwitchToLogin }) => {
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -43,42 +44,66 @@ const RegisterModal = ({ isOpen, onClose }) => {
   if (!isOpen) return null;
 
   return (
-    <div className="modal">
-      <div className="modal-content">
-        <h2>Đăng Ký</h2>
-        <form onSubmit={handleRegister}>
-          <div>
-            <label>Tên tài khoản:</label>
+    <div className={styles.modalOverlay}>
+      <div className={styles.modalContent}>
+        <button className={styles.closeButton} onClick={onClose}>
+          &times;
+        </button>
+        
+        <form onSubmit={handleRegister} className={styles.registerForm}>
+          <h2>Đăng Ký</h2>
+          
+          {error && <div className={styles.error}>{error}</div>}
+          {success && <div className={styles.success}>{success}</div>}
+
+          <div className={styles.formGroup}>
             <input
               type="text"
               value={username}
               onChange={(e) => setUsername(e.target.value)}
               required
+              placeholder="Tên tài khoản"
+              className={styles.input}
             />
           </div>
-          <div>
-            <label>Email:</label>
+          <div className={styles.formGroup}>
             <input
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
+              placeholder="Email"
+              className={styles.input}
             />
           </div>
-          <div>
-            <label>Mật khẩu:</label>
+          <div className={styles.formGroup}>
             <input
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
+              placeholder="Mật khẩu"
+              className={styles.input}
             />
           </div>
-          <button type="submit">Đăng Ký</button>
+
+          <button type="submit" className={styles.submitButton}>
+            Đăng Ký
+          </button>
+
+          <div className={styles.formFooter}>
+            <p>
+              Đã có tài khoản?{' '}
+              <button 
+                type="button"
+                className={styles.switchButton}
+                onClick={onSwitchToLogin}
+              >
+                Đăng nhập
+              </button>
+            </p>
+          </div>
         </form>
-        {error && <p style={{ color: 'red' }}>{error}</p>}
-        {success && <p style={{ color: 'green' }}>{success}</p>}
-        <button onClick={onClose}>Đóng</button>
       </div>
     </div>
   );

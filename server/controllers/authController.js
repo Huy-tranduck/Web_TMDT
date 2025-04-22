@@ -22,7 +22,7 @@ const login = async (req, res) => {
 
     try {
         const user = await User.findOne({ email: new RegExp(`^${email}$`, 'i') });
-        if (!user) return res.status(404).json({ message: 'Người dùng không tồn tạiiiii' });
+        if (!user) return res.status(404).json({ message: 'Người dùng không tồn tại' });
 
         const isMatch = await bcrypt.compare(password, user.password);
         if (!isMatch) return res.status(400).json({ message: 'Sai mật khẩu' });
@@ -31,7 +31,11 @@ const login = async (req, res) => {
         res.status(200).json({
             message: 'Đăng nhập thành công',
             token,
-            user: { username: user.username, email: user.email },
+            user: {
+                username: user.username,
+                email: user.email,
+                role: user.role // Thêm role vào response
+            }
         });
     } catch (error) {
         res.status(500).json({ message: 'Lỗi đăng nhập', error: error.message });
