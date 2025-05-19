@@ -1,4 +1,4 @@
-const Product = require('../models/models');
+const {Product} = require('../models/models');
 
 // @desc    Get all products
 // @route   GET /api/products
@@ -183,6 +183,7 @@ const getProductDetail = async (req, res) => {
         const productDetail = {
             success: true,
             product: {
+                idchuan:product._id,
                 id: product.masp,
                 name: product.name,
                 company: product.company,

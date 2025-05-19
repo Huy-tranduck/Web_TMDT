@@ -1,19 +1,19 @@
-import React, { useState, useEffect } from 'react';
-import { Link, useNavigate, useLocation } from 'react-router-dom'; // Added useLocation
+import React, { useState } from 'react';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../../contexts/AuthContext';
-import LoginModal from './LoginModal';
+import { useCart } from '../../contexts/CartContext';
 import styles from './Header.module.css';
 import logo from '../../assets/images/logo.jpg';
+import LoginModal from './LoginModal';
+import RegisterModal from './RegisterModal';
 
 const Header = () => {
   const [searchTerm, setSearchTerm] = useState('');
-  const [cartCount, setCartCount] = useState(0);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [showCategories, setShowCategories] = useState(false);
   const [showLoginModal, setShowLoginModal] = useState(false);
   const { user, logout } = useAuth();
+  const { cartCount } = useCart();
   const navigate = useNavigate();
-  const location = useLocation(); // Get current route
+  const location = useLocation();
 
   // Xử lý tìm kiếm
   const handleSearch = (e) => {
@@ -21,28 +21,6 @@ const Header = () => {
     if (searchTerm.trim()) {
       navigate(`/search?query=${encodeURIComponent(searchTerm)}`);
     }
-  };
-
-  // Update cart count dynamically
-  useEffect(() => {
-    const updateCartCount = () => {
-      const cart = JSON.parse(localStorage.getItem('cart') || '[]');
-      setCartCount(cart.reduce((total, item) => total + item.quantity, 0));
-    };
-
-    updateCartCount();
-    window.addEventListener('storage', updateCartCount);
-
-    return () => {
-      window.removeEventListener('storage', updateCartCount);
-    };
-  }, []);
-
-  // Xử lý đăng xuất
-  const handleLogout = () => {
-    localStorage.removeItem('user');
-    setIsLoggedIn(false);
-    navigate('/');
   };
 
   return (
@@ -78,15 +56,20 @@ const Header = () => {
               </button>
             </div>
           ) : (
-            <button onClick={() => setShowLoginModal(true)} className={styles.loginButton}>
+            <button
+              onClick={() => setShowLoginModal(true)}
+              className={styles.loginButton}
+            >
               <i className="fas fa-user"></i> Đăng nhập
             </button>
           )}
-          {user && location.pathname !== '/cart' && ( // Show cart button only if logged in
-            <Link to="/cart">
-              <i className="fas fa-shopping-cart"></i> Giỏ hàng ({cartCount})
-            </Link>
-          )}
+
+          <Link to="/cart" className={styles.cartButton}>
+            <i className="fas fa-shopping-cart"></i>
+            <span>Giỏ hàng</span>
+            {cartCount > 0 && <span className={styles.cartCount}>{cartCount}</span>}
+          </Link>
+
           <Link to="/location">
             <i className="fas fa-map-marker-alt"></i> Hồ Chí Minh
           </Link>
@@ -96,15 +79,51 @@ const Header = () => {
       {/* Navigation Menu */}
       <nav className={styles.navMenu}>
         <ul>
-          <li><Link to="/category/phones"><i className="fas fa-mobile-alt"></i> Điện thoại</Link></li>
-          <li><Link to="/category/laptops"><i className="fas fa-laptop"></i> Laptop</Link></li>
-          <li><Link to="/category/accessories"><i className="fas fa-headphones"></i> Phụ kiện</Link></li>
-          <li><Link to="/category/smartwatches"><i className="fas fa-clock"></i> Smartwatch</Link></li>
-          <li><Link to="/category/tablets"><i className="fas fa-tablet-alt"></i> Tablet</Link></li>
-          <li><Link to="/category/used"><i className="fas fa-recycle"></i> Máy cũ, Thu cũ</Link></li>
-          <li><Link to="/category/screens"><i className="fas fa-tv"></i> Màn hình, Máy in</Link></li>
-          <li><Link to="/category/sim"><i className="fas fa-sim-card"></i> Sim, Thẻ cào</Link></li>
-          <li><Link to="/category/services"><i className="fas fa-tools"></i> Dịch vụ tiện ích</Link></li>
+          <li>
+            <Link to="/category/phones">
+              <i className="fas fa-mobile-alt"></i> Điện thoại
+            </Link>
+          </li>
+          <li>
+            <Link to="/category/laptops">
+              <i className="fas fa-laptop"></i> Laptop
+            </Link>
+          </li>
+          <li>
+            <Link to="/category/accessories">
+              <i className="fas fa-headphones"></i> Phụ kiện
+            </Link>
+          </li>
+          <li>
+            <Link to="/category/smartwatches">
+              <i className="fas fa-clock"></i> Smartwatch
+            </Link>
+          </li>
+          <li>
+            <Link to="/category/tablets">
+              <i className="fas fa-tablet-alt"></i> Tablet
+            </Link>
+          </li>
+          <li>
+            <Link to="/category/used">
+              <i className="fas fa-recycle"></i> Máy cũ, Thu cũ
+            </Link>
+          </li>
+          <li>
+            <Link to="/category/screens">
+              <i className="fas fa-tv"></i> Màn hình, Máy in
+            </Link>
+          </li>
+          <li>
+            <Link to="/category/sim">
+              <i className="fas fa-sim-card"></i> Sim, Thẻ cào
+            </Link>
+          </li>
+          <li>
+            <Link to="/category/services">
+              <i className="fas fa-tools"></i> Dịch vụ tiện ích
+            </Link>
+          </li>
           <li className={styles.dropdownMenu}>
             <span>Hãng sản xuất</span>
             <div className={styles.dropdownContent}>
@@ -128,8 +147,12 @@ const Header = () => {
         </ul>
       </nav>
 
+      {/* Login Modal */}
       {showLoginModal && (
-        <LoginModal onClose={() => setShowLoginModal(false)} />
+        <LoginModal 
+          isOpen={showLoginModal} 
+          onClose={() => setShowLoginModal(false)}
+        />
       )}
     </header>
   );

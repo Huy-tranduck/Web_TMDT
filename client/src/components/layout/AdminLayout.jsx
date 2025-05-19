@@ -1,11 +1,18 @@
 import React from 'react';
-import { Routes, Route, Link, useNavigate } from 'react-router-dom';
+import { Routes, Route, Link, useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../../contexts/AuthContext';
 import styles from './AdminLayout.module.css';
+
+// Import các components
+import Dashboard from '../admin/Dashboard';
+import ProductManager from '../admin/ProductManager';
+import OrderManager from '../admin/OrderManager';
+import UserManager from '../admin/UserManager';
 
 const AdminLayout = () => {
   const { logout } = useAuth();
   const navigate = useNavigate();
+  const location = useLocation();
 
   const handleLogout = () => {
     logout();
@@ -18,24 +25,28 @@ const AdminLayout = () => {
         <div className={styles.logo}>Admin Panel</div>
         <nav>
           <ul>
-            <li>
+            <li className={location.pathname === '/admin/dashboard' ? styles.active : ''}>
               <Link to="/admin/dashboard">
-                <i className="fas fa-home"></i> Dashboard
+                <i className="fas fa-chart-line"></i>
+                <span>Dashboard</span>
               </Link>
             </li>
-            <li>
+            <li className={location.pathname === '/admin/products' ? styles.active : ''}>
               <Link to="/admin/products">
-                <i className="fas fa-mobile-alt"></i> Sản phẩm
+                <i className="fas fa-box"></i>
+                <span>Sản phẩm</span>
               </Link>
             </li>
-            <li>
+            <li className={location.pathname === '/admin/orders' ? styles.active : ''}>
               <Link to="/admin/orders">
-                <i className="fas fa-shopping-cart"></i> Đơn hàng
+                <i className="fas fa-shopping-cart"></i>
+                <span>Đơn hàng</span>
               </Link>
             </li>
-            <li>
+            <li className={location.pathname === '/admin/users' ? styles.active : ''}>
               <Link to="/admin/users">
-                <i className="fas fa-users"></i> Người dùng
+                <i className="fas fa-users"></i>
+                <span>Người dùng</span>
               </Link>
             </li>
           </ul>
@@ -56,10 +67,10 @@ const AdminLayout = () => {
 
         <div className={styles.content}>
           <Routes>
-            <Route path="dashboard" element={<div>Dashboard Content</div>} />
-            <Route path="products" element={<div>Products Management</div>} />
-            <Route path="orders" element={<div>Orders Management</div>} />
-            <Route path="users" element={<div>Users Management</div>} />
+            <Route path="dashboard" element={<Dashboard />} />
+            <Route path="products" element={<ProductManager />} />
+            <Route path="orders" element={<OrderManager />} />
+            <Route path="users" element={<UserManager />} />
           </Routes>
         </div>
       </main>

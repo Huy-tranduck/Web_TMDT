@@ -1,13 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
-import { useAuth } from '../contexts/AuthContext';
+import { useParams } from 'react-router-dom';
+import { useCart } from '../contexts/CartContext';
 import styles from './ProductDetail.module.css';
 import Header from '../components/common/Header';
 
 const ProductDetail = () => {
-  const navigate = useNavigate();
   const { id } = useParams();
-  const { user } = useAuth();
+  const { addToCart } = useCart();
   const [product, setProduct] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -18,7 +17,7 @@ const ProductDetail = () => {
       try {
         const response = await fetch(`http://localhost:5000/api/products/detail/${id}`);
         const data = await response.json();
-        
+        console.log("Dữ liệu sản phẩm:", data); // Kiểm tra dữ liệu sản phẩm
         if (data.success) {
           setProduct(data.product);
           setSpecifications(data.product.specifications);
@@ -36,7 +35,7 @@ const ProductDetail = () => {
   }, [id]);
 
   if (!product) {
-    return <p>Loading...</p>; // Hiển thị khi đang tải dữ liệu
+    return <p>Đang tải thông tin sản phẩm...</p>; // Hiển thị khi đang tải dữ liệu
   }
 
   const formatPrice = (price) => {
@@ -46,27 +45,13 @@ const ProductDetail = () => {
     }).format(price);
   };
 
-  const handleAddToCart = () => {
-    if (!user) {
-      navigate('/login');
-      return;
+  const handleAddToCart = async () => {
+    if (product) {
+      const success = await addToCart(product.idchuan);
+      if (success) {
+        alert('Sản phẩm đã được thêm vào giỏ hàng!');
+      }
     }
-
-    const cart = JSON.parse(localStorage.getItem('cart')) || [];
-    const existingProduct = cart.find((item) => item.id === product.id);
-
-    if (existingProduct) {
-      existingProduct.quantity += 1;
-    } else {
-      cart.push({ ...product, quantity: 1 });
-    }
-
-    localStorage.setItem('cart', JSON.stringify(cart));
-
-    // Trigger a storage event to update the cart count in the header
-    window.dispatchEvent(new Event('storage'));
-
-    alert('Sản phẩm đã được thêm vào giỏ hàng!');
   };
 
   return (
@@ -74,7 +59,7 @@ const ProductDetail = () => {
       <Header />
       <div className={styles.productDetail}>
         <div className={styles.imageSection}>
-          <img src={product.image} alt={product.name} />
+          <img src={product.img} alt={product.name} />
         </div>
 
         <div className={styles.middleSection}>
@@ -102,7 +87,7 @@ const ProductDetail = () => {
             </ul>
           </div>
 
-          <button className={styles.addToCartButton}>
+          <button className={styles.addToCartButton} onClick={handleAddToCart}>
             Thêm vào giỏ hàng
           </button>
         </div>
