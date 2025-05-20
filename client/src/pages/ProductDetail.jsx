@@ -141,6 +141,8 @@ const ProductDetail = () => {
     <ProductReviews productId={product.idchuan} refresh={refreshReviews} />
     <AddReview productId={product.idchuan} onAddReview={handleReviewAdded} />
   </div>
+
+
 </div>
     </>
   );

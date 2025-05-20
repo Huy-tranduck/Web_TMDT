@@ -42,9 +42,13 @@ const productSchema = new mongoose.Schema({
 
 // User schema
 const UserSchema = new mongoose.Schema({
-    username: { type: String, required: true, unique: true },
-    email: { type: String, required: true, unique: true },
-    password: { type: String, required: true },
+    fullName: { type: String, required: true }, // Họ tên
+    username: { type: String, required: true, unique: true }, // Tên đăng nhập
+    gender: { type: String, enum: ['male', 'female', 'other'] }, // Giới tính
+    email: { type: String, required: true, unique: true }, // Email
+    phone: { type: String, required: true }, // Số điện thoại
+    password: { type: String, required: true }, // Mật khẩu
+    role: { type: String, default: 'user' }, // Vai trò (user/admin)
     cart: [
         {
             productId: { type: mongoose.Schema.Types.ObjectId, ref: 'Product' },

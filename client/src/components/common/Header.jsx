@@ -14,7 +14,17 @@ const Header = () => {
   const { user, logout } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
-
+  
+  const openLoginModal = () => {
+    setShowLoginModal(true);
+    setShowRegisterModal(false);
+  };
+  
+  const openRegisterModal = () => {
+    setShowRegisterModal(true);
+    setShowLoginModal(false);
+  };
+  
   // Xử lý tìm kiếm
   const handleSearch = (e) => {
     e.preventDefault();
@@ -73,13 +83,13 @@ const Header = () => {
           ) : (
             <>
               <button
-                onClick={() => setShowLoginModal(true)}
+                onClick={openLoginModal}
                 className={styles.loginButton}
               >
                 <i className="fas fa-user"></i> Đăng nhập
               </button>
               <button
-                onClick={() => setShowRegisterModal(true)}
+                onClick={openRegisterModal}
                 className={styles.loginButton}
               >
                 <i className="fas fa-user-plus"></i> Đăng ký
@@ -145,6 +155,9 @@ const Header = () => {
               <i className="fas fa-tools"></i> Dịch vụ tiện ích
             </Link>
           </li>
+          <li>
+          <Link to="/contact" className={styles.navLink}>Liên hệ</Link>
+          </li>
           <li className={styles.dropdownMenu}>
             <span>Hãng sản xuất</span>
             <div className={styles.dropdownContent}>
@@ -163,6 +176,7 @@ const Header = () => {
               <Link to="/search?company=Coolpad">Coolpad</Link>
               <Link to="/search?company=HTC">HTC</Link>
               <Link to="/search?company=Motorola">Motorola</Link>
+              
             </div>
           </li>
         </ul>
@@ -170,12 +184,20 @@ const Header = () => {
 
       {/* Login Modal */}
       {showLoginModal && (
-        <LoginModal isOpen={showLoginModal} onClose={() => setShowLoginModal(false)} />
+        <LoginModal 
+          isOpen={showLoginModal} 
+          onClose={() => setShowLoginModal(false)} 
+          openRegisterModal={openRegisterModal} 
+        />
       )}
 
       {/* Register Modal */}
       {showRegisterModal && (
-        <RegisterModal isOpen={showRegisterModal} onClose={() => setShowRegisterModal(false)} />
+        <RegisterModal 
+          isOpen={showRegisterModal} 
+          onClose={() => setShowRegisterModal(false)}
+          openLoginModal={openLoginModal} 
+        />
       )}
     </header>
   );
