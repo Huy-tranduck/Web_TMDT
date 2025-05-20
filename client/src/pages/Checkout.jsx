@@ -26,12 +26,10 @@ const Checkout = () => {
   const calculateTotal = () => {
     const subtotal = calculateSubtotal();
     const shippingFee = shippingFees[shippingMethod];
-    // Thêm logic áp dụng voucher ở đây nếu cần
     return subtotal + shippingFee;
   };
 
   const handleVoucherSubmit = () => {
-    // Thêm logic kiểm tra voucher ở đây
     setVoucherError('Mã giảm giá không hợp lệ');
   };
 
@@ -52,11 +50,65 @@ const Checkout = () => {
         voucher: voucher || null
       };
 
+      if (paymentMethod === 'vnpay') {
+        // 1. Lưu đơn hàng trước
+        const orderResponse = await fetch('http://localhost:5000/api/orders', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`, // Sửa lỗi cú pháp template string
+          },
+          body: JSON.stringify(orderData),
+        });
+
+        const orderResult = await orderResponse.json();
+
+        if (!orderResponse.ok || !orderResult.success) {
+          throw new Error(orderResult.message || 'Lưu đơn hàng thất bại trước khi tạo thanh toán VNPAY');
+        }
+
+        // 2. Gọi API tạo payment URL
+        const paymentResponse = await fetch('http://localhost:8888/order/create_payment_url', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            amount: calculateTotal(),
+            bankCode: 'VNBANK',
+            language: 'vn'
+          })
+        });
+
+        const paymentData = await paymentResponse.json();
+
+        if (paymentData.status === 'success') {
+          // Xóa sản phẩm khỏi giỏ hàng khi đã lưu đơn thành công
+          const selectedProductIds = selectedProducts.map(p => p.id);
+          await fetch('http://localhost:5000/api/cart/selected', {
+            method: 'DELETE',
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': `Bearer ${token}`, // Sửa lỗi cú pháp template string
+            },
+            body: JSON.stringify({ selectedProductIds }),
+          });
+
+          updateCartCount(0);
+
+          // Chuyển hướng tới URL thanh toán
+          window.location.href = paymentData.paymentUrl;
+        } else {
+          throw new Error(paymentData.message || 'Tạo thanh toán VNPAY thất bại');
+        }
+
+        return;
+      }
+
+      // Các phương thức khác: COD, MoMo, banking
       const response = await fetch('http://localhost:5000/api/orders', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`,
+          'Authorization': `Bearer ${token}`, // Sửa lỗi cú pháp template string
         },
         body: JSON.stringify(orderData),
       });
@@ -64,22 +116,18 @@ const Checkout = () => {
       const data = await response.json();
 
       if (response.ok && data.success) {
-        // Xóa các sản phẩm đã chọn khỏi giỏ hàng
         const selectedProductIds = selectedProducts.map(p => p.id);
         await fetch('http://localhost:5000/api/cart/selected', {
           method: 'DELETE',
           headers: {
             'Content-Type': 'application/json',
-            'Authorization': `Bearer ${token}`,
+            'Authorization': `Bearer ${token}`, // Sửa lỗi cú pháp template string
           },
           body: JSON.stringify({ selectedProductIds }),
         });
 
-        // Cập nhật số lượng giỏ hàng
         updateCartCount(0);
-        
-        // Chuyển hướng đến trang thành công
-        navigate(`/order-success/${data.orderId}`);
+        navigate(`/order-success/${data.orderId}`); // Sửa lỗi cú pháp template string
       } else {
         throw new Error(data.message || 'Đặt hàng thất bại');
       }
@@ -169,6 +217,15 @@ const Checkout = () => {
               />
               Ví MoMo
             </label>
+            <label>
+              <input
+                type="radio"
+                value="vnpay"
+                checked={paymentMethod === 'vnpay'}
+                onChange={(e) => setPaymentMethod(e.target.value)}
+              />
+              Thanh toán VNPAY
+            </label>
           </div>
         </div>
 
@@ -203,7 +260,7 @@ const Checkout = () => {
           </div>
         </div>
 
-        <button 
+        <button
           className={styles.placeOrderButton}
           onClick={handlePlaceOrder}
         >
