@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../contexts/AuthContext';
 import styles from './LoginModal.module.css';
 
@@ -38,6 +39,22 @@ const LoginModal = ({ isOpen, onClose }) => {
 
   if (!isOpen) return null;
 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setError('');
+    try {
+      const userData = await login({ email, password });
+      onClose();
+      if (userData.role === 'admin') {
+        navigate('/admin/dashboard');
+      } else {
+        navigate('/');
+      }
+    } catch (err) {
+      setError(err.message || 'Đăng nhập thất bại');
+    }
+  };
+
   return (
     <div className={styles.overlay}>
       <div className={styles.modal}>
@@ -59,7 +76,7 @@ const LoginModal = ({ isOpen, onClose }) => {
           <div className={styles.formGroup}>
             <label>Mật khẩu:</label>
             <input
-              type="password"
+              type="password" 
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required

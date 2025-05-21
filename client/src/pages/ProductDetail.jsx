@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
-import { useAuth } from '../contexts/AuthContext';
+import { useParams } from 'react-router-dom';
+import { useCart } from '../contexts/CartContext';
 import styles from './ProductDetail.module.css';
 import Header from '../components/common/Header';
 import AddReview from '../components/pages/AddReview';
@@ -9,9 +9,8 @@ import ProductReviews from '../components/pages/ProductReview';
 
 
 const ProductDetail = () => {
-  const navigate = useNavigate();
   const { id } = useParams();
-  const { user } = useAuth();
+  const { addToCart } = useCart();
   const [product, setProduct] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -51,33 +50,11 @@ const ProductDetail = () => {
   };
 
   const handleAddToCart = async () => {
-    const token = localStorage.getItem('token');
-    console.log("Sản phẩm hiện tại:", product);
-
-    if (!token) {
-      alert('Bạn cần đăng nhập để sử dụng giỏ hàng!');
-      navigate('/login');
-      return;
-    }
-
-    try {
-      const response = await fetch('http://localhost:5000/api/cart/add', {
-        method: 'POST',
-
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify({ productId: product.idchuan}),
-      });
-      console.log("Dữ liệu gửi lên:", { productId: product.idchuan}) // Kiểm tra dữ liệu gửi lên
-      if (response.ok) {
+    if (product) {
+      const success = await addToCart(product.idchuan);
+      if (success) {
         alert('Sản phẩm đã được thêm vào giỏ hàng!');
-      } else {
-        throw new Error('Lỗi khi thêm sản phẩm vào giỏ hàng');
       }
-    } catch (error) {
-      console.error(error.message);
     }
   };
   const handleReviewAdded = () => {

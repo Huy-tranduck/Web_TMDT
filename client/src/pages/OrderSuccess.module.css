@@ -1,0 +1,53 @@
+.successContainer {
+  max-width: 600px;
+  margin: 50px auto;
+  padding: 20px;
+}
+
+.successContent {
+  text-align: center;
+  padding: 40px;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.successContent i {
+  font-size: 64px;
+  color: #4CAF50;
+  margin-bottom: 20px;
+}
+
+.successContent h1 {
+  color: #333;
+  margin-bottom: 15px;
+}
+
+.successContent p {
+  color: #666;
+  margin-bottom: 10px;
+}
+
+.buttons {
+  margin-top: 30px;
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+}
+
+.viewOrderBtn, .continueBtn {
+  padding: 10px 20px;
+  border-radius: 4px;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.viewOrderBtn {
+  background: #4CAF50;
+  color: white;
+}
+
+.continueBtn {
+  background: #f0f0f0;
+  color: #333;
+}

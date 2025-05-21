@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../../contexts/AuthContext';
+import { useCart } from '../../contexts/CartContext';
 import styles from './Header.module.css';
 import logo from '../../assets/images/logo.jpg';
 import LoginModal from './LoginModal';
@@ -8,10 +9,9 @@ import RegisterModal from './RegisterModal';
 
 const Header = () => {
   const [searchTerm, setSearchTerm] = useState('');
-  const [cartCount, setCartCount] = useState(0);
   const [showLoginModal, setShowLoginModal] = useState(false);
-  const [showRegisterModal, setShowRegisterModal] = useState(false);
   const { user, logout } = useAuth();
+  const { cartCount } = useCart();
   const navigate = useNavigate();
   const location = useLocation();
   
@@ -32,21 +32,6 @@ const Header = () => {
       navigate(`/search?query=${encodeURIComponent(searchTerm)}`);
     }
   };
-
-  // Update cart count dynamically
-  useEffect(() => {
-    const updateCartCount = () => {
-      const cart = JSON.parse(localStorage.getItem('cart') || '[]');
-      setCartCount(cart.reduce((total, item) => total + item.quantity, 0));
-    };
-
-    updateCartCount();
-    window.addEventListener('storage', updateCartCount);
-
-    return () => {
-      window.removeEventListener('storage', updateCartCount);
-    };
-  }, []);
 
   return (
     <header className={styles.header}>
@@ -101,6 +86,13 @@ const Header = () => {
               <i className="fas fa-shopping-cart"></i> Giỏ hàng ({cartCount})
             </Link>
           )}
+
+          <Link to="/cart" className={styles.cartButton}>
+            <i className="fas fa-shopping-cart"></i>
+            <span>Giỏ hàng</span>
+            {cartCount > 0 && <span className={styles.cartCount}>{cartCount}</span>}
+          </Link>
+
           <Link to="/location">
             <i className="fas fa-map-marker-alt"></i> Hồ Chí Minh
           </Link>

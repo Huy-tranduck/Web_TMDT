@@ -108,6 +108,28 @@
   border-radius: 50%;
   padding: 2px 6px;
   font-size: 12px;
+  min-width: 18px;
+  text-align: center;
+}
+
+.cartButton {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  color: #333;
+  text-decoration: none;
+  position: relative;
+  padding: 5px 10px;
+  border-radius: 4px;
+  transition: background-color 0.3s;
+}
+
+.cartButton:hover {
+  background-color: #f0f0f0;
+}
+
+.cartButton i {
+  font-size: 18px;
 }
 
 .mainNav {
@@ -313,16 +335,18 @@
 .loginButton {
   background: none;
   border: none;
-  color: #333;
+  padding: 5px 10px;
+  border-radius: 4px;
   cursor: pointer;
   display: flex;
   align-items: center;
   gap: 5px;
-  font-size: 14px;
+  color: #333;
+  transition: background-color 0.3s;
 }
 
 .loginButton:hover {
-  color: #ff9800;
+  background-color: #f0f0f0;
 }
 
 /* Responsive styles */
