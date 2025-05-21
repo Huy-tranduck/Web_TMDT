@@ -34,7 +34,7 @@ const getNewProducts = async (req, res) => {
     try {
         const newProducts = await Product.find({})
             .select('name company img price star rateCount promo masp')
-            .sort({ _id: 1 }) // Sắp xếp theo _id để lấy sản phẩm mới nhất
+            .sort({ _id: -1 }) // Sắp xếp theo _id để lấy sản phẩm mới nhất
             .limit(10);
             
         res.json(newProducts);

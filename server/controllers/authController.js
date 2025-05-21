@@ -1,6 +1,7 @@
 const { User } = require('../models/models');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
+const fetch = require('node-fetch'); // Thêm fetch để sử dụng trong verifyCaptcha
 
 // Đăng ký
 const register = async (req, res) => {
@@ -72,7 +73,13 @@ const register = async (req, res) => {
 // Đăng nhập (cập nhật để trả về thêm thông tin người dùng)
 const login = async (req, res) => {
     try {
-        const { username, password } = req.body;
+        const { username, password, captchaToken } = req.body;
+        
+        // Xác thực CAPTCHA với Google
+        const captchaVerified = await verifyCaptcha(captchaToken);
+        if (!captchaVerified) {
+            return res.status(400).json({ message: 'CAPTCHA không hợp lệ' });
+        }
         
         // Tìm user theo username
         const user = await User.findOne({ username });
@@ -102,5 +109,30 @@ const login = async (req, res) => {
         res.status(500).json({ message: 'Lỗi đăng nhập', error: error.message });
     }
 };
+
+// Hàm xác thực CAPTCHA với Google
+async function verifyCaptcha(token) {
+    if (!token) return false;
+    
+    try {
+        const response = await fetch('https://www.google.com/recaptcha/api/siteverify', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            body: new URLSearchParams({
+                secret: process.env.RECAPTCHA_SECRET_KEY || '6LemlEMrAAAAAMVp0bkXrdn9ipQz_xSu8Gl8qBZT', // Secret key test
+                response: token
+            })
+        });
+        
+        const data = await response.json();
+        return data.success;
+        
+    } catch (error) {
+        console.error('Lỗi xác thực CAPTCHA:', error);
+        return false;
+    }
+}
 
 module.exports = { register, login };

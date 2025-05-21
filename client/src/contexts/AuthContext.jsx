@@ -50,15 +50,26 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-  // Hàm này để gọi API đăng nhập
-  const loginWithCredentials = async (username, password) => {
+  // Cập nhật hàm loginWithCredentials
+  const loginWithCredentials = async (username, password, captchaToken) => {
     try {
       console.log("Đang gọi API đăng nhập với username:", username);
       
+      // Kiểm tra để tránh SQL injection
+      const usernameRegex = /^[a-zA-Z0-9_]{4,20}$/;
+      if (!usernameRegex.test(username)) {
+        throw new Error("Tên đăng nhập không hợp lệ");
+      }
+      
+      // Gửi cả token CAPTCHA
       const response = await fetch('http://localhost:5000/api/auth/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ username, password }),
+        body: JSON.stringify({ 
+          username, 
+          password,
+          captchaToken  // Thêm token CAPTCHA
+        }),
       });
 
       const data = await response.json();

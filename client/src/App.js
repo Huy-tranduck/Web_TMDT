@@ -11,7 +11,9 @@ import Cart from './pages/Cart';
 import SearchResults from './pages/SearchResults';
 import Checkout from './pages/Checkout';
 import OrderSuccess from './pages/OrderSuccess';
-
+import Contact from './pages/Contract';
+import FloatingContact from './components/common/FloatingContact';
+import TermsAndPrivacy from '../src/components/common/TermsAndPrivacy'; // Import trang điều khoản và quyền riêng tư
 const PrivateAdminRoute = ({ children }) => {
   const { user } = useAuth();
   
@@ -31,6 +33,10 @@ function App() {
     <Router>
       <AuthProvider>
         <CartProvider>
+           <FloatingContact 
+              facebookId={61576528141491}
+              // whatsappNumber={whatsappNumber}
+            />
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/product/:id" element={<ProductDetail />} />
@@ -38,6 +44,8 @@ function App() {
             <Route path="/cart" element={<Cart />} />
             <Route path="/checkout" element={<Checkout />} />
             <Route path="/order-success/:orderId" element={<OrderSuccess />} />
+            <Route path="/contact" element={<Contact />} />
+            <Route path="/terms_and_privacy" element={<TermsAndPrivacy />} /> {/* Thêm route mới */}
             {/* Admin Routes */}
             <Route 
               path="/admin/*" 

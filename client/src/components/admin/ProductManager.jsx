@@ -678,7 +678,20 @@ const ProductManager = () => {
             <tr key={product._id}>
               <td>{product.masp}</td>
               <td>
-                <img src={product.img} alt={product.name} className={styles.productImage} />
+                <img 
+                  src={
+                    (product.image || product.img) && 
+                    !(product.image || product.img).startsWith('http') ? 
+                      `http://localhost:3000/${product.image || product.img}` : 
+                      (product.image || product.img)
+                  }
+                  alt={product.name} 
+                  className={styles.productImage}
+                  onError={(e) => {
+                    e.target.onerror = null;
+                    e.target.src = 'https://via.placeholder.com/100x100?text=Hình+ảnh+không+có+sẵn';
+                  }}
+                />
               </td>
               <td>{product.name}</td>
               <td>{product.price}</td>
