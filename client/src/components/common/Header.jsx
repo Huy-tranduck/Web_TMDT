@@ -15,6 +15,7 @@ const Header = () => {
   const { cartCount } = useCart();
   const navigate = useNavigate();
   const location = useLocation();
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
   
   const openLoginModal = () => {
     setShowLoginModal(true);
@@ -32,6 +33,11 @@ const Header = () => {
     if (searchTerm.trim()) {
       navigate(`/search?query=${encodeURIComponent(searchTerm)}`);
     }
+  };
+
+  // Toggle menu trên mobile
+  const toggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen);
   };
 
   return (
@@ -98,53 +104,58 @@ const Header = () => {
             <i className="fas fa-map-marker-alt"></i> Hồ Chí Minh
           </Link>
         </div>
+
+        {/* Hamburger Menu Toggle */}
+        <button className={styles.menuToggle} onClick={toggleMenu}>
+          <i className={isMenuOpen ? 'fas fa-times' : 'fas fa-bars'}></i>
+        </button>
       </div>
 
       {/* Navigation Menu */}
-      <nav className={styles.navMenu}>
+      <nav className={`${styles.navMenu} ${isMenuOpen ? styles.navMenuOpen : ''}`}>
         <ul>
           <li>
-            <Link to="/category/phones">
+            <Link to="/category/phones" onClick={() => setIsMenuOpen(false)}>
               <i className="fas fa-mobile-alt"></i> Điện thoại
             </Link>
           </li>
           <li>
-            <Link to="/category/laptops">
+            <Link to="/category/laptops" onClick={() => setIsMenuOpen(false)}>
               <i className="fas fa-laptop"></i> Laptop
             </Link>
           </li>
           <li>
-            <Link to="/category/accessories">
+            <Link to="/category/accessories" onClick={() => setIsMenuOpen(false)}>
               <i className="fas fa-headphones"></i> Phụ kiện
             </Link>
           </li>
           <li>
-            <Link to="/category/smartwatches">
+            <Link to="/category/smartwatches" onClick={() => setIsMenuOpen(false)}>
               <i className="fas fa-clock"></i> Smartwatch
             </Link>
           </li>
           <li>
-            <Link to="/category/tablets">
+            <Link to="/category/tablets" onClick={() => setIsMenuOpen(false)}>
               <i className="fas fa-tablet-alt"></i> Tablet
             </Link>
           </li>
           <li>
-            <Link to="/category/used">
+            <Link to="/category/used" onClick={() => setIsMenuOpen(false)}>
               <i className="fas fa-recycle"></i> Máy cũ, Thu cũ
             </Link>
           </li>
           <li>
-            <Link to="/category/screens">
+            <Link to="/category/screens" onClick={() => setIsMenuOpen(false)}>
               <i className="fas fa-tv"></i> Màn hình, Máy in
             </Link>
           </li>
           <li>
-            <Link to="/category/sim">
+            <Link to="/category/sim" onClick={() => setIsMenuOpen(false)}>
               <i className="fas fa-sim-card"></i> Sim, Thẻ cào
             </Link>
           </li>
           <li>
-            <Link to="/category/services">
+            <Link to="/category/services" onClick={() => setIsMenuOpen(false)}>
               <i className="fas fa-tools"></i> Dịch vụ tiện ích
             </Link>
           </li>
@@ -154,22 +165,21 @@ const Header = () => {
           <li className={styles.dropdownMenu}>
             <span>Hãng sản xuất</span>
             <div className={styles.dropdownContent}>
-              <Link to="/search?company=Apple">Apple</Link>
-              <Link to="/search?company=Samsung">Samsung</Link>
-              <Link to="/search?company=Oppo">Oppo</Link>
-              <Link to="/search?company=Nokia">Nokia</Link>
-              <Link to="/search?company=Huawei">Huawei</Link>
-              <Link to="/search?company=Xiaomi">Xiaomi</Link>
-              <Link to="/search?company=Realme">Realme</Link>
-              <Link to="/search?company=Vivo">Vivo</Link>
-              <Link to="/search?company=Philips">Philips</Link>
-              <Link to="/search?company=Mobell">Mobell</Link>
-              <Link to="/search?company=Mobiistar">Mobiistar</Link>
-              <Link to="/search?company=Itel">Itel</Link>
-              <Link to="/search?company=Coolpad">Coolpad</Link>
-              <Link to="/search?company=HTC">HTC</Link>
-              <Link to="/search?company=Motorola">Motorola</Link>
-              
+              <Link to="/search?company=Apple" onClick={() => setIsMenuOpen(false)}>Apple</Link>
+              <Link to="/search?company=Samsung" onClick={() => setIsMenuOpen(false)}>Samsung</Link>
+              <Link to="/search?company=Oppo" onClick={() => setIsMenuOpen(false)}>Oppo</Link>
+              <Link to="/search?company=Nokia" onClick={() => setIsMenuOpen(false)}>Nokia</Link>
+              <Link to="/search?company=Huawei" onClick={() => setIsMenuOpen(false)}>Huawei</Link>
+              <Link to="/search?company=Xiaomi" onClick={() => setIsMenuOpen(false)}>Xiaomi</Link>
+              <Link to="/search?company=Realme" onClick={() => setIsMenuOpen(false)}>Realme</Link>
+              <Link to="/search?company=Vivo" onClick={() => setIsMenuOpen(false)}>Vivo</Link>
+              <Link to="/search?company=Philips" onClick={() => setIsMenuOpen(false)}>Philips</Link>
+              <Link to="/search?company=Mobell" onClick={() => setIsMenuOpen(false)}>Mobell</Link>
+              <Link to="/search?company=Mobiistar" onClick={() => setIsMenuOpen(false)}>Mobiistar</Link>
+              <Link to="/search?company=Itel" onClick={() => setIsMenuOpen(false)}>Itel</Link>
+              <Link to="/search?company=Coolpad" onClick={() => setIsMenuOpen(false)}>Coolpad</Link>
+              <Link to="/search?company=HTC" onClick={() => setIsMenuOpen(false)}>HTC</Link>
+              <Link to="/search?company=Motorola" onClick={() => setIsMenuOpen(false)}>Motorola</Link>
             </div>
           </li>
         </ul>

@@ -26,6 +26,7 @@
 .imageSection img {
   width: 100%;
   height: auto;
+  max-width: 100%;
   object-fit: contain;
   border-radius: 12px;
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
@@ -73,6 +74,7 @@
   transform: scale(1.2);
 }
 
+/* Price Box */
 .priceBox {
   margin: 20px 0;
 }
@@ -191,7 +193,7 @@
 .relatedProducts h3 {
   font-size: 22px;
   margin-bottom: 20px;
-  color: #ff5722;
+  color: #ff5722; /* Màu cam đậm giống CellphoneS */
   text-align: center;
   font-weight: bold;
   background: #ffe0b2;
@@ -200,6 +202,7 @@
   box-shadow: inset 0 -2px 4px rgba(0, 0, 0, 0.08);
 }
 
+/* Related Products Grid */
 .relatedGrid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));

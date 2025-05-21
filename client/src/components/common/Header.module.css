@@ -1,39 +1,15 @@
+/* Header.module.css */
 .header {
-  position: sticky; /* Make the header sticky */
-  top: 0; /* Stick to the top of the viewport */
-  z-index: 1000; /* Ensure it stays above other elements */
-  background: #ffd700; /* Retain the background color */
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background: #ffd700; /* Màu vàng như CellphoneS */
   width: 100%;
   font-family: Arial, sans-serif;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
-.headerTop {
-  background: #f5f5f5;
-  padding: 10px 0;
-  font-size: 14px;
-}
-
-.headerTop .container {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.headerTop .leftContent {
-  color: #333;
-}
-
-.headerTop .rightContent a {
-  color: #007bff;
-  text-decoration: none;
-  margin: 0 5px;
-}
-
-.headerTop .rightContent a:hover {
-  text-decoration: underline;
-}
-
+/* Container căn giữa */
 .container {
   max-width: 1200px;
   margin: 0 auto;
@@ -41,176 +17,141 @@
   justify-content: space-between;
   align-items: center;
   padding: 10px 15px;
+  flex-wrap: wrap;
 }
 
-.mainHeader {
-  background: white;
-  padding: 15px 0;
-}
-
-.mainHeader .container {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
+/* Logo */
 .logo img {
   max-height: 50px;
+  width: auto;
+  display: block;
 }
 
+/* Search Bar */
 .searchBar {
-  display: flex;
-  align-items: center;
   flex: 1;
   margin: 0 20px;
+  display: flex;
+  align-items: center;
+  position: relative;
 }
 
 .searchBar input {
   width: 100%;
-  padding: 10px;
+  padding: 10px 40px 10px 15px;
   border: 1px solid #ddd;
-  border-radius: 4px 0 0 4px;
+  border-radius: 20px;
   font-size: 14px;
 }
 
 .searchBar button {
-  padding: 10px 20px;
-  background: #fff;
-  border: 1px solid #ddd;
-  border-radius: 0 4px 4px 0;
+  position: absolute;
+  right: 10px;
+  background: none;
+  border: none;
   cursor: pointer;
-}
-
-.searchBar button i {
-  color: #333;
+  font-size: 16px;
+  color: #555;
+  transition: color 0.3s ease;
 }
 
 .searchBar button:hover {
-  background: #0056b3;
+  color: #007bff;
 }
 
-.headerActions {
+/* User Actions */
+.userActions {
   display: flex;
   align-items: center;
+  gap: 15px;
 }
 
-.cart {
-  position: relative;
-  margin-left: 20px;
+.userInfo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
 
-.cartCount {
-  position: absolute;
-  top: -8px;
-  right: -8px;
-  background: #ff4444;
-  color: white;
-  border-radius: 50%;
-  padding: 2px 6px;
-  font-size: 12px;
-  min-width: 18px;
-  text-align: center;
-}
-
+.loginButton,
+.logoutButton,
 .cartButton {
   display: flex;
   align-items: center;
   gap: 5px;
+  padding: 8px 15px;
+  border: none;
+  background: none;
+  cursor: pointer;
+  font-size: 14px;
   color: #333;
-  text-decoration: none;
-  position: relative;
-  padding: 5px 10px;
-  border-radius: 4px;
-  transition: background-color 0.3s;
+  transition: background-color 0.3s ease;
 }
 
+.loginButton:hover,
+.logoutButton:hover,
 .cartButton:hover {
   background-color: #f0f0f0;
+  border-radius: 4px;
 }
 
-.cartButton i {
-  font-size: 18px;
+.cartButton {
+  position: relative;
 }
 
-.mainNav {
-  background: #333;
+.cartCount {
+  position: absolute;
+  top: -5px;
+  right: -5px;
+  background-color: #ff4444;
+  color: завтра;
+  border-radius: 50%;
+  padding: 2px 6px;
+  font-size: 12px;
+}
+
+/* Navigation Menu */
+.navMenu {
+  width: 100%;
+  background-color: #f8f8f8;
   padding: 10px 0;
 }
 
-.mainNav .container {
-  display: flex;
-  justify-content: center;
-}
-
-.mainNav ul {
+.navMenu ul {
   list-style: none;
   display: flex;
+  justify-content: center;
   gap: 20px;
   margin: 0;
   padding: 0;
+  flex-wrap: wrap;
 }
 
-.mainNav a {
-  color: white;
-  text-decoration: none;
-}
-
-.mainMenu {
-  list-style: none;
-  display: flex;
-  gap: 30px;
-  margin: 0;
-  padding: 0;
-}
-
-.mainMenu a {
-  color: white;
-  text-decoration: none;
-  font-size: 16px;
-  font-weight: bold;
-}
-
-.mainMenu a:hover {
-  text-decoration: underline;
-}
-
-.categoryDropdown {
+.navMenu ul li {
   position: relative;
-  z-index: 1000;
 }
 
-.categoryBtn {
+.navMenu ul li a,
+.navMenu ul li span {
+  text-decoration: none;
+  color: #333;
+  font-size: 14px;
   display: flex;
   align-items: center;
-  gap: 8px;
-  padding: 10px 20px;
-  background: #ff4400;
-  color: white;
-  border: none;
-  cursor: pointer;
-  font-size: 14px;
-}
-
-.categoryBtn:hover {
-  background: #e63900;
-}
-
-.dropdownMenu {
-  position: relative;
-  cursor: pointer;
-}
-
-.dropdownMenu span {
-  display: inline-block;
+  gap: 5px;
   padding: 10px 15px;
-  color: #333;
-  transition: color 0.3s ease;
+  transition: color 0.3s ease, background-color 0.3s ease;
 }
 
-.dropdownMenu:hover span {
+.navMenu ul li a:hover,
+.navMenu ul li span:hover {
   color: #fff;
   background-color: #ffcc00;
   border-radius: 4px;
+}
+
+/* Dropdown Menu */
+.dropdownMenu {
+  position: relative;
 }
 
 .dropdownContent {
@@ -221,8 +162,8 @@
   background-color: #fff;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   border-radius: 4px;
-  z-index: 1000;
   min-width: 200px;
+  z-index: 1000;
 }
 
 .dropdownMenu:hover .dropdownContent {
@@ -230,9 +171,9 @@
 }
 
 .dropdownContent a {
-  color: #333;
-  padding: 10px 20px;
   display: block;
+  padding: 10px 20px;
+  color: #333;
   text-decoration: none;
   transition: background-color 0.3s ease;
 }
@@ -242,146 +183,128 @@
   color: #fff;
 }
 
-.logoutBtn {
+/* Hamburger Menu Toggle */
+.menuToggle {
+  display: none;
   background: none;
   border: none;
-  color: #007bff;
+  font-size: 24px;
   cursor: pointer;
-  font-size: inherit;
-}
-
-.logoutBtn:hover {
-  text-decoration: underline;
-}
-
-.userActions {
-  display: flex;
-  align-items: center;
-  gap: 15px;
-}
-
-.userActions a {
   color: #333;
-  text-decoration: none;
-  font-size: 14px;
-  display: flex;
-  align-items: center;
-  gap: 5px;
 }
 
-.userActions a:hover {
-  text-decoration: underline;
+/* Responsive Styles */
+@media (max-width: 1024px) {
+  .searchBar {
+    margin: 0 10px;
+  }
+
+  .userActions {
+    gap: 10px;
+  }
+
+  .navMenu ul {
+    gap: 10px;
+  }
 }
 
-.navMenu {
-  background: #ffd700;
-  padding: 10px 0;
-}
-
-.navMenu ul {
-  list-style: none;
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  margin: 0;
-  padding: 0;
-}
-
-.navMenu li {
-  position: relative;
-}
-
-.navMenu a, .navMenu span {
-  color: #333;
-  text-decoration: none;
-  font-size: 14px;
-  padding: 10px 15px;
-  display: inline-block;
-  transition: color 0.3s ease, background-color 0.3s ease;
-}
-
-.navMenu a:hover, .navMenu span:hover {
-  color: #fff;
-  background-color: #ffcc00;
-  border-radius: 4px;
-}
-
-.navMenu i {
-  font-size: 16px;
-}
-
-.userInfo {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.userInfo span {
-  font-weight: bold;
-}
-
-.logoutButton {
-  background: none;
-  border: none;
-  color: #333;
-  cursor: pointer;
-  padding: 5px;
-}
-
-.logoutButton:hover {
-  color: #e74c3c;
-}
-
-.loginButton {
-  background: none;
-  border: none;
-  padding: 5px 10px;
-  border-radius: 4px;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  gap: 5px;
-  color: #333;
-  transition: background-color 0.3s;
-}
-
-.loginButton:hover {
-  background-color: #f0f0f0;
-}
-
-/* Responsive styles */
 @media (max-width: 768px) {
-  .mainHeader .container {
-    flex-direction: column;
-    gap: 15px;
+  .container {
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
   }
 
   .searchBar {
-    max-width: 100%;
+    flex: 1;
     margin: 10px 0;
+    width: 100%;
   }
 
-  .mainMenu {
+  .userActions {
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+
+  .menuToggle {
+    display: block;
+  }
+
+  .navMenu {
     display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background-color: #f8f8f8;
+    padding: 0;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+
+  .navMenu.navMenuOpen {
+    display: block;
   }
 
   .navMenu ul {
     flex-direction: column;
     align-items: flex-start;
+    padding: 10px;
   }
 
-  .navMenu li {
+  .navMenu ul li {
     width: 100%;
+  }
+
+  .navMenu ul li a,
+  .navMenu ul li span {
+    padding: 15px;
+    width: 100%;
+    justify-content: flex-start;
   }
 
   .dropdownContent {
     position: static;
     box-shadow: none;
-    border-radius: 0;
-    padding: 0;
+    background-color: #fff;
+    padding-left: 20px;
   }
 
-  .dropdownContent a {
-    padding: 10px;
+  .dropdownMenu:hover .dropdownContent {
+    display: none;
+  }
+
+  .dropdownMenu.active .dropdownContent {
+    display: block;
+  }
+}
+
+@media (max-width: 480px) {
+  .logo img {
+    max-height: 40px;
+  }
+
+  .searchBar input {
+    font-size: 12px;
+    padding: 8px 30px 8px 10px;
+  }
+
+  .searchBar button {
+    font-size: 14px;
+  }
+
+  .userActions {
+    gap: 5px;
+  }
+
+  .loginButton,
+  .logoutButton,
+  .cartButton {
+    font-size: 12px;
+    padding: 5px 10px;
+  }
+
+  .cartCount {
+    font-size: 10px;
+    padding: 1px 4px;
   }
 }

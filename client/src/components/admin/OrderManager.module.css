@@ -1,27 +1,47 @@
+/* Container chính */
 .orderManager {
   padding: 20px;
+  max-width: 1200px; /* Giới hạn chiều rộng như CellphoneS */
+  margin: 0 auto; /* Căn giữa */
 }
 
+/* Bảng quản lý đơn hàng */
 .table {
   width: 100%;
   border-collapse: collapse;
   background: white;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  border-radius: 8px; /* Bo góc nhẹ như CellphoneS */
+  overflow-x: auto; /* Cho phép cuộn ngang trên mobile nếu cần */
 }
 
+/* Thẻ th, td */
 .table th,
 .table td {
   padding: 12px;
   text-align: left;
   border-bottom: 1px solid #eee;
+  font-size: 14px; /* Font nhỏ gọn cho bảng */
 }
 
+/* Tiêu đề bảng */
+.table th {
+  background: #f5f5f5; /* Nền nhạt cho tiêu đề */
+  font-weight: bold;
+  color: #333;
+}
+
+/* Ô trạng thái */
 .statusSelect {
   padding: 5px;
   border-radius: 4px;
   border: 1px solid #ddd;
+  font-size: 13px;
+  width: 100%; /* Đầy đủ chiều rộng trên mobile */
+  max-width: 150px; /* Giới hạn chiều rộng trên desktop */
 }
 
+/* Màu trạng thái */
 .pending { color: #f57c00; }
 .processing { color: #1976d2; }
 .shipped { color: #388e3c; }
