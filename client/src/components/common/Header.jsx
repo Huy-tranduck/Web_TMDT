@@ -15,7 +15,17 @@ const Header = () => {
   const { cartCount } = useCart();
   const navigate = useNavigate();
   const location = useLocation();
-
+  
+  const openLoginModal = () => {
+    setShowLoginModal(true);
+    setShowRegisterModal(false);
+  };
+  
+  const openRegisterModal = () => {
+    setShowRegisterModal(true);
+    setShowLoginModal(false);
+  };
+  
   // Xử lý tìm kiếm
   const handleSearch = (e) => {
     e.preventDefault();
@@ -62,12 +72,34 @@ const Header = () => {
               </button>
             </div>
           ) : (
+<<<<<<< HEAD
             <button
               onClick={() => setShowLoginModal(true)}
               className={styles.loginButton}
             >
               <i className="fas fa-user"></i> Đăng nhập
             </button>
+=======
+            <>
+              <button
+                onClick={openLoginModal}
+                className={styles.loginButton}
+              >
+                <i className="fas fa-user"></i> Đăng nhập
+              </button>
+              <button
+                onClick={openRegisterModal}
+                className={styles.loginButton}
+              >
+                <i className="fas fa-user-plus"></i> Đăng ký
+              </button>
+            </>
+          )}
+          {user && location.pathname !== '/cart' && (
+            <Link to="/cart">
+              <i className="fas fa-shopping-cart"></i> Giỏ hàng ({cartCount})
+            </Link>
+>>>>>>> develop
           )}
 
           <Link to="/cart" className={styles.cartButton}>
@@ -135,9 +167,13 @@ const Header = () => {
               <i className="fas fa-tools"></i> Dịch vụ tiện ích
             </Link>
           </li>
+          <li>
+          <Link to="/contact" className={styles.navLink}>Liên hệ</Link>
+          </li>
           <li className={styles.dropdownMenu}>
             <span>Hãng sản xuất</span>
             <div className={styles.dropdownContent}>
+<<<<<<< HEAD
               <Link to="/search?company=Apple" onClick={() => setIsMenuOpen(false)}>Apple</Link>
               <Link to="/search?company=Samsung" onClick={() => setIsMenuOpen(false)}>Samsung</Link>
               <Link to="/search?company=Oppo" onClick={() => setIsMenuOpen(false)}>Oppo</Link>
@@ -153,6 +189,24 @@ const Header = () => {
               <Link to="/search?company=Coolpad" onClick={() => setIsMenuOpen(false)}>Coolpad</Link>
               <Link to="/search?company=HTC" onClick={() => setIsMenuOpen(false)}>HTC</Link>
               <Link to="/search?company=Motorola" onClick={() => setIsMenuOpen(false)}>Motorola</Link>
+=======
+              <Link to="/search?company=Apple">Apple</Link>
+              <Link to="/search?company=Samsung">Samsung</Link>
+              <Link to="/search?company=Oppo">Oppo</Link>
+              <Link to="/search?company=Nokia">Nokia</Link>
+              <Link to="/search?company=Huawei">Huawei</Link>
+              <Link to="/search?company=Xiaomi">Xiaomi</Link>
+              <Link to="/search?company=Realme">Realme</Link>
+              <Link to="/search?company=Vivo">Vivo</Link>
+              <Link to="/search?company=Philips">Philips</Link>
+              <Link to="/search?company=Mobell">Mobell</Link>
+              <Link to="/search?company=Mobiistar">Mobiistar</Link>
+              <Link to="/search?company=Itel">Itel</Link>
+              <Link to="/search?company=Coolpad">Coolpad</Link>
+              <Link to="/search?company=HTC">HTC</Link>
+              <Link to="/search?company=Motorola">Motorola</Link>
+              
+>>>>>>> develop
             </div>
           </li>
         </ul>
@@ -162,7 +216,21 @@ const Header = () => {
       {showLoginModal && (
         <LoginModal 
           isOpen={showLoginModal} 
+<<<<<<< HEAD
           onClose={() => setShowLoginModal(false)}
+=======
+          onClose={() => setShowLoginModal(false)} 
+          openRegisterModal={openRegisterModal} 
+        />
+      )}
+
+      {/* Register Modal */}
+      {showRegisterModal && (
+        <RegisterModal 
+          isOpen={showRegisterModal} 
+          onClose={() => setShowRegisterModal(false)}
+          openLoginModal={openLoginModal} 
+>>>>>>> develop
         />
       )}
     </header>

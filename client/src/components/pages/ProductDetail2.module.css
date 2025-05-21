@@ -1,0 +1,162 @@
+/* ----- PHẦN ĐÁNH GIÁ SẢN PHẨM (HIỂN THỊ) ----- */
+.reviews {
+  margin-top: 2rem;
+  padding: 1.5rem;
+  border-top: 2px solid #e0e0e0;
+  background-color: #fdfdfd;
+  border-radius: 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+
+.reviews h3 {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  color: #333;
+}
+
+.review {
+  background-color: #fff;
+  border: 1px solid #ddd;
+  padding: 1rem 1.5rem;
+  margin-bottom: 1rem;
+  border-radius: 8px;
+  transition: box-shadow 0.2s;
+}
+
+.review:hover {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+.review strong {
+  font-weight: 600;
+  font-size: 1.1rem;
+  color: #222;
+}
+
+.review p {
+  margin: 0.3rem 0;
+  font-size: 1rem;
+  color: #444;
+}
+
+.review small {
+  display: block;
+  margin-top: 0.4rem;
+  font-size: 0.85rem;
+  color: #888;
+}
+
+/* ----- FORM THÊM ĐÁNH GIÁ ----- */
+.addReviewForm {
+  margin-top: 2rem;
+  padding: 1.5rem;
+  background-color: #ffffff;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+
+.addReviewForm h3 {
+  font-size: 1.4rem;
+  margin-bottom: 1rem;
+  color: #222;
+}
+
+.addReviewForm label {
+  display: block;
+  margin-bottom: 0.3rem;
+  font-weight: 500;
+  color: #333;
+}
+
+.addReviewForm select,
+.addReviewForm textarea {
+  width: 100%;
+  padding: 0.75rem;
+  margin-bottom: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: border-color 0.2s;
+}
+
+.addReviewForm select:focus,
+.addReviewForm textarea:focus {
+  border-color: #1976d2;
+  outline: none;
+}
+
+.addReviewForm button {
+  padding: 0.6rem 1.2rem;
+  background-color: #1976d2;
+  color: white;
+  font-size: 1rem;
+  font-weight: 500;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.addReviewForm button:hover {
+  background-color: #145aa3;
+}
+
+.error {
+  color: #d32f2f;
+  background-color: #fdecea;
+  padding: 0.5rem 1rem;
+  margin-bottom: 1rem;
+  border-left: 4px solid #d32f2f;
+  border-radius: 6px;
+}
+
+.success {
+  color: #2e7d32;
+  background-color: #e8f5e9;
+  padding: 0.5rem 1rem;
+  margin-bottom: 1rem;
+  border-left: 4px solid #2e7d32;
+  border-radius: 6px;
+}
+/* Đánh giá sao */
+.starRating {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.star {
+  font-size: 20px;
+  color: #ccc; /* Màu mặc định cho sao chưa được đánh giá */
+  transition: color 0.3s ease;
+}
+
+.star.filled {
+  color: #ffc107; /* Màu vàng cho sao đã được đánh giá */
+}
+
+.star:hover,
+.star:hover ~ .star {
+  color: #ff9800; /* Màu cam khi hover */
+  cursor: pointer;
+}
+.ratingSummary {
+  margin-bottom: 1rem;
+  padding: 10px;
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  text-align: center;
+}
+
+.ratingSummary strong {
+  font-size: 1.2rem;
+  color: #ff9800;
+}
+
+.ratingSummary p {
+  margin: 0;
+  font-size: 1rem;
+  color: #555;
+}
