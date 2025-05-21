@@ -25,20 +25,24 @@ export const AuthProvider = ({ children }) => {
 
       const data = await response.json();
 
-      if (!response.ok) throw new Error(data.message);
+      if (!response.ok) {
+        throw new Error(data.message || 'Đăng nhập thất bại');
+      }
 
       const userInfo = {
         ...data.user,
         token: data.token
       };
 
+      // Lưu vào localStorage và state
       localStorage.setItem('user', JSON.stringify(userInfo));
       localStorage.setItem('token', data.token);
       setUser(userInfo);
-
-      return userInfo;
+      
+      return userInfo; // Trả về thông tin người dùng nếu cần
     } catch (error) {
-      throw error;
+      console.error('Lỗi đăng nhập:', error);
+      throw error; // Ném lỗi để component có thể xử lý
     }
   };
 
@@ -48,21 +52,9 @@ export const AuthProvider = ({ children }) => {
     setUser(null);
   };
 
-  const isAdmin = () => {
-    return user?.role === 'admin';
-  };
-
-  const value = {
-    user,
-    login,
-    logout,
-    isAdmin,
-    loading
-  };
-
   return (
-    <AuthContext.Provider value={value}>
-      {!loading && children}
+    <AuthContext.Provider value={{ user, login, logout, loading }}>
+      {children}
     </AuthContext.Provider>
   );
 };

@@ -21,9 +21,17 @@ const ProductDetail = () => {
       try {
         const response = await fetch(`http://localhost:5000/api/products/detail/${id}`);
         const data = await response.json();
-        console.log("Dữ liệu sản phẩm:", data); // Kiểm tra dữ liệu sản phẩm
+        console.log("Dữ liệu sản phẩm:", data);
+        
         if (data.success) {
-          setProduct(data.product);
+          // Biến đổi dữ liệu để đảm bảo tính nhất quán với ProductCard
+          const processedProduct = {
+            ...data.product,
+            // Đảm bảo sản phẩm có thuộc tính img
+            img: data.product.image || data.product.img
+          };
+          
+          setProduct(processedProduct);
           setSpecifications(data.product.specifications);
         } else {
           setError(data.message);
@@ -66,8 +74,15 @@ const ProductDetail = () => {
       <div className={styles.productDetail}>
   {/* Phần hiển thị sản phẩm */}
   <div className={styles.imageSection}>
-    <img src={product.img} alt={product.name} />
-  </div>
+  <img 
+    src={ (product.image.startsWith('http') ? product.image : `/${product.image}`)}
+    alt={product.name}
+    onError={(e) => {
+      e.target.onerror = null;
+      e.target.src = 'https://via.placeholder.com/300x300?text=Hình+ảnh+không+có+sẵn';
+    }}
+  />
+</div>
 
   <div className={styles.middleSection}>
     <h1>{product.name}</h1>

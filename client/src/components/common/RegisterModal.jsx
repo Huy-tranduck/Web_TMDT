@@ -1,12 +1,4 @@
 import React, { useState } from 'react';
-<<<<<<< HEAD
-import styles from './RegisterModal.module.css';
-
-const RegisterModal = ({ isOpen, onClose, onSwitchToLogin }) => {
-  const [username, setUsername] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-=======
 import { Link } from 'react-router-dom';
 import styles from './RegisterModal.module.css';
 
@@ -22,7 +14,6 @@ const RegisterModal = ({ isOpen, onClose, openLoginModal }) => {
     agreeToTerms: false
   });
 
->>>>>>> develop
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
   const [isRegistering, setIsRegistering] = useState(false);
@@ -126,21 +117,6 @@ const RegisterModal = ({ isOpen, onClose, openLoginModal }) => {
   if (!isOpen) return null;
 
   return (
-<<<<<<< HEAD
-    <div className={styles.modalOverlay}>
-      <div className={styles.modalContent}>
-        <button className={styles.closeButton} onClick={onClose}>
-          &times;
-        </button>
-        
-        <form onSubmit={handleRegister} className={styles.registerForm}>
-          <h2>Đăng Ký</h2>
-          
-          {error && <div className={styles.error}>{error}</div>}
-          {success && <div className={styles.success}>{success}</div>}
-
-          <div className={styles.formGroup}>
-=======
     <div className={styles.overlay}>
       <div className={styles.modal}>
         <button className={styles.closeButton} onClick={onClose}>
@@ -162,20 +138,12 @@ const RegisterModal = ({ isOpen, onClose, openLoginModal }) => {
           
           <div className={styles.formGroup}>
             <label>Tên tài khoản:</label>
->>>>>>> develop
             <input
               type="text"
               name="username"
               value={formData.username}
               onChange={handleChange}
               required
-<<<<<<< HEAD
-              placeholder="Tên tài khoản"
-              className={styles.input}
-            />
-          </div>
-          <div className={styles.formGroup}>
-=======
               placeholder="Tên tài khoản từ 4-20 ký tự"
             />
           </div>
@@ -195,20 +163,12 @@ const RegisterModal = ({ isOpen, onClose, openLoginModal }) => {
           
           <div className={styles.formGroup}>
             <label>Email:</label>
->>>>>>> develop
             <input
               type="email"
               name="email"
               value={formData.email}
               onChange={handleChange}
               required
-<<<<<<< HEAD
-              placeholder="Email"
-              className={styles.input}
-            />
-          </div>
-          <div className={styles.formGroup}>
-=======
               placeholder="Nhập địa chỉ email"
             />
           </div>
@@ -227,37 +187,12 @@ const RegisterModal = ({ isOpen, onClose, openLoginModal }) => {
           
           <div className={styles.formGroup}>
             <label>Mật khẩu:</label>
->>>>>>> develop
             <input
               type="password"
               name="password"
               value={formData.password}
               onChange={handleChange}
               required
-<<<<<<< HEAD
-              placeholder="Mật khẩu"
-              className={styles.input}
-            />
-          </div>
-
-          <button type="submit" className={styles.submitButton}>
-            Đăng Ký
-          </button>
-
-          <div className={styles.formFooter}>
-            <p>
-              Đã có tài khoản?{' '}
-              <button 
-                type="button"
-                className={styles.switchButton}
-                onClick={onSwitchToLogin}
-              >
-                Đăng nhập
-              </button>
-            </p>
-          </div>
-        </form>
-=======
               placeholder="Nhập mật khẩu"
               minLength="6"
             />
@@ -300,7 +235,6 @@ const RegisterModal = ({ isOpen, onClose, openLoginModal }) => {
         <div className={styles.loginPrompt}>
           Đã có tài khoản? <span onClick={() => {onClose(); openLoginModal();}}>Đăng nhập</span>
         </div>
->>>>>>> develop
       </div>
     </div>
   );

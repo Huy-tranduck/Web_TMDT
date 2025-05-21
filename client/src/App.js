@@ -2,7 +2,7 @@ import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { AuthProvider, useAuth } from './contexts/AuthContext';
 import { CartProvider } from './contexts/CartContext';
-import PrivateRoute from './components/common/PrivateRoute';
+// import PrivateRoute from './components/common/PrivateRoute';
 import Home from './pages/Home';
 import Login from './pages/Login';
 import ProductDetail from './pages/ProductDetail';
@@ -32,6 +32,7 @@ const PrivateRoute = ({ children }) => {
 function App() {
   return (
     <AuthProvider>
+      <CartProvider>
       <Router>
          <FloatingContact 
               facebookId={61576528141491}
@@ -59,6 +60,7 @@ function App() {
           <Route path="*" element={<Navigate to="/" />} />
         </Routes>
       </Router>
+      </CartProvider>
     </AuthProvider>
   );
 }

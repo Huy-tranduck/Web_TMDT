@@ -1,4 +1,4 @@
-.modalOverlay {
+/* .modalOverlay {
   position: fixed;
   top: 0;
   left: 0;
@@ -18,13 +18,9 @@
   position: relative;
   width: 100%;
   max-width: 400px;
-<<<<<<< HEAD
-  animation: slideIn 0.3s ease-out;
-=======
   position: relative;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
->>>>>>> develop
-}
+} */
 
 .closeButton {
   position: absolute;
@@ -77,59 +73,6 @@
 }
 
 .submitButton:hover {
-<<<<<<< HEAD
-  background: #357ABD;
-}
-
-.error {
-  color: red;
-  text-align: center;
-  margin-bottom: 1rem;
-}
-
-.message {
-  text-align: center;
-  color: #666;
-  margin-bottom: 1rem;
-}
-
-.formFooter {
-  text-align: center;
-  margin-top: 1rem;
-  font-size: 14px;
-  color: #666;
-}
-
-.formFooter a {
-  color: #4A90E2;
-  text-decoration: none;
-}
-
-.formFooter a:hover {
-  text-decoration: underline;
-}
-
-.switchButton {
-  background: none;
-  border: none;
-  color: #4A90E2;
-  cursor: pointer;
-  text-decoration: underline;
-  padding: 0;
-  font: inherit;
-}
-
-@keyframes slideIn {
-  from {
-    transform: translateY(-20px);
-    opacity: 0;
-  }
-  to {
-    transform: translateY(0);
-    opacity: 1;
-  }
-}
-=======
   background-color: #12d2a5;
 }
 
@@ -138,4 +81,42 @@
   margin-bottom: 1rem;
   text-align: center;
 }
->>>>>>> develop
+/* Trong LoginModal.module.css */
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000; /* Đảm bảo hiển thị trên các phần khác */
+}
+
+.modal {
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  width: 90%;
+  max-width: 500px;
+  position: relative;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.registerPrompt {
+  margin-top: 15px;
+  text-align: center;
+  color: #555;
+}
+
+.registerPrompt span {
+  color: #3949ab;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+.registerPrompt span:hover {
+  text-decoration: underline;
+}
