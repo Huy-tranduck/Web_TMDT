@@ -1,53 +1,77 @@
+/* Product Detail Container */
 .productDetail {
   display: flex;
-  flex-wrap: wrap; /* Allow wrapping for sections */
+  flex-wrap: wrap;
   gap: 20px;
   padding: 20px;
-  max-width: 1200px;
+  max-width: 1200px; /* Đồng bộ với CellphoneS */
   margin: 0 auto;
-  gap: 20px;
+  background: #f8f9fa; /* Nền nhạt giống CellphoneS */
 }
 
+/* Common Styles for Sections */
 .imageSection,
 .middleSection,
-.specificationSection {
+.specificationSection,
+.infoSection {
   flex: 1;
   min-height: 600px;
   padding: 20px;
   background: #fff;
   border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Image Section */
+.imageSection {
+  flex: 1;
 }
 
 .imageSection img {
   width: 100%;
   height: auto;
+  max-width: 100%;
   object-fit: contain;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Middle Section */
+.middleSection {
+  flex: 1.5;
+  background: #fff8e1; /* Nền vàng nhạt giống CellphoneS */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .middleSection h1 {
   font-size: 24px;
   margin-bottom: 15px;
+  color: #333;
 }
 
+/* Price Box */
 .priceBox {
   margin: 20px 0;
 }
 
 .price {
   font-size: 24px;
-  color: #d70018;
   font-weight: bold;
+  color: #e63946; /* Màu đỏ giống CellphoneS */
 }
 
+.originalPrice,
 .discount {
-  margin-left: 10px;
-  color: #666;
+  font-size: 16px;
+  color: #999;
   text-decoration: line-through;
+  margin-left: 10px;
 }
 
+/* Promotions and Warranty */
 .promoInfo,
-.warranty {
+.warranty,
+.promotions {
   margin: 20px 0;
   padding: 15px;
   background: #f8f9fa;
@@ -55,43 +79,71 @@
 }
 
 .promoInfo h3,
-.warranty h3 {
-  color: #333;
+.warranty h3,
+.promotions h3 {
+  font-size: 18px;
   margin-bottom: 10px;
+  color: #333;
 }
 
-.warranty ul {
+.warranty ul,
+.promotions ul {
   list-style: none;
   padding: 0;
 }
 
-.warranty ul li {
+.warranty ul li,
+.promotions ul li {
   padding: 5px 0;
   position: relative;
   padding-left: 20px;
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+  color: #666;
 }
 
-.warranty ul li:before {
+.warranty ul li::before,
+.promotions ul li::before {
   content: "✓";
   position: absolute;
   left: 0;
   color: #2ecc71;
+  margin-right: 8px;
 }
 
-.addToCartButton {
+/* Add to Cart Button */
+.addToCartButton,
+.addToCartBtn {
   width: 100%;
   padding: 15px;
-  background: #ff6b00;
+  background: #ff9800; /* Màu cam giống CellphoneS */
   color: white;
   border: none;
   border-radius: 8px;
   font-size: 16px;
+  font-weight: bold;
   cursor: pointer;
-  transition: background 0.3s;
+  transition: background 0.3s ease;
+  margin-bottom: 10px;
 }
 
-.addToCartButton:hover {
-  background: #ff5500;
+.addToCartButton:hover,
+.addToCartBtn:hover {
+  background: #e68900;
+}
+
+/* Delivery Info */
+.deliveryInfo {
+  font-size: 14px;
+  color: #555;
+  text-align: center;
+}
+
+/* Specification Section */
+.specificationSection {
+  flex: 1;
 }
 
 .specTable {
@@ -105,108 +157,27 @@
 
 .specTable td {
   padding: 12px;
+  font-size: 14px;
+  color: #666;
 }
 
 .specTable td:first-child {
   font-weight: 500;
-  color: #666;
+  color: #333;
   width: 40%;
 }
 
-.imageSection img {
-  max-width: 100%;
-  height: auto;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-.middleSection {
-  flex: 1.5;
-  background: #fff8e1;
-  padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-.middleSection h1 {
-  font-size: 24px;
-  margin-bottom: 10px;
-}
-
-.price {
-  font-size: 24px;
-  font-weight: bold;
-  color: #e63946;
-  margin-bottom: 10px;
-}
-
-.originalPrice {
-  font-size: 16px;
-  color: #999;
-  text-decoration: line-through;
-  margin-left: 10px;
-}
-
-.promotions {
-  margin-bottom: 20px;
-}
-
-.promotions h3 {
-  font-size: 18px;
-  margin-bottom: 10px;
-}
-
-.promotions ul {
-  list-style: none;
-  padding: 0;
-}
-
-.promotions ul li {
-  margin-bottom: 8px;
-  display: flex;
-  align-items: center;
-}
-
-.promotions ul li::before {
-  content: "✔";
-  color: green;
-  margin-right: 8px;
-}
-
-.addToCartBtn {
-  width: 100%;
-  padding: 10px;
-  background: #ff9800;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 16px;
-  font-weight: bold;
-  margin-bottom: 10px;
-}
-
-.addToCartBtn:hover {
-  background: #e68900;
-}
-
-.deliveryInfo {
-  font-size: 14px;
-  color: #555;
-  text-align: center;
-}
-
+/* Info Section */
 .infoSection {
   flex: 1.5;
   background: #f9f9f9;
-  padding: 20px;
-  border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .infoSection h3 {
   font-size: 18px;
   margin-bottom: 10px;
+  color: #333;
 }
 
 .infoSection table {
@@ -217,6 +188,8 @@
 .infoSection table td {
   padding: 8px;
   border: 1px solid #ddd;
+  font-size: 14px;
+  color: #666;
 }
 
 .infoSection table td:first-child {
@@ -224,6 +197,7 @@
   color: #333;
 }
 
+/* Related Products */
 .relatedProducts {
   flex: 1 1 100%;
   margin-top: 40px;
@@ -236,7 +210,7 @@
 .relatedProducts h3 {
   font-size: 22px;
   margin-bottom: 20px;
-  color: #ff5722;
+  color: #ff5722; /* Màu cam đậm giống CellphoneS */
   text-align: center;
   font-weight: bold;
   background: #ffe0b2;
@@ -245,6 +219,7 @@
   box-shadow: inset 0 -2px 4px rgba(0, 0, 0, 0.1);
 }
 
+/* Related Products Grid */
 .relatedGrid {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
@@ -300,4 +275,73 @@
   color: #999;
   text-decoration: line-through;
   margin-left: 6px;
+}
+
+/* Responsive cho các độ phân giải web (1024px - 1920px) */
+@media (max-width: 1440px) {
+  .productDetail {
+    max-width: 1000px;
+    padding: 15px;
+  }
+
+  .imageSection,
+  .middleSection,
+  .specificationSection,
+  .infoSection {
+    padding: 15px;
+    min-height: 500px;
+  }
+
+  .middleSection h1 {
+    font-size: 22px;
+  }
+
+  .price {
+    font-size: 22px;
+  }
+
+  .relatedGrid {
+    grid-template-columns: repeat(4, 1fr); /* Giảm xuống 4 cột */
+  }
+}
+
+@media (max-width: 1200px) {
+  .productDetail {
+    max-width: 900px;
+  }
+
+  .imageSection,
+  .middleSection,
+  .specificationSection,
+  .infoSection {
+    flex: 1;
+    min-height: 450px;
+  }
+
+  .relatedGrid {
+    grid-template-columns: repeat(3, 1fr); /* Giảm xuống 3 cột */
+  }
+}
+
+@media (max-width: 1024px) {
+  .productDetail {
+    max-width: 800px;
+    gap: 15px;
+  }
+
+  .imageSection,
+  .middleSection,
+  .specificationSection,
+  .infoSection {
+    flex: 1 1 100%; /* Xếp dọc trên màn hình nhỏ hơn */
+    min-height: auto;
+  }
+
+  .middleSection {
+    flex: 1 1 100%;
+  }
+
+  .relatedGrid {
+    grid-template-columns: repeat(2, 1fr); /* Giảm xuống 2 cột */
+  }
 }

@@ -1,27 +1,45 @@
+/* Container chính */
 .userManager {
   padding: 20px;
+  max-width: 1200px; /* Giới hạn chiều rộng như CellphoneS */
+  margin: 0 auto; /* Căn giữa */
 }
 
+/* Bảng quản lý người dùng */
 .table {
   width: 100%;
   border-collapse: collapse;
   background: white;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  border-radius: 8px; /* Bo góc như CellphoneS */
+  overflow-x: auto; /* Cho phép cuộn ngang trên mobile */
 }
 
+/* Thẻ th, td */
 .table th,
 .table td {
   padding: 12px;
   text-align: left;
   border-bottom: 1px solid #eee;
+  font-size: 14px;
 }
 
+/* Tiêu đề bảng */
+.table th {
+  background: #f5f5f5; /* Nền nhạt như CellphoneS */
+  font-weight: bold;
+  color: #333;
+}
+
+/* Nút chặn và bỏ chặn */
 .blockButton,
 .unblockButton {
   padding: 5px 15px;
   border: none;
   border-radius: 4px;
   cursor: pointer;
+  font-size: 13px;
+  transition: background 0.2s; /* Hiệu ứng hover nhẹ */
 }
 
 .blockButton {
@@ -29,7 +47,64 @@
   color: white;
 }
 
+.blockButton:hover {
+  background: #d32f2f; /* Tăng độ tương phản khi hover */
+}
+
 .unblockButton {
   background: #4caf50;
   color: white;
+}
+
+.unblockButton:hover {
+  background: #45a049;
+}
+
+/* Responsive cho mobile */
+@media (max-width: 600px) {
+  .userManager {
+    padding: 10px; /* Giảm padding trên mobile */
+  }
+
+  .table {
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap; /* Ngăn văn bản xuống dòng */
+  }
+
+  .table th,
+  .table td {
+    padding: 8px;
+    font-size: 12px; /* Font nhỏ hơn trên mobile */
+  }
+
+  .blockButton,
+  .unblockButton {
+    padding: 4px 10px;
+    font-size: 12px; /* Thu nhỏ nút */
+  }
+}
+
+/* Responsive cho tablet */
+@media (min-width: 601px) and (max-width: 768px) {
+  .table th,
+  .table td {
+    padding: 10px;
+    font-size: 13px;
+  }
+
+  .blockButton,
+  .unblockButton {
+    padding: 5px 12px;
+    font-size: 13px;
+  }
+}
+
+/* Desktop */
+@media (min-width: 1200px) {
+  .table th,
+  .table td {
+    padding: 12px;
+    font-size: 14px;
+  }
 }

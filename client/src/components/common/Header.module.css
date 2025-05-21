@@ -3,12 +3,13 @@
   position: sticky;
   top: 0;
   z-index: 1000;
-  background: #ffd700;
+  background: #ffd700; /* Màu vàng như CellphoneS */
   width: 100%;
   font-family: Arial, sans-serif;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
+/* Container căn giữa */
 .container {
   max-width: 1200px;
   margin: 0 auto;
@@ -23,6 +24,7 @@
 .logo img {
   max-height: 50px;
   width: auto;
+  display: block;
 }
 
 /* Search Bar */
@@ -50,6 +52,7 @@
   cursor: pointer;
   font-size: 16px;
   color: #555;
+  transition: color 0.3s ease;
 }
 
 .searchBar button:hover {
@@ -81,7 +84,7 @@
   cursor: pointer;
   font-size: 14px;
   color: #333;
-  transition: background-color 0.3s;
+  transition: background-color 0.3s ease;
 }
 
 .loginButton:hover,
@@ -100,7 +103,7 @@
   top: -5px;
   right: -5px;
   background-color: #ff4444;
-  color: #fff;
+  color: завтра;
   border-radius: 50%;
   padding: 2px 6px;
   font-size: 12px;
@@ -209,6 +212,7 @@
   .container {
     flex-direction: row;
     align-items: center;
+    gap: 10px;
   }
 
   .searchBar {
@@ -218,7 +222,7 @@
   }
 
   .userActions {
-    gap: 10px;
+    gap: 8px;
     flex-wrap: wrap;
   }
 
@@ -293,6 +297,7 @@
   }
 
   .loginButton,
+  .logoutButton,
   .cartButton {
     font-size: 12px;
     padding: 5px 10px;

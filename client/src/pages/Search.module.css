@@ -1,23 +1,139 @@
+/* Search Container */
 .searchContainer {
   padding: 20px;
-  max-width: 1200px;
+  max-width: 1200px; /* Đồng bộ với CellphoneS */
   margin: 0 auto;
+  background: #f8f9fa; /* Nền nhạt giống CellphoneS */
 }
 
+/* Heading */
 h1 {
   font-size: 24px;
   margin-bottom: 20px;
   color: #333;
+  text-align: center;
+  font-weight: bold;
 }
 
+/* Results Grid */
 .resultsGrid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 20px;
 }
 
+/* Empty Results Message */
 p {
   font-size: 18px;
   color: #777;
   text-align: center;
+  margin: 20px 0;
+}
+
+/* Product Card (giả định cho resultsGrid) */
+.resultsGrid .productCard {
+  background: white;
+  border-radius: 8px;
+  padding: 12px;
+  position: relative;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  width: 100%;
+}
+
+.resultsGrid .productCard:hover {
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.resultsGrid .productCard img {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+  object-fit: contain;
+  transition: transform 0.3s ease;
+}
+
+.resultsGrid .productCard:hover img {
+  transform: scale(1.05);
+}
+
+.resultsGrid .productName {
+  font-size: 14px;
+  margin: 8px 0 5px;
+  color: #333;
+  font-weight: 600;
+}
+
+.resultsGrid .priceBox {
+  margin: 8px 0;
+}
+
+.resultsGrid .price {
+  font-size: 16px;
+  font-weight: bold;
+  color: #e63946; /* Màu đỏ giống CellphoneS */
+}
+
+.resultsGrid .originalPrice {
+  font-size: 12px;
+  color: #999;
+  text-decoration: line-through;
+  margin-left: 6px;
+}
+
+/* Responsive cho các độ phân giải web (1024px - 1920px) */
+@media (max-width: 1440px) {
+  .searchContainer {
+    max-width: 1000px;
+    padding: 15px;
+  }
+
+  .resultsGrid {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 15px;
+  }
+
+  .resultsGrid .productName {
+    font-size: 13px;
+  }
+
+  .resultsGrid .price {
+    font-size: 15px;
+  }
+
+  .resultsGrid .originalPrice {
+    font-size: 11px;
+  }
+}
+
+@media (max-width: 1200px) {
+  .searchContainer {
+    max-width: 900px;
+  }
+
+  .resultsGrid {
+    grid-template-columns: repeat(3, 1fr); /* Giảm xuống 3 cột */
+    gap: 15px;
+  }
+}
+
+@media (max-width: 1024px) {
+  .searchContainer {
+    max-width: 800px;
+    padding: 10px;
+  }
+
+  .resultsGrid {
+    grid-template-columns: repeat(2, 1fr); /* Giảm xuống 2 cột */
+    gap: 10px;
+  }
+
+  h1 {
+    font-size: 22px;
+    margin-bottom: 15px;
+  }
+
+  p {
+    font-size: 16px;
+  }
 }

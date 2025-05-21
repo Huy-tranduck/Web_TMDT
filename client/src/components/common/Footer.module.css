@@ -1,31 +1,37 @@
+/* Footer chính */
 .footer {
-  background-color: #1f2937; /* Màu nền tối */
-  color: #ffffff; /* Màu chữ trắng */
+  background-color: #1f2937; /* Màu nền tối như CellphoneS */
+  color: #ffffff;
   padding: 20px 0;
   font-size: 14px;
 }
 
+/* Container căn giữa */
 .container {
-  max-width: 1200px;
+  max-width: 1200px; /* Giới hạn chiều rộng như CellphoneS */
   margin: 0 auto;
   display: flex;
   justify-content: space-between;
-  flex-wrap: wrap;
+  flex-wrap: wrap; /* Cho phép xuống dòng trên mobile */
   gap: 20px;
   padding: 0 15px;
 }
 
+/* Cột thông tin */
 .column {
   flex: 1;
-  min-width: 200px;
+  min-width: 200px; /* Đảm bảo cột không quá nhỏ */
+  margin-bottom: 20px; /* Khoảng cách khi xuống dòng */
 }
 
+/* Tiêu đề cột */
 .column h3 {
   font-size: 16px;
   margin-bottom: 10px;
-  color: #ff9800;
+  color: #ff9800; /* Màu cam nổi bật như CellphoneS */
 }
 
+/* Danh sách liên kết */
 .column ul {
   list-style: none;
   padding: 0;
@@ -46,6 +52,7 @@
   color: #9ca3af;
 }
 
+/* Thanh dưới cùng */
 .bottomBar {
   text-align: center;
   margin-top: 20px;
@@ -53,4 +60,67 @@
   border-top: 1px solid #4b5563;
   font-size: 13px;
   color: #aaa;
+}
+
+/* Responsive cho mobile */
+@media (max-width: 600px) {
+  .footer {
+    padding: 15px 0; /* Giảm padding */
+    font-size: 13px;
+  }
+
+  .container {
+    flex-direction: column; /* Xếp dọc các cột */
+    gap: 15px;
+    padding: 0 10px;
+  }
+
+  .column {
+    min-width: 100%; /* Cột chiếm toàn bộ chiều rộng */
+    margin-bottom: 15px;
+  }
+
+  .column h3 {
+    font-size: 15px; /* Thu nhỏ tiêu đề */
+  }
+
+  .column ul li a {
+    font-size: 12px; /* Thu nhỏ liên kết */
+  }
+
+  .bottomBar {
+    font-size: 12px;
+    margin-top: 15px;
+    padding-top: 8px;
+  }
+}
+
+/* Responsive cho tablet */
+@media (min-width: 601px) and (max-width: 768px) {
+  .footer {
+    font-size: 13px;
+  }
+
+  .container {
+    gap: 15px;
+  }
+
+  .column {
+    min-width: 150px; /* Cột nhỏ hơn trên tablet */
+  }
+
+  .column h3 {
+    font-size: 15px;
+  }
+}
+
+/* Desktop */
+@media (min-width: 1200px) {
+  .footer {
+    font-size: 14px;
+  }
+
+  .column {
+    min-width: 200px;
+  }
 }

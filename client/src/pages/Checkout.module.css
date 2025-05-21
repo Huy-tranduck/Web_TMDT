@@ -1,27 +1,35 @@
+/* Checkout Container */
 .checkoutContainer {
-  max-width: 1200px;
+  max-width: 1200px; /* Đồng bộ với CellphoneS */
   margin: 0 auto;
   padding: 20px;
+  background: #f8f9fa; /* Nền nhạt giống CellphoneS */
 }
 
+/* Heading */
 .checkoutContainer h1 {
   text-align: center;
   color: #333;
   margin-bottom: 30px;
+  font-size: 32px;
+  font-weight: bold;
 }
 
+/* Order Summary */
 .orderSummary {
   background: #fff;
   padding: 20px;
   border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   margin-bottom: 20px;
 }
 
+/* Product List */
 .productList {
   margin-top: 15px;
 }
 
+/* Product Item */
 .productItem {
   display: flex;
   align-items: center;
@@ -29,28 +37,40 @@
   border-bottom: 1px solid #eee;
 }
 
+/* Product Image */
 .productItem img {
   width: 80px;
   height: 80px;
   object-fit: cover;
   margin-right: 15px;
+  border-radius: 4px;
 }
 
+/* Product Info */
 .productInfo h3 {
   margin: 0 0 5px 0;
   font-size: 16px;
+  color: #333;
 }
 
+.productInfo p {
+  margin: 0;
+  font-size: 14px;
+  color: #666;
+}
+
+/* Shipping, Payment, Voucher Sections */
 .shippingSection,
 .paymentSection,
 .voucherSection {
   background: #fff;
   padding: 20px;
   border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   margin-bottom: 20px;
 }
 
+/* Shipping and Payment Options */
 .shippingOptions,
 .paymentOptions {
   display: flex;
@@ -65,8 +85,11 @@
   align-items: center;
   gap: 10px;
   cursor: pointer;
+  font-size: 14px;
+  color: #333;
 }
 
+/* Voucher Input */
 .voucherInput {
   display: flex;
   gap: 10px;
@@ -78,43 +101,57 @@
   padding: 10px;
   border: 1px solid #ddd;
   border-radius: 4px;
+  font-size: 14px;
 }
 
 .voucherInput button {
   padding: 10px 20px;
-  background: #4CAF50;
+  background: #4CAF50; /* Màu xanh lá giống CellphoneS */
   color: white;
   border: none;
   border-radius: 4px;
   cursor: pointer;
+  font-size: 14px;
+  transition: background 0.3s ease;
 }
 
+.voucherInput button:hover {
+  background: #388E3C;
+}
+
+/* Error Message */
 .error {
   color: red;
   margin-top: 5px;
   font-size: 14px;
 }
 
+/* Total Section */
 .totalSection {
   background: #fff;
   padding: 20px;
   border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   margin-bottom: 20px;
 }
 
+/* Total Row */
 .totalRow {
   display: flex;
   justify-content: space-between;
   margin-bottom: 10px;
+  font-size: 16px;
+  color: #333;
 }
 
+/* Grand Total */
 .grandTotal {
   font-size: 20px;
   font-weight: bold;
-  color: #e10c00;
+  color: #e10c00; /* Màu đỏ giống CellphoneS */
 }
 
+/* Place Order Button */
 .placeOrderButton {
   width: 100%;
   padding: 15px;
@@ -124,7 +161,7 @@
   border-radius: 4px;
   font-size: 18px;
   cursor: pointer;
-  transition: background-color 0.3s;
+  transition: background-color 0.3s ease;
 }
 
 .placeOrderButton:hover {
@@ -134,4 +171,181 @@
 .placeOrderButton:disabled {
   background: #ccc;
   cursor: not-allowed;
+}
+
+/* Responsive cho mobile nhỏ (dưới 480px) */
+@media (max-width: 480px) {
+  .checkoutContainer {
+    padding: 10px;
+    max-width: 100%;
+  }
+
+  .checkoutContainer h1 {
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
+
+  .orderSummary,
+  .shippingSection,
+  .paymentSection,
+  .voucherSection,
+  .totalSection {
+    padding: 15px;
+    margin-bottom: 15px;
+    border-radius: 4px;
+  }
+
+  .productItem {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 10px;
+    gap: 10px;
+  }
+
+  .productItem img {
+    width: 60px;
+    height: 60px;
+    margin-right: 0;
+  }
+
+  .productInfo h3 {
+    font-size: 14px;
+  }
+
+  .productInfo p {
+    font-size: 12px;
+  }
+
+  .shippingOptions label,
+  .paymentOptions label {
+    font-size: 13px;
+  }
+
+  .voucherInput {
+    flex-direction: column;
+  }
+
+  .voucherInput input,
+  .voucherInput button {
+    font-size: 13px;
+    padding: 8px;
+  }
+
+  .error {
+    font-size: 12px;
+  }
+
+  .totalRow {
+    font-size: 14px;
+  }
+
+  .grandTotal {
+    font-size: 18px;
+  }
+
+  .placeOrderButton {
+    padding: 12px;
+    font-size: 16px;
+  }
+}
+
+/* Responsive cho mobile lớn (481px - 768px) */
+@media (min-width: 481px) and (max-width: 768px) {
+  .checkoutContainer {
+    padding: 15px;
+    max-width: 100%;
+  }
+
+  .checkoutContainer h1 {
+    font-size: 28px;
+    margin-bottom: 25px;
+  }
+
+  .orderSummary,
+  .shippingSection,
+  .paymentSection,
+  .voucherSection,
+  .totalSection {
+    padding: 15px;
+    margin-bottom: 15px;
+  }
+
+  .productItem {
+    padding: 10px;
+  }
+
+  .productItem img {
+    width: 70px;
+    height: 70px;
+  }
+
+  .productInfo h3 {
+    font-size: 15px;
+  }
+
+  .productInfo p {
+    font-size: 13px;
+  }
+
+  .voucherInput {
+    flex-direction: column;
+  }
+
+  .voucherInput input,
+  .voucherInput button {
+    font-size: 14px;
+    padding: 8px;
+  }
+
+  .totalRow {
+    font-size: 15px;
+  }
+
+  .grandTotal {
+    font-size: 18px;
+  }
+
+  .placeOrderButton {
+    padding: 12px;
+    font-size: 16px;
+  }
+}
+
+/* Responsive cho tablet (769px - 1024px) */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .checkoutContainer {
+    padding: 15px;
+  }
+
+  .checkoutContainer h1 {
+    font-size: 30px;
+  }
+
+  .productItem img {
+    width: 70px;
+    height: 70px;
+  }
+
+  .productInfo h3 {
+    font-size: 15px;
+  }
+
+  .totalRow {
+    font-size: 15px;
+  }
+
+  .grandTotal {
+    font-size: 19px;
+  }
+}
+
+/* Desktop (1200px trở lên) */
+@media (min-width: 1200px) {
+  .checkoutContainer {
+    max-width: 1200px;
+  }
+
+  .checkoutContainer h1 {
+    font-size: 32px;
+  }
 }

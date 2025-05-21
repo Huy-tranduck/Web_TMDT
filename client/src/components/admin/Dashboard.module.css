@@ -1,30 +1,68 @@
+/* Container chính */
 .dashboard {
   padding: 20px;
+  max-width: 1200px; /* Giới hạn chiều rộng như CellphoneS */
+  margin: 0 auto; /* Căn giữa */
 }
 
+/* Lưới responsive */
 .statsGrid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 20px;
-  margin-bottom: 30px;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); /* Thu nhỏ cột cho mobile */
+  gap: 15px; /* Giảm khoảng cách so với ban đầu */
+  margin-bottom: 20px;
 }
 
+/* Thẻ thống kê/sản phẩm */
 .statCard {
   background: white;
-  padding: 20px;
+  padding: 15px;
   border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  text-align: center; /* Căn giữa như CellphoneS */
+  transition: transform 0.2s; /* Hiệu ứng hover nhẹ */
+}
+
+.statCard:hover {
+  transform: translateY(-3px); /* Nâng nhẹ khi hover */
 }
 
 .statCard h3 {
   margin: 0;
   color: #666;
-  font-size: 16px;
+  font-size: 14px; /* Thu nhỏ font cho mobile */
+  font-weight: normal;
 }
 
 .statCard p {
-  margin: 10px 0 0;
-  font-size: 24px;
+  margin: 8px 0 0;
+  font-size: 20px; /* Thu nhỏ font cho số liệu */
   font-weight: bold;
   color: #2c3e50;
+}
+
+/* Media Queries cho responsive */
+@media (max-width: 600px) {
+  .dashboard {
+    padding: 10px; /* Giảm padding trên mobile */
+  }
+  .statsGrid {
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); /* Cột nhỏ hơn */
+    gap: 10px;
+  }
+  .statCard {
+    padding: 10px;
+  }
+  .statCard h3 {
+    font-size: 12px;
+  }
+  .statCard p {
+    font-size: 16px;
+  }
+}
+
+@media (min-width: 1200px) {
+  .statsGrid {
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Tăng cột trên desktop */
+  }
 }

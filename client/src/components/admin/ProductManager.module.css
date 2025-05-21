@@ -1,41 +1,64 @@
+/* Container chính */
 .productManager {
   padding: 20px;
+  max-width: 1200px; /* Giới hạn chiều rộng như CellphoneS */
+  margin: 0 auto; /* Căn giữa */
 }
 
+/* Header với tìm kiếm và nút thêm */
 .header {
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-bottom: 20px;
+  flex-wrap: wrap; /* Cho phép xuống dòng trên mobile */
+  gap: 10px; /* Khoảng cách khi xuống dòng */
 }
 
+/* Bảng quản lý sản phẩm */
 .table {
   width: 100%;
   border-collapse: collapse;
   margin-top: 20px;
   background: white;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  border-radius: 8px; /* Bo góc như CellphoneS */
+  overflow-x: auto; /* Cho phép cuộn ngang trên mobile */
 }
 
+/* Thẻ th, td */
 .table th,
 .table td {
   padding: 12px;
   text-align: left;
   border-bottom: 1px solid #eee;
+  font-size: 14px;
 }
 
+/* Tiêu đề bảng */
+.table th {
+  background: #f5f5f5; /* Nền nhạt như CellphoneS */
+  font-weight: bold;
+  color: #333;
+}
+
+/* Hình ảnh sản phẩm */
 .productImage {
   width: 60px;
   height: 60px;
   object-fit: cover;
   border-radius: 4px;
+  display: block;
 }
 
+/* Các nút hành động */
 .actions {
   display: flex;
   gap: 10px;
+  flex-wrap: nowrap; /* Giữ nút trên cùng dòng nếu đủ chỗ */
 }
 
+/* Nút thêm sản phẩm */
 .addButton {
   background: #4CAF50;
   color: white;
@@ -43,14 +66,22 @@
   padding: 10px 20px;
   border-radius: 4px;
   cursor: pointer;
+  font-size: 14px;
+  transition: background 0.2s;
 }
 
+.addButton:hover {
+  background: #45a049; /* Hiệu ứng hover */
+}
+
+/* Nút chỉnh sửa và xóa */
 .editButton,
 .deleteButton {
   padding: 5px 10px;
   border: none;
   border-radius: 4px;
   cursor: pointer;
+  font-size: 13px;
 }
 
 .editButton {
@@ -58,7 +89,86 @@
   color: white;
 }
 
+.editButton:hover {
+  background: #1e88e5;
+}
+
 .deleteButton {
   background: #f44336;
   color: white;
+}
+
+.deleteButton:hover {
+  background: #d32f2f;
+}
+
+/* Responsive cho mobile */
+@media (max-width: 600px) {
+  .productManager {
+    padding: 10px; /* Giảm padding */
+  }
+
+  .header {
+    flex-direction: column; /* Xếp dọc trên mobile */
+    align-items: flex-start;
+  }
+
+  .table {
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap; /* Ngăn xuống dòng */
+  }
+
+  .table th,
+  .table td {
+    padding: 8px;
+    font-size: 12px; /* Font nhỏ hơn */
+  }
+
+  .productImage {
+    width: 40px; /* Thu nhỏ ảnh trên mobile */
+    height: 40px;
+  }
+
+  .actions {
+    gap: 5px; /* Giảm khoảng cách */
+  }
+
+  .addButton {
+    padding: 8px 15px;
+    font-size: 13px;
+  }
+
+  .editButton,
+  .deleteButton {
+    padding: 4px 8px;
+    font-size: 12px;
+  }
+}
+
+/* Responsive cho tablet */
+@media (min-width: 601px) and (max-width: 768px) {
+  .table th,
+  .table td {
+    padding: 10px;
+    font-size: 13px;
+  }
+
+  .productImage {
+    width: 50px;
+    height: 50px;
+  }
+
+  .addButton {
+    padding: 9px 18px;
+  }
+}
+
+/* Desktop */
+@media (min-width: 1200px) {
+  .table th,
+  .table td {
+    padding: 12px;
+    font-size: 14px;
+  }
 }

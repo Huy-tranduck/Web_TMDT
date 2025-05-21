@@ -1,28 +1,32 @@
+/* Cart Container */
 .cartContainer {
-  padding: 30px; /* Increase padding for better spacing */
-  max-width: 1200px; /* Increase the container width */
+  padding: 30px;
+  max-width: 1200px; /* Đồng bộ với CellphoneS */
   margin: 0 auto;
-  background-color: #ffffff; /* Change background to white */
+  background-color: #ffffff;
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
+/* Heading */
 h1 {
-  font-size: 40px; /* Increase font size */
-  font-weight: bold; /* Make it bold */
-  color: #12161a; /* Change color to blue */
-  text-align: center; /* Center align the heading */
-  margin-bottom: 40px; /* Add more spacing below the heading */
-  text-transform: uppercase; /* Make text uppercase */
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2); /* Add a subtle shadow */
+  font-size: 40px;
+  font-weight: bold;
+  color: #12161a; /* Màu xanh đậm */
+  text-align: center;
+  margin-bottom: 40px;
+  text-transform: uppercase;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
 }
 
+/* Cart List */
 .cartList {
   list-style-type: none;
   padding: 0;
   margin: 0;
 }
 
+/* Cart Item */
 .cartItem {
   display: flex;
   align-items: center;
@@ -31,15 +35,17 @@ h1 {
   padding-bottom: 10px;
 }
 
+/* Cart Image */
 .cartImage {
   width: 100px;
   height: 100px;
   object-fit: cover;
   margin-right: 20px;
   border-radius: 4px;
-  border: 1px solid #ddd; /* Add border around images */
+  border: 1px solid #ddd;
 }
 
+/* Cart Details */
 .cartDetails {
   flex: 1;
 }
@@ -56,26 +62,29 @@ h1 {
   color: #555;
 }
 
+/* Cart Actions */
 .cartActions button {
   margin: 0 5px;
   padding: 5px 10px;
-  background-color: #007bff;
+  background-color: #007bff; /* Màu xanh như CellphoneS */
   color: white;
   border: none;
   border-radius: 3px;
   cursor: pointer;
   font-size: 14px;
+  transition: background-color 0.3s ease;
 }
 
 .cartActions button:hover {
   background-color: #0056b3;
 }
 
+/* Checkout Button */
 .checkoutButton {
   display: block;
   width: 100%;
   padding: 12px 24px;
-  background-color: #e10c00;
+  background-color: #e10c00; /* Màu đỏ giống CellphoneS */
   color: white;
   border: none;
   border-radius: 4px;
@@ -83,8 +92,8 @@ h1 {
   cursor: pointer;
   margin-top: 20px;
   text-align: center;
-  text-transform: uppercase; /* Make text uppercase */
-  transition: background-color 0.3s ease; /* Add smooth hover effect */
+  text-transform: uppercase;
+  transition: background-color 0.3s ease;
 }
 
 .checkoutButton:hover {
@@ -96,46 +105,52 @@ h1 {
   cursor: not-allowed;
 }
 
+/* Cart Empty */
 .cartEmpty {
   text-align: center;
   font-size: 18px;
-  font-style: italic; /* Add italic style for emphasis */
-  color: #999; /* Lighten text color */
+  font-style: italic;
+  color: #999;
   margin-top: 20px;
 }
 
+/* Cart Table */
 .cartTable {
   width: 100%;
   border-collapse: collapse;
   margin-bottom: 20px;
-  border: 1px solid #ddd; /* Add border to the table */
-  border-radius: 8px; /* Round table corners */
-  overflow: hidden; /* Ensure rounded corners apply */
-  margin-top: 20px; /* Add spacing between the heading and the table */
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  overflow: hidden;
+  margin-top: 20px;
 }
 
-.cartTable th, .cartTable td {
+/* Table Cells */
+.cartTable th,
+.cartTable td {
   border: 1px solid #ddd;
   padding: 10px;
   text-align: center;
+  vertical-align: middle;
 }
 
 .cartTable th {
-  background-color: #4caf50;
+  background-color: #4caf50; /* Màu xanh lá như CellphoneS */
   color: white;
-  font-size: 16px; /* Increase font size for better readability */
-  text-transform: uppercase; /* Make headers uppercase */
+  font-size: 16px;
+  text-transform: uppercase;
 }
 
 .cartTable td {
-  vertical-align: middle; /* Center align content vertically */
+  font-size: 14px;
 }
 
 .cartTable img {
-  width: 70px; /* Increase image size */
+  width: 70px;
   height: 70px;
   object-fit: cover;
   margin-right: 10px;
+  border-radius: 4px;
 }
 
 .cartTable button {
@@ -146,31 +161,34 @@ h1 {
   border: none;
   border-radius: 3px;
   cursor: pointer;
-  transition: background-color 0.3s ease; /* Add smooth hover effect */
+  transition: background-color 0.3s ease;
 }
 
 .cartTable button:hover {
-  background-color: #004085; /* Darker blue on hover */
+  background-color: #004085;
 }
 
+/* Total Summary */
 .totalSummary {
   text-align: right;
-  font-size: 18px; /* Increase font size */
+  font-size: 18px;
   font-weight: bold;
   margin-top: 10px;
-  color: #0a1015; /* Highlight with blue color */
-  text-transform: uppercase; /* Make text uppercase */
+  color: #0a1015;
+  text-transform: uppercase;
 }
 
+/* Total Price */
 .totalPrice {
   text-align: right;
-  font-size: 20px !important;
+  font-size: 20px;
   font-weight: bold;
   margin-top: 10px;
-  color: #e10c00; /* Highlight with red color */
-  text-transform: uppercase; /* Make text uppercase */
+  color: #e10c00;
+  text-transform: uppercase;
 }
 
+/* Cart Summary */
 .cartSummary {
   margin-top: 20px;
   padding: 20px;
@@ -184,9 +202,139 @@ h1 {
   font-size: 16px;
 }
 
-/* Style cho checkbox */
+/* Checkbox */
 input[type="checkbox"] {
   width: 18px;
   height: 18px;
   cursor: pointer;
+}
+
+/* Responsive cho mobile */
+@media (max-width: 768px) {
+  .cartContainer {
+    padding: 15px;
+    max-width: 100%;
+  }
+
+  h1 {
+    font-size: 28px;
+    margin-bottom: 20px;
+  }
+
+  .cartItem {
+    flex-direction: column; /* Xếp dọc trên mobile */
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .cartImage {
+    width: 80px;
+    height: 80px;
+    margin-right: 0;
+  }
+
+  .cartDetails h3 {
+    font-size: 16px;
+  }
+
+  .cartDetails p {
+    font-size: 13px;
+  }
+
+  .cartActions button {
+    padding: 4px 8px;
+    font-size: 12px;
+  }
+
+  .checkoutButton {
+    padding: 10px 20px;
+    font-size: 14px;
+  }
+
+  .cartTable {
+    display: block; /* Chuyển bảng thành dạng block */
+    overflow-x: auto; /* Cho phép cuộn ngang */
+    white-space: nowrap; /* Ngăn xuống dòng */
+  }
+
+  .cartTable th,
+  .cartTable td {
+    padding: 8px;
+    font-size: 13px;
+  }
+
+  .cartTable img {
+    width: 50px;
+    height: 50px;
+  }
+
+  .cartTable button {
+    padding: 4px 8px;
+    font-size: 12px;
+  }
+
+  .totalSummary {
+    font-size: 16px;
+  }
+
+  .totalPrice {
+    font-size: 18px;
+  }
+
+  .cartSummary {
+    padding: 15px;
+  }
+
+  .cartSummary p {
+    font-size: 14px;
+  }
+
+  input[type="checkbox"] {
+    width: 16px;
+    height: 16px;
+  }
+}
+
+/* Responsive cho tablet */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .cartContainer {
+    padding: 20px;
+  }
+
+  h1 {
+    font-size: 32px;
+  }
+
+  .cartImage {
+    width: 90px;
+    height: 90px;
+  }
+
+  .cartDetails h3 {
+    font-size: 17px;
+  }
+
+  .cartTable th {
+    font-size: 15px;
+  }
+
+  .cartTable td {
+    font-size: 13px;
+  }
+
+  .cartTable img {
+    width: 60px;
+    height: 60px;
+  }
+}
+
+/* Desktop */
+@media (min-width: 1200px) {
+  .cartContainer {
+    max-width: 1200px;
+  }
+
+  h1 {
+    font-size: 40px;
+  }
 }

@@ -1,3 +1,4 @@
+/* Toast notification */
 .toast {
   position: fixed;
   top: 50%;
@@ -12,23 +13,29 @@
   align-items: center;
   gap: 12px;
   animation: slideIn 0.3s ease;
+  max-width: 90%; /* Đảm bảo không vượt quá màn hình mobile */
+  min-width: 250px; /* Giới hạn kích thước tối thiểu */
 }
 
+/* Message content */
 .message {
   display: flex;
   align-items: center;
   gap: 8px;
   font-size: 16px;
+  color: #333; /* Màu chữ tối như CellphoneS */
 }
 
+/* Success style */
 .success {
-  border-left: 4px solid #4caf50;
+  border-left: 4px solid #4caf50; /* Viền xanh thành công */
 }
 
 .success i {
   color: #4caf50;
 }
 
+/* Close button */
 .closeButton {
   background: none;
   border: none;
@@ -36,12 +43,14 @@
   cursor: pointer;
   color: #666;
   padding: 0 4px;
+  transition: color 0.3s ease;
 }
 
 .closeButton:hover {
   color: #333;
 }
 
+/* Animation */
 @keyframes slideIn {
   from {
     opacity: 0;
@@ -50,5 +59,49 @@
   to {
     opacity: 1;
     transform: translate(-50%, -50%);
+  }
+}
+
+/* Responsive cho mobile */
+@media (max-width: 600px) {
+  .toast {
+    padding: 12px 16px; /* Giảm padding */
+    min-width: 200px; /* Thu nhỏ kích thước tối thiểu */
+    max-width: 95%; /* Tận dụng không gian màn hình */
+  }
+
+  .message {
+    font-size: 14px; /* Thu nhỏ font */
+    gap: 6px;
+  }
+
+  .closeButton {
+    font-size: 18px; /* Thu nhỏ nút đóng */
+  }
+}
+
+/* Responsive cho tablet */
+@media (min-width: 601px) and (max-width: 768px) {
+  .toast {
+    padding: 14px 20px;
+  }
+
+  .message {
+    font-size: 15px;
+  }
+
+  .closeButton {
+    font-size: 19px;
+  }
+}
+
+/* Desktop */
+@media (min-width: 1200px) {
+  .toast {
+    padding: 16px 24px;
+  }
+
+  .message {
+    font-size: 16px;
   }
 }
