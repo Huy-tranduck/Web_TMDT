@@ -65,10 +65,23 @@ const ProductDetail = () => {
       <Header />
       <div className={styles.productDetail}>
   {/* Phần hiển thị sản phẩm */}
-  <div className={styles.imageSection}>
-    <img src={product.img} alt={product.name} />
-  </div>
+  {/* // Sửa dòng 67 - đổi product.imgage thành product.image hoặc product.img */}
 
+<div className={styles.imageSection}>
+  <img 
+    src={
+      (product.image || product.img) && 
+      !(product.image || product.img).startsWith('http') ? 
+        `http://localhost:3000/${product.image || product.img}` : 
+        (product.image || product.img)
+    }
+    alt={product.name}
+    onError={(e) => {
+      e.target.onerror = null;
+      e.target.src = 'https://via.placeholder.com/300x300?text=Hình+ảnh+không+có+sẵn';
+    }}
+  />
+</div>
   <div className={styles.middleSection}>
     <h1>{product.name}</h1>
     <div className={styles.priceBox}>

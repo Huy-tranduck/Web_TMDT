@@ -7,63 +7,46 @@ const LoginModal = ({ isOpen, onClose }) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
-  const { login } = useAuth();
+  const { login, loginWithCredentials } = useAuth();
+  const navigate = useNavigate();
 
   const handleLogin = async (e) => {
     e.preventDefault();
     setError('');
+    console.log('Đang đăng nhập với username:', username);
 
     try {
-      const response = await fetch('http://localhost:5000/api/auth/login', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ username, password }),
-      });
-
-      const data = await response.json();
-
-      if (response.status === 200) {
-        alert('Đăng nhập thành công!');
-        if (data.token && data.user) {
-          login({ ...data.user, token: data.token });
-          onClose();
-        }
-      } else {
-        setError(data.message || 'Đăng nhập thất bại!');
-      }
-    } catch (err) {
-      console.error(err);
-      setError(err.message || 'Lỗi không xác định!');
-    }
-  };
-
-  if (!isOpen) return null;
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setError('');
-    try {
-      const userData = await login({ email, password });
+      // Sử dụng hàm loginWithCredentials từ AuthContext
+      const userInfo = await loginWithCredentials(username, password);
+      console.log('Đăng nhập thành công:', userInfo);
+      
+      alert('Đăng nhập thành công!');
       onClose();
-      if (userData.role === 'admin') {
+      
+      // Chuyển hướng dựa vào vai trò
+      if (userInfo.role === 'admin') {
         navigate('/admin/dashboard');
       } else {
         navigate('/');
       }
     } catch (err) {
-      setError(err.message || 'Đăng nhập thất bại');
+      console.error('Lỗi đăng nhập:', err);
+      setError(err.message || 'Đăng nhập thất bại!');
     }
   };
 
+  if (!isOpen) return null;
+
   return (
-    <div className={styles.overlay}>
-      <div className={styles.modal}>
+    <div className={styles.overlay || styles.modalOverlay}>
+      <div className={styles.modal || styles.modalContent}>
         <button className={styles.closeButton} onClick={onClose}>&times;</button>
         <h2>Đăng Nhập</h2>
-        <form onSubmit={handleLogin}>
+        <form className={styles.loginForm} onSubmit={handleLogin}>
           <div className={styles.formGroup}>
             <label>Tên tài khoản:</label>
             <input
+              className={styles.input}
               type="text"
               value={username}
               onChange={(e) => setUsername(e.target.value)}
@@ -76,6 +59,7 @@ const LoginModal = ({ isOpen, onClose }) => {
           <div className={styles.formGroup}>
             <label>Mật khẩu:</label>
             <input
+              className={styles.input}
               type="password" 
               value={password}
               onChange={(e) => setPassword(e.target.value)}

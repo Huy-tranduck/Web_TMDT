@@ -10,6 +10,7 @@ import RegisterModal from './RegisterModal';
 const Header = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [showLoginModal, setShowLoginModal] = useState(false);
+  const [showRegisterModal, setShowRegisterModal] = useState(false); // Thêm state này
   const { user, logout } = useAuth();
   const { cartCount } = useCart();
   const navigate = useNavigate();
