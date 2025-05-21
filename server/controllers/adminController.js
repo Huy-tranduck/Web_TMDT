@@ -1,4 +1,5 @@
 const { User, Product, Order } = require('../models/models');
+const bcrypt = require('bcryptjs');
 
 // Dashboard stats
 const getDashboardStats = async (req, res) => {
@@ -132,6 +133,91 @@ const deleteUser = async (req, res) => {
     }
 };
 
+// Thêm mới người dùng
+const createUser = async (req, res) => {
+    try {
+        const { username, email, password } = req.body;
+        
+        // Kiểm tra username và email đã tồn tại
+        const existingUser = await User.findOne({
+            $or: [{ username }, { email }]
+        });
+
+        if (existingUser) {
+            return res.status(400).json({
+                success: false,
+                message: 'Username hoặc email đã tồn tại'
+            });
+        }
+
+        // Mã hóa mật khẩu
+        const hashedPassword = await bcrypt.hash(password, 10);
+
+        // Tạo user mới
+        const newUser = new User({
+            username,
+            email,
+            password: hashedPassword,
+            role: 'user',
+            cart: [],
+            isActive: true
+        });
+
+        await newUser.save();
+
+        res.status(201).json({
+            success: true,
+            message: 'Tạo người dùng thành công',
+            user: {
+                id: newUser._id,
+                username: newUser.username,
+                email: newUser.email,
+                role: newUser.role
+            }
+        });
+    } catch (error) {
+        console.error('Create user error:', error);
+        res.status(500).json({
+            success: false,
+            message: 'Lỗi khi tạo người dùng',
+            error: error.message
+        });
+    }
+};
+
+// Đặt lại mật khẩu
+const resetUserPassword = async (req, res) => {
+    try {
+        const { userId } = req.params;
+        const defaultPassword = '123456'; // Mật khẩu mặc định
+        const hashedPassword = await bcrypt.hash(defaultPassword, 10);
+
+        const user = await User.findByIdAndUpdate(
+            userId,
+            { password: hashedPassword },
+            { new: true }
+        );
+
+        if (!user) {
+            return res.status(404).json({
+                success: false,
+                message: 'Không tìm thấy người dùng'
+            });
+        }
+
+        res.json({
+            success: true,
+            message: 'Đặt lại mật khẩu thành công'
+        });
+    } catch (error) {
+        res.status(500).json({
+            success: false,
+            message: 'Lỗi khi đặt lại mật khẩu',
+            error: error.message
+        });
+    }
+};
+
 // Product Management 
 const getAllProducts = async (req, res) => {
     try {
@@ -143,13 +229,47 @@ const getAllProducts = async (req, res) => {
 };
 
 const createProduct = async (req, res) => {
-    try {
-        const newProduct = new Product(req.body);
-        const savedProduct = await newProduct.save();
-        res.status(201).json(savedProduct);
-    } catch (error) {
-        res.status(400).json({ message: error.message });
+  try {
+    const productData = req.body;
+
+    // Validate required fields
+    if (!productData.name || !productData.price || !productData.masp) {
+      return res.status(400).json({
+        success: false,
+        message: 'Thiếu thông tin sản phẩm bắt buộc'
+      });
     }
+
+    // Create new product with mongoose
+    const newProduct = new Product({
+      name: productData.name,
+      company: productData.company,
+      img: productData.img,
+      price: productData.price,
+      star: productData.star || 0,
+      rateCount: productData.rateCount || 0,
+      promo: productData.promo,
+      detail: productData.detail,
+      masp: productData.masp
+    });
+
+    // Save to database
+    const savedProduct = await newProduct.save();
+
+    // Send response
+    res.status(201).json({
+      success: true,
+      message: 'Sản phẩm đã được tạo thành công',
+      product: savedProduct
+    });
+
+  } catch (error) {
+    console.error('Error creating product:', error);
+    res.status(500).json({
+      success: false,
+      message: 'Lỗi khi tạo sản phẩm: ' + error.message
+    });
+  }
 };
 
 const updateProduct = async (req, res) => {
@@ -203,8 +323,10 @@ module.exports = {
     getDashboardStats,
     getOrderStats,
     getUsers,
+    createUser,
     updateUser,
     deleteUser,
+    resetUserPassword,
     getAllProducts,
     createProduct,
     updateProduct,

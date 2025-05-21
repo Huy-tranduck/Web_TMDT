@@ -2,72 +2,129 @@ import React, { useState, useEffect } from 'react';
 import styles from './Dashboard.module.css';
 
 const Dashboard = () => {
+    const [dashboardStats, setDashboardStats] = useState(null);
     const [orderStats, setOrderStats] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
     useEffect(() => {
-        const fetchOrderStats = async () => {
+        const fetchStats = async () => {
             try {
                 const token = localStorage.getItem('token');
-                // Sửa lại endpoint URL
-                const response = await fetch('http://localhost:5000/api/admin/orders/stats', {
+                
+                // Fetch tổng quan dashboard
+                const dashboardResponse = await fetch('http://localhost:5000/api/admin/stats', {
                     headers: {
                         'Authorization': `Bearer ${token}`,
                     }
                 });
 
-                if (!response.ok) {
-                    const errorData = await response.json();
-                    throw new Error(errorData.message || 'Failed to fetch order statistics');
+                // Fetch chi tiết đơn hàng
+                const orderResponse = await fetch('http://localhost:5000/api/admin/orders/stats', {
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
+                    }
+                });
+
+                if (!dashboardResponse.ok || !orderResponse.ok) {
+                    throw new Error('Lỗi khi tải dữ liệu thống kê');
                 }
 
-                const data = await response.json();
-                if (data.success) {
-                    setOrderStats(data.data);
-                } else {
-                    throw new Error(data.message || 'Failed to fetch order statistics');
-                }
+                const [dashboardData, orderData] = await Promise.all([
+                    dashboardResponse.json(),
+                    orderResponse.json()
+                ]);
+
+                setDashboardStats(dashboardData);
+                setOrderStats(orderData.data);
                 setLoading(false);
             } catch (err) {
-                console.error('Error fetching stats:', err);
+                console.error('Error:', err);
                 setError(err.message);
                 setLoading(false);
             }
         };
 
-        fetchOrderStats();
+        fetchStats();
     }, []);
 
     if (loading) return <div>Loading...</div>;
     if (error) return <div>Error: {error}</div>;
-    if (!orderStats) return null;
+    if (!dashboardStats || !orderStats) return null;
 
     return (
         <div className={styles.dashboard}>
             <div className={styles.statsGrid}>
+                {/* Thống kê tổng quan */}
                 <div className={styles.statCard}>
-                    <h3>Tổng số đơn hàng</h3>
-                    <p>{orderStats.totalOrders}</p>
+                    <div className={styles.statIcon}>
+                        <i className="fas fa-users"></i>
+                    </div>
+                    <div className={styles.statInfo}>
+                        <h3>Tổng người dùng</h3>
+                        <p>{dashboardStats.totalUsers}</p>
+                    </div>
                 </div>
+
                 <div className={styles.statCard}>
-                    <h3>Doanh thu</h3>
-                    <p>{orderStats.totalRevenue.toLocaleString('vi-VN')}₫</p>
+                    <div className={styles.statIcon}>
+                        <i className="fas fa-shopping-cart"></i>
+                    </div>
+                    <div className={styles.statInfo}>
+                        <h3>Tổng đơn hàng</h3>
+                        <p>{orderStats.totalOrders}</p>
+                    </div>
                 </div>
+
                 <div className={styles.statCard}>
-                    <h3>Đơn hàng chờ xử lý</h3>
-                    <p>{orderStats.ordersByStatus.pending}</p>
+                    <div className={styles.statIcon}>
+                        <i className="fas fa-money-bill-wave"></i>
+                    </div>
+                    <div className={styles.statInfo}>
+                        <h3>Doanh thu</h3>
+                        <p>{orderStats.totalRevenue.toLocaleString('vi-VN')}₫</p>
+                    </div>
                 </div>
+
                 <div className={styles.statCard}>
-                    <h3>Đơn hàng đã giao</h3>
-                    <p>{orderStats.ordersByStatus.delivered}</p>
+                    <div className={styles.statIcon}>
+                        <i className="fas fa-clock"></i>
+                    </div>
+                    <div className={styles.statInfo}>
+                        <h3>Đơn chờ xử lý</h3>
+                        <p>{orderStats.ordersByStatus.pending}</p>
+                    </div>
                 </div>
             </div>
 
-            {/* Hiển thị đơn hàng gần đây */}
+            {/* Thống kê đơn hàng theo trạng thái */}
+            <div className={styles.orderStatusGrid}>
+                <div className={styles.statusCard}>
+                    <h4>Chờ xác nhận</h4>
+                    <p>{orderStats.ordersByStatus.pending}</p>
+                </div>
+                <div className={styles.statusCard}>
+                    <h4>Đã xác nhận</h4>
+                    <p>{orderStats.ordersByStatus.confirmed}</p>
+                </div>
+                <div className={styles.statusCard}>
+                    <h4>Đang giao</h4>
+                    <p>{orderStats.ordersByStatus.shipping}</p>
+                </div>
+                <div className={styles.statusCard}>
+                    <h4>Đã giao</h4>
+                    <p>{orderStats.ordersByStatus.delivered}</p>
+                </div>
+                <div className={styles.statusCard}>
+                    <h4>Đã hủy</h4>
+                    <p>{orderStats.ordersByStatus.cancelled}</p>
+                </div>
+            </div>
+
+            {/* Đơn hàng gần đây */}
             <div className={styles.recentOrders}>
                 <h2>Đơn hàng gần đây</h2>
-                <table className={styles.orderTable}>
+                <table>
                     <thead>
                         <tr>
                             <th>ID</th>
@@ -85,7 +142,11 @@ const Dashboard = () => {
                                 <td>{order.totalAmount.toLocaleString('vi-VN')}₫</td>
                                 <td>
                                     <span className={styles[order.status]}>
-                                        {order.status}
+                                        {order.status === 'pending' && 'Chờ xác nhận'}
+                                        {order.status === 'confirmed' && 'Đã xác nhận'}
+                                        {order.status === 'shipping' && 'Đang giao'}
+                                        {order.status === 'delivered' && 'Đã giao'}
+                                        {order.status === 'cancelled' && 'Đã hủy'}
                                     </span>
                                 </td>
                                 <td>{new Date(order.date).toLocaleDateString('vi-VN')}</td>

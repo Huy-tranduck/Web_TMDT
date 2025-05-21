@@ -26,7 +26,7 @@ app.use((req, res, next) => {
 app.use('/api/products', productRoutes);
 app.use('/api/auth', authRoutes);
 app.use('/api/cart', cartRoutes);
-app.use('/api/orders', orderRoutes); // Đảm bảo tên route khớp với endpoint
+app.use('/api/orders', orderRoutes); 
 app.use('/api/admin', adminRoutes);
 
 // Error handling middleware

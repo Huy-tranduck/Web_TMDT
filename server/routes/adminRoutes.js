@@ -13,7 +13,9 @@ const {
     deleteProduct,
     getAllOrders,
     updateOrderStatus,
-    getOrderStats
+    getOrderStats,
+    createUser,
+    resetUserPassword
 } = require('../controllers/adminController');
 
 // Dashboard routes
@@ -23,6 +25,10 @@ router.get('/stats', adminAuth, getDashboardStats);
 router.get('/users', adminAuth, getUsers);
 router.put('/users/:id', adminAuth, updateUser);
 router.delete('/users/:id', adminAuth, deleteUser);
+
+// User management routes
+router.post('/users', adminAuth, createUser);
+router.post('/users/:userId/reset-password', adminAuth, resetUserPassword);
 
 // Product routes
 router.get('/products', adminAuth, getAllProducts);

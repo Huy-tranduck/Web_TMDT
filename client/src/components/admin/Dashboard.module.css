@@ -12,19 +12,110 @@
 .statCard {
   background: white;
   padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  display: flex;
+  align-items: center;
+}
+
+.statIcon {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 15px;
+  font-size: 24px;
+}
+
+.statIcon i {
+  color: #fff;
+}
+
+.statCard:nth-child(1) .statIcon { background: #4CAF50; }
+.statCard:nth-child(2) .statIcon { background: #2196F3; }
+.statCard:nth-child(3) .statIcon { background: #FF9800; }
+.statCard:nth-child(4) .statIcon { background: #F44336; }
+
+.statInfo h3 {
+  margin: 0;
+  font-size: 16px;
+  color: #666;
+}
+
+.statInfo p {
+  margin: 5px 0 0;
+  font-size: 24px;
+  font-weight: bold;
+  color: #333;
+}
+
+.orderStatusGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 15px;
+  margin-bottom: 30px;
+}
+
+.statusCard {
+  background: white;
+  padding: 15px;
   border-radius: 8px;
+  text-align: center;
   box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 
-.statCard h3 {
+.statusCard h4 {
   margin: 0;
   color: #666;
-  font-size: 16px;
+  font-size: 14px;
 }
 
-.statCard p {
+.statusCard p {
   margin: 10px 0 0;
-  font-size: 24px;
+  font-size: 20px;
   font-weight: bold;
-  color: #2c3e50;
+  color: #333;
 }
+
+.recentOrders {
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.recentOrders h2 {
+  margin: 0 0 20px;
+  color: #333;
+}
+
+.recentOrders table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.recentOrders th,
+.recentOrders td {
+  padding: 12px;
+  text-align: left;
+  border-bottom: 1px solid #eee;
+}
+
+.recentOrders th {
+  font-weight: 600;
+  color: #666;
+}
+
+.recentOrders td span {
+  padding: 5px 10px;
+  border-radius: 15px;
+  font-size: 12px;
+}
+
+.pending { background: #FFF3E0; color: #FF9800; }
+.confirmed { background: #E3F2FD; color: #2196F3; }
+.shipping { background: #E8F5E9; color: #4CAF50; }
+.delivered { background: #E8F5E9; color: #4CAF50; }
+.cancelled { background: #FFEBEE; color: #F44336; }
