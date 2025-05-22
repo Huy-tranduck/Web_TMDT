@@ -2,14 +2,18 @@ const express = require('express');
 const router = express.Router();
 const { authMiddleware } = require('../middleware/authMiddleware');
 const { 
-    createOrder,
-    getUserOrders,
-    getOrderById
+  createOrder,
+  getUserOrders,
+  getOrderById,
+  updateOrderStatus,
+  cancelOrder 
 } = require('../controllers/orderController');
 
-// Order routes
+// Đảm bảo route handlers là các hàm
 router.post('/', authMiddleware, createOrder);
-router.get('/user', authMiddleware, getUserOrders);
-router.get('/:id', authMiddleware, getOrderById);
+router.get('/history', authMiddleware, getUserOrders);
+router.get('/:orderId', authMiddleware, getOrderById);
+router.put('/:orderId/status', authMiddleware, updateOrderStatus);
+router.put('/:orderId/cancel', authMiddleware, cancelOrder);
 
 module.exports = router;

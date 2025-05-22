@@ -1,0 +1,425 @@
+.orderHistory {
+  max-width: 1200px;
+  margin: 20px auto;
+  padding: 20px;
+}
+
+.orderHistory h1 {
+  color: #333;
+  font-size: 24px;
+  margin-bottom: 30px;
+  padding-bottom: 10px;
+  border-bottom: 2px solid #f0f0f0;
+}
+
+.pageTitle {
+  font-size: 24px;
+  color: #333;
+  margin-bottom: 20px;
+  padding-bottom: 10px;
+  border-bottom: 2px solid #eee;
+}
+
+.orderList {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.orderCard {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  padding: 20px;
+  margin-bottom: 20px;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.orderCard:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+.orderCard:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.orderHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 15px;
+  border-bottom: 1px solid #eee;
+}
+
+.orderId {
+  font-weight: 600;
+  color: #1a73e8;
+}
+
+.orderDate {
+  color: #666;
+  margin-left: 15px;
+  font-size: 0.9em;
+}
+
+.statusBadge {
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 0.9em;
+  font-weight: 500;
+  color: white;
+  min-width: 120px;
+  text-align: center;
+}
+
+.orderDetails {
+  margin-top: 15px;
+}
+
+.totalAmount {
+  margin-top: 15px;
+  text-align: right;
+  font-size: 18px;
+  color: #e53935;
+  font-weight: bold;
+}
+
+.emptyState {
+  text-align: center;
+  padding: 40px;
+  background: #f8f9fa;
+  border-radius: 12px;
+  margin: 20px 0;
+}
+
+.emptyState p {
+  color: #666;
+  font-size: 1.1em;
+}
+
+.productList {
+  margin: 20px 0;
+}
+
+.productItem {
+  display: flex;
+  align-items: center;
+  padding: 15px;
+  border-bottom: 1px solid #eee;
+  transition: background-color 0.3s ease;
+}
+
+.productItem:last-child {
+  border-bottom: none;
+}
+
+.productItem:hover {
+  background-color: #f8f9fa;
+}
+
+.productItem img {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-right: 15px;
+}
+
+.productInfo {
+  flex: 1;
+}
+
+.productInfo h3 {
+  margin: 0 0 5px 0;
+  font-size: 1em;
+  color: #333;
+}
+
+.productInfo p {
+  margin: 3px 0;
+  color: #666;
+  font-size: 0.9em;
+}
+
+.productName {
+  margin: 0 0 5px 0;
+  font-weight: 500;
+}
+
+.productQuantity {
+  color: #666;
+  margin: 0;
+}
+
+.orderFooter {
+  margin-top: 15px;
+  padding-top: 15px;
+  border-top: 1px solid #eee;
+}
+
+/* Xóa phần CSS cho nút viewDetailBtn vì không còn cần thiết */
+
+@media (max-width: 768px) {
+  .orderCard {
+    padding: 15px;
+  }
+
+  .productItem {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .productItem img {
+    width: 100%;
+    height: 200px;
+  }
+}
+
+/* Modal Styles */
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  backdrop-filter: blur(4px);
+  animation: modalFadeIn 0.3s ease;
+}
+
+.modalContent {
+  background: white;
+  border-radius: 16px;
+  width: 90%;
+  max-width: 800px;
+  max-height: 90vh;
+  overflow-y: auto;
+  padding: 30px;
+  position: relative;
+  animation: modalSlideIn 0.3s ease;
+}
+
+.modalContent h2 {
+  color: #1a73e8;
+  margin-bottom: 25px;
+  font-size: 1.5em;
+  border-bottom: 2px solid #f0f0f0;
+  padding-bottom: 15px;
+}
+
+.statusTimeline {
+  margin: 30px 0;
+  position: relative;
+  padding-left: 30px;
+}
+
+.statusTimeline::before {
+  content: '';
+  position: absolute;
+  left: 15px;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: #e0e0e0;
+}
+
+.statusItem {
+  margin-bottom: 20px;
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.statusIcon {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  margin-right: 15px;
+  box-shadow: 0 0 0 4px white, 0 0 0 6px currentColor;
+}
+
+.statusInfo {
+  flex: 1;
+}
+
+.statusInfo p {
+  margin: 0;
+  font-weight: 500;
+  color: #333;
+}
+
+.statusInfo span {
+  font-size: 0.85em;
+  color: #666;
+}
+
+.deliveryInfo,
+.paymentInfo,
+.noteSection {
+  background: #f8f9fa;
+  border-radius: 12px;
+  padding: 20px;
+  margin-bottom: 20px;
+}
+
+.deliveryInfo h3,
+.paymentInfo h3,
+.noteSection h3 {
+  color: #333;
+  font-size: 1.1em;
+  margin-bottom: 15px;
+  font-weight: 600;
+}
+
+.totalPrice {
+  font-size: 1.2em;
+  color: #e53935;
+  font-weight: 600;
+  margin-top: 15px;
+  padding-top: 15px;
+  border-top: 1px solid #eee;
+}
+
+.closeButton {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: none;
+  border: none;
+  color: #666;
+  font-size: 24px;
+  cursor: pointer;
+  transition: color 0.3s ease;
+  padding: 5px;
+  border-radius: 50%;
+}
+
+.closeButton:hover {
+  color: #1a73e8;
+  background: #f0f0f0;
+}
+
+@keyframes modalFadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes modalSlideIn {
+  from {
+    transform: translateY(-20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.orderInfo {
+  background: #f8f9fa;
+  border-radius: 8px;
+  padding: 20px;
+  margin-bottom: 20px;
+}
+
+.infoGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 15px;
+}
+
+.infoItem {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.infoItem label {
+  font-weight: 500;
+  color: #666;
+  font-size: 0.9em;
+}
+
+.infoItem span {
+  color: #333;
+  font-size: 1em;
+}
+
+.orderProducts {
+  margin: 20px 0;
+}
+
+.productsList {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.productRow {
+  display: flex;
+  align-items: center;
+  padding: 15px;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.productRow img {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 4px;
+  margin-right: 15px;
+}
+
+.productDetails {
+  flex: 1;
+}
+
+.productDetails h4 {
+  margin: 0 0 5px 0;
+  font-size: 1em;
+}
+
+.productDetails p {
+  margin: 2px 0;
+  color: #666;
+  font-size: 0.9em;
+}
+
+.productTotal {
+  font-weight: 600;
+  color: #e53935;
+  font-size: 1.1em;
+}
+
+.orderSummary {
+  margin-top: 20px;
+  padding: 20px;
+  background: #f8f9fa;
+  border-radius: 8px;
+}
+
+.summaryItem {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+  font-size: 0.95em;
+  color: #666;
+}
+
+.total {
+  margin-top: 15px;
+  padding-top: 15px;
+  border-top: 2px solid #eee;
+  font-size: 1.2em;
+  font-weight: 600;
+  color: #e53935;
+}

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useCart } from '../contexts/CartContext';
 import Header from '../components/common/Header';
@@ -13,6 +13,38 @@ const Checkout = () => {
   const [paymentMethod, setPaymentMethod] = useState('cod');
   const [voucher, setVoucher] = useState('');
   const [voucherError, setVoucherError] = useState('');
+  const [shippingInfo, setShippingInfo] = useState({
+    recipientName: '',
+    phone: '',
+    address: '',
+    editable: {
+      recipientName: false,
+      phone: false
+    }
+  });
+  const [voucherDiscount, setVoucherDiscount] = useState(0);
+  const [notification, setNotification] = useState({ show: false, message: '', type: '' });
+
+  useEffect(() => {
+    const userInfo = JSON.parse(localStorage.getItem('user'));
+    if (userInfo) {
+      setShippingInfo(prev => ({
+        ...prev,
+        recipientName: userInfo.fullName,
+        phone: userInfo.phone
+      }));
+    }
+  }, []);
+
+  const toggleEdit = (field) => {
+    setShippingInfo(prev => ({
+      ...prev,
+      editable: {
+        ...prev.editable,
+        [field]: !prev.editable[field]
+      }
+    }));
+  };
 
   const shippingFees = {
     standard: 30000,
@@ -29,13 +61,61 @@ const Checkout = () => {
     return subtotal + shippingFee;
   };
 
-  const handleVoucherSubmit = () => {
-    setVoucherError('Mã giảm giá không hợp lệ');
+  const showNotification = (message, type) => {
+    setNotification({ show: true, message, type });
+    setTimeout(() => setNotification({ show: false, message: '', type: '' }), 3000);
+  };
+
+  const handleVoucherSubmit = async () => {
+    try {
+      const response = await fetch('http://localhost:5000/api/vouchers/validate', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ 
+          code: voucher,
+          totalAmount: calculateSubtotal()
+        })
+      });
+
+      const data = await response.json();
+
+      if (data.success) {
+        setVoucherDiscount(data.voucher.discountAmount);
+        setVoucherError('');
+        showNotification(`Áp dụng mã giảm giá thành công: ${data.voucher.description}`, 'success');
+      } else {
+        setVoucherDiscount(0);
+        setVoucherError(data.message);
+        showNotification(data.message, 'error');
+      }
+    } catch (error) {
+      setVoucherError('Lỗi khi kiểm tra mã giảm giá');
+    }
   };
 
   const handlePlaceOrder = async () => {
     try {
       const token = localStorage.getItem('token');
+      if (!token) {
+        alert('Vui lòng đăng nhập lại để tiếp tục');
+        navigate('/login');
+        return;
+      }
+
+      if (!shippingInfo.recipientName || !shippingInfo.phone || !shippingInfo.address) {
+        alert('Vui lòng điền đầy đủ thông tin giao hàng');
+        return;
+      }
+  
+      const phoneRegex = /^[0-9]{10}$/;
+      if (!phoneRegex.test(shippingInfo.phone)) {
+        alert('Số điện thoại không hợp lệ');
+        return;
+      }
+  
+      // Di chuyển định nghĩa orderData lên trước khi sử dụng
       const orderData = {
         products: selectedProducts.map(p => ({
           productId: p.id,
@@ -44,90 +124,46 @@ const Checkout = () => {
           name: p.name,
           img: p.img
         })),
-        totalAmount: calculateTotal(),
+        totalAmount: calculateTotal() - voucherDiscount,
         shippingMethod,
         paymentMethod,
-        voucher: voucher || null
+        shippingInfo,
+        voucher: voucher || null,
+        voucherDiscount
       };
-
-      if (paymentMethod === 'vnpay') {
-        // 1. Lưu đơn hàng trước
-        const orderResponse = await fetch('http://localhost:5000/api/orders', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${token}`, // Sửa lỗi cú pháp template string
-          },
-          body: JSON.stringify(orderData),
-        });
-
-        const orderResult = await orderResponse.json();
-
-        if (!orderResponse.ok || !orderResult.success) {
-          throw new Error(orderResult.message || 'Lưu đơn hàng thất bại trước khi tạo thanh toán VNPAY');
-        }
-
-        // 2. Gọi API tạo payment URL
-        const paymentResponse = await fetch('http://localhost:8888/order/create_payment_url', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            amount: calculateTotal(),
-            bankCode: 'VNBANK',
-            language: 'vn'
-          })
-        });
-
-        const paymentData = await paymentResponse.json();
-
-        if (paymentData.status === 'success') {
-          // Xóa sản phẩm khỏi giỏ hàng khi đã lưu đơn thành công
-          const selectedProductIds = selectedProducts.map(p => p.id);
-          await fetch('http://localhost:5000/api/cart/selected', {
-            method: 'DELETE',
-            headers: {
-              'Content-Type': 'application/json',
-              'Authorization': `Bearer ${token}`, // Sửa lỗi cú pháp template string
-            },
-            body: JSON.stringify({ selectedProductIds }),
-          });
-
-          updateCartCount(0);
-
-          // Chuyển hướng tới URL thanh toán
-          window.location.href = paymentData.paymentUrl;
-        } else {
-          throw new Error(paymentData.message || 'Tạo thanh toán VNPAY thất bại');
-        }
-
-        return;
-      }
-
-      // Các phương thức khác: COD, MoMo, banking
+  
+      // Tiếp tục với yêu cầu API
       const response = await fetch('http://localhost:5000/api/orders', {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`, // Sửa lỗi cú pháp template string
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json'
         },
-        body: JSON.stringify(orderData),
+        body: JSON.stringify(orderData)
       });
 
-      const data = await response.json();
+      if (response.status === 401) {
+        // Token hết hạn
+        alert('Phiên đăng nhập đã hết hạn, vui lòng đăng nhập lại');
+        navigate('/login');
+        return;
+      }
 
+      const data = await response.json();
+  
       if (response.ok && data.success) {
         const selectedProductIds = selectedProducts.map(p => p.id);
         await fetch('http://localhost:5000/api/cart/selected', {
           method: 'DELETE',
           headers: {
             'Content-Type': 'application/json',
-            'Authorization': `Bearer ${token}`, // Sửa lỗi cú pháp template string
+            'Authorization': `Bearer ${token}`,
           },
           body: JSON.stringify({ selectedProductIds }),
         });
-
+  
         updateCartCount(0);
-        navigate(`/order-success/${data.orderId}`); // Sửa lỗi cú pháp template string
+        navigate(`/order-success/${data.orderId}`);
       } else {
         throw new Error(data.message || 'Đặt hàng thất bại');
       }
@@ -145,6 +181,11 @@ const Checkout = () => {
     <>
       <Header />
       <div className={styles.checkoutContainer}>
+        {notification.show && (
+          <div className={`${styles.notification} ${styles[notification.type]}`}>
+            {notification.message}
+          </div>
+        )}
         <h1>Thanh toán</h1>
 
         <div className={styles.orderSummary}>
@@ -160,6 +201,70 @@ const Checkout = () => {
                 </div>
               </div>
             ))}
+          </div>
+        </div>
+
+        <div className={styles.shippingSection}>
+          <h2>Thông tin giao hàng</h2>
+          <div className={styles.shippingForm}>
+            <div className={styles.formGroup}>
+              <div className={styles.formHeader}>
+                <label>Người nhận</label>
+                <button 
+                  type="button" 
+                  className={styles.editButton}
+                  onClick={() => toggleEdit('recipientName')}
+                >
+                  {shippingInfo.editable.recipientName ? 'Xong' : 'Thay đổi'}
+                </button>
+              </div>
+              <input
+                type="text"
+                value={shippingInfo.recipientName}
+                onChange={(e) => setShippingInfo({
+                  ...shippingInfo,
+                  recipientName: e.target.value
+                })}
+                readOnly={!shippingInfo.editable.recipientName}
+                className={!shippingInfo.editable.recipientName ? styles.readOnly : ''}
+              />
+            </div>
+
+            <div className={styles.formGroup}>
+              <div className={styles.formHeader}>
+                <label>Số điện thoại</label>
+                <button 
+                  type="button" 
+                  className={styles.editButton}
+                  onClick={() => toggleEdit('phone')}
+                >
+                  {shippingInfo.editable.phone ? 'Xong' : 'Thay đổi'}
+                </button>
+              </div>
+              <input
+                type="tel"
+                value={shippingInfo.phone}
+                onChange={(e) => setShippingInfo({
+                  ...shippingInfo,
+                  phone: e.target.value
+                })}
+                readOnly={!shippingInfo.editable.phone}
+                className={!shippingInfo.editable.phone ? styles.readOnly : ''}
+              />
+            </div>
+
+            <div className={styles.formGroup}>
+              <label>Địa chỉ giao hàng *</label>
+              <textarea
+                value={shippingInfo.address}
+                onChange={(e) => setShippingInfo({
+                  ...shippingInfo,
+                  address: e.target.value
+                })}
+                required
+                placeholder="Nhập địa chỉ giao hàng"
+              />
+            </div>
           </div>
         </div>
 
@@ -238,9 +343,14 @@ const Checkout = () => {
               onChange={(e) => setVoucher(e.target.value)}
               placeholder="Nhập mã giảm giá"
             />
-            <button onClick={handleVoucherSubmit}>Áp dụng</button>
+            <button onClick={handleVoucherSubmit} disabled={!voucher}>Áp dụng</button>
           </div>
           {voucherError && <p className={styles.error}>{voucherError}</p>}
+          {voucherDiscount > 0 && (
+            <p className={styles.discountApplied}>
+              Giảm giá: -{voucherDiscount.toLocaleString('vi-VN')}₫
+            </p>
+          )}
         </div>
 
         <div className={styles.totalSection}>
@@ -252,10 +362,16 @@ const Checkout = () => {
             <span>Phí vận chuyển:</span>
             <span>{shippingFees[shippingMethod].toLocaleString('vi-VN')}₫</span>
           </div>
+          {voucherDiscount > 0 && (
+            <div className={styles.totalRow}>
+              <span>Giảm giá:</span>
+              <span>-{voucherDiscount.toLocaleString('vi-VN')}₫</span>
+            </div>
+          )}
           <div className={styles.totalRow}>
             <span>Tổng cộng:</span>
             <span className={styles.grandTotal}>
-              {calculateTotal().toLocaleString('vi-VN')}₫
+              {(calculateTotal() - voucherDiscount).toLocaleString('vi-VN')}₫
             </span>
           </div>
         </div>

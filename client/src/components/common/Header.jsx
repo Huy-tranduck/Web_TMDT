@@ -67,10 +67,13 @@ const Header = () => {
         <div className={styles.userActions}>
           {user ? (
             <div className={styles.userInfo}>
-              <span>{user.username}</span>
-              <button onClick={logout} className={styles.logoutButton}>
-                <i className="fas fa-sign-out-alt"></i>
-              </button>
+              <div className={styles.dropdown}>
+                <span>{user.username}</span>
+                <div className={styles.dropdownContent}>
+                  <Link to="/user/orders">Đơn mua</Link>
+                  <button onClick={logout}>Đăng xuất</button>
+                </div>
+              </div>
             </div>
           ) : (
             <>

@@ -7,6 +7,7 @@ const cartRoutes = require('./routes/cartRoutes');
 const adminRoutes = require('./routes/adminRoutes');
 const orderRoutes = require('./routes/orderRoutes');
 const { getActiveBanners } = require('./controllers/adminController');
+const voucherRoutes = require('./routes/voucherRoutes');
 require('dotenv').config();
 const app = express();
 
@@ -44,6 +45,7 @@ app.use('/api/cart', cartRoutes);
 app.use('/api/orders', orderRoutes); 
 app.use('/api/admin', adminRoutes);
 app.get('/api/banners/active', getActiveBanners);
+app.use('/api/vouchers', voucherRoutes);
 
 // Error handling middleware
 app.use((err, req, res, next) => {

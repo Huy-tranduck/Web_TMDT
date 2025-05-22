@@ -9,6 +9,8 @@ import SearchResults from './pages/SearchResults';
 import Cart from './pages/Cart';
 import Contact from './pages/Contact';
 import FloatingContact from './components/common/FloatingContact';
+import OrderHistory from './pages/OrderHistory';
+import VoucherManager from './components/admin/VoucherManager';
 
 // Import context providers
 import { AuthProvider } from './contexts/AuthContext';
@@ -32,6 +34,12 @@ function App() {
               <Route path="/search-results" element={<SearchResults />} />
               <Route path="/cart" element={<Cart />} />
               <Route path="/contact" element={<Contact />} />
+              <Route path="/orders/history" element={<OrderHistory />} />
+              <Route path="/user/orders" element={
+                <PrivateRoute>
+                  <OrderHistory />
+                </PrivateRoute>
+              } />
             </Routes>
             
             {/* Thêm các nút liên hệ trôi nổi */}

@@ -56,6 +56,13 @@ const uploadBanner = multer({
     }
 });
 
+const {
+    getVouchers,
+    createVoucher, 
+    updateVoucher,
+    deleteVoucher
+} = require('../controllers/voucherController');
+
 // Dashboard routes
 router.get('/stats', adminAuth, getDashboardStats);
 
@@ -84,5 +91,10 @@ router.get('/banners', adminAuth, getAllBanners);
 router.post('/banners', adminAuth, uploadBanner.single('image'), createBanner);
 router.put('/banners/:id', adminAuth, uploadBanner.single('image'), updateBanner);
 router.delete('/banners/:id', adminAuth, deleteBanner);
+// Voucher routes 
+router.get('/vouchers', adminAuth, getVouchers);
+router.post('/vouchers', adminAuth, createVoucher);
+router.put('/vouchers/:id', adminAuth, updateVoucher);
+router.delete('/vouchers/:id', adminAuth, deleteVoucher);
 
 module.exports = router;

@@ -172,13 +172,23 @@ const OrderManager = () => {
         <div className={styles.modal}>
           <div className={styles.modalContent}>
             <h3>Chi tiết đơn hàng #{selectedOrder._id}</h3>
+            
             <div className={styles.orderInfo}>
-              <p><strong>Mã khách hàng:</strong> {selectedOrder.userId}</p>
-              <p><strong>Phương thức vận chuyển:</strong> {selectedOrder.shippingMethod}</p>
-              <p><strong>Phương thức thanh toán:</strong> {selectedOrder.paymentMethod}</p>
-              {selectedOrder.voucher && (
-                <p><strong>Mã giảm giá:</strong> {selectedOrder.voucher}</p>
-              )}
+              <div className={styles.customerInfo}>
+                <h4>Thông tin người nhận</h4>
+                <p><strong>Người nhận:</strong> {selectedOrder.shippingInfo?.recipientName}</p>
+                <p><strong>Số điện thoại:</strong> {selectedOrder.shippingInfo?.phone}</p>
+                <p><strong>Địa chỉ:</strong> {selectedOrder.shippingInfo?.address}</p>
+              </div>
+
+              <div className={styles.orderDetails}>
+                <h4>Thông tin đơn hàng</h4>
+                <p><strong>Phương thức vận chuyển:</strong> {selectedOrder.shippingMethod}</p>
+                <p><strong>Phương thức thanh toán:</strong> {selectedOrder.paymentMethod}</p>
+                {selectedOrder.voucher && (
+                  <p><strong>Mã giảm giá:</strong> {selectedOrder.voucher}</p>
+                )}
+              </div>
             </div>
 
             <table className={styles.productsTable}>
