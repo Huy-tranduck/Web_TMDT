@@ -94,6 +94,7 @@
   display: flex;
   gap: 10px;
   margin-top: 10px;
+  margin-bottom: 10px;
 }
 
 .voucherInput input {
@@ -116,14 +117,37 @@
 }
 
 .voucherInput button:hover {
-  background: #388E3C;
+  background: #45a049;
+}
+
+.voucherInput button:disabled {
+  background: #ccc;
+  cursor: not-allowed;
+}
+
+.voucherInput button:not(:disabled):hover {
+  background: #388e3c;
 }
 
 /* Error Message */
 .error {
-  color: red;
+  color: #f44336;
   margin-top: 5px;
   font-size: 14px;
+  padding: 8px;
+  background: #ffebee;
+  border-radius: 4px;
+}
+
+/* Discount Applied */
+.discountApplied {
+  color: #4CAF50;
+  font-weight: 500;
+  margin-top: 10px;
+  padding: 8px;
+  background: #e8f5e9;
+  border-radius: 4px;
+  text-align: center;
 }
 
 /* Total Section */
@@ -171,6 +195,88 @@
 .placeOrderButton:disabled {
   background: #ccc;
   cursor: not-allowed;
+}
+
+/* Shipping Form */
+.shippingForm {
+  margin-top: 15px;
+}
+
+/* Form Group */
+.formGroup {
+  margin-bottom: 15px;
+}
+
+.formGroup label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: 500;
+  color: #333;
+}
+
+.formGroup input,
+.formGroup textarea {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+.formGroup textarea {
+  min-height: 80px;
+  resize: vertical;
+}
+
+.formHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 5px;
+}
+
+.editButton {
+  background: none;
+  border: none;
+  color: #1a73e8;
+  font-size: 14px;
+  cursor: pointer;
+  padding: 4px 8px;
+  border-radius: 4px;
+}
+
+.editButton:hover {
+  background: rgba(26, 115, 232, 0.1);
+}
+
+.readOnly {
+  background-color: #f5f5f5;
+  cursor: default;
+}
+
+.readOnly:focus {
+  outline: none;
+  border-color: #ddd;
+}
+
+/* Notification */
+.notification {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  padding: 15px 20px;
+  border-radius: 4px;
+  z-index: 1000;
+}
+
+.success {
+  background: #4CAF50;
+  color: white;
+}
+
+.error {
+  background: #f44336;
+  color: white;
 }
 
 /* Responsive cho mobile nhỏ (dưới 480px) */

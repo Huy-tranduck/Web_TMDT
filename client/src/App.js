@@ -11,6 +11,7 @@ import Cart from './pages/Cart';
 import SearchResults from './pages/SearchResults';
 import Checkout from './pages/Checkout';
 import OrderSuccess from './pages/OrderSuccess';
+import OrderHistory from './pages/OrderHistory';
 
 const PrivateAdminRoute = ({ children }) => {
   const { user } = useAuth();
@@ -38,6 +39,11 @@ function App() {
             <Route path="/cart" element={<Cart />} />
             <Route path="/checkout" element={<Checkout />} />
             <Route path="/order-success/:orderId" element={<OrderSuccess />} />
+            <Route path="/user/orders" element={
+                            <PrivateRoute>
+                              <OrderHistory />
+                            </PrivateRoute>
+            } />
             {/* Admin Routes */}
             <Route 
               path="/admin/*" 

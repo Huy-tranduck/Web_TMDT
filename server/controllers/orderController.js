@@ -61,16 +61,32 @@ const createOrder = async (req, res) => {
 
 const getUserOrders = async (req, res) => {
     try {
-        const orders = await Order.find({ userId: req.user.id })
-            .sort({ createdAt: -1 });
+        const userId = req.user.id;
+        const orders = await Order.find({ userId })
+            .sort({ createdAt: -1 })
+            .populate('products.productId'); // Populate thông tin sản phẩm
+
+        // Tính toán tổng tiền cho mỗi đơn hàng
+        const ordersWithTotals = orders.map(order => {
+            const subtotal = order.products.reduce((total, item) => {
+                return total + (item.price * item.quantity);
+            }, 0);
+
+            return {
+                ...order.toObject(),
+                subtotal: subtotal,
+                totalAmount: subtotal + (order.shippingFee || 0) - (order.discount || 0)
+            };
+        });
 
         res.json({ 
-            success: true,
-            orders 
+            success: true, 
+            orders: ordersWithTotals 
         });
+
     } catch (error) {
         res.status(500).json({ 
-            success: false,
+            success: false, 
             message: error.message 
         });
     }
@@ -107,8 +123,37 @@ const getOrderById = async (req, res) => {
     }
 };
 
+const updateOrderStatus = async (req, res) => {
+    try {
+        const { status } = req.body;
+        const order = await Order.findByIdAndUpdate(
+            req.params.orderId,
+            { status },
+            { new: true }
+        );
+        res.json({ success: true, order });
+    } catch (error) {
+        res.status(500).json({ success: false, message: error.message });
+    }
+};
+
+const cancelOrder = async (req, res) => {
+    try {
+        const order = await Order.findByIdAndUpdate(
+            req.params.orderId,
+            { status: 'cancelled' },
+            { new: true }
+        );
+        res.json({ success: true, order });
+    } catch (error) {
+        res.status(500).json({ success: false, message: error.message });
+    }
+};
+
 module.exports = {
     createOrder,
     getUserOrders,
-    getOrderById
+    getOrderById,
+    updateOrderStatus,
+    cancelOrder
 };

@@ -8,6 +8,7 @@ import Dashboard from '../admin/Dashboard';
 import ProductManager from '../admin/ProductManager';
 import OrderManager from '../admin/OrderManager';
 import UserManager from '../admin/UserManager';
+import VoucherManager from '../admin/VoucherManager';
 
 const AdminLayout = () => {
   const { logout } = useAuth();
@@ -49,6 +50,12 @@ const AdminLayout = () => {
                 <span>Người dùng</span>
               </Link>
             </li>
+            <li className={location.pathname === '/admin/vouchers' ? styles.active : ''}>
+              <Link to="/admin/vouchers">
+                <i className="fas fa-ticket-alt"></i>
+                <span>Quản lý Voucher</span>
+              </Link>
+            </li>
           </ul>
         </nav>
       </aside>
@@ -71,6 +78,7 @@ const AdminLayout = () => {
             <Route path="products" element={<ProductManager />} />
             <Route path="orders" element={<OrderManager />} />
             <Route path="users" element={<UserManager />} />
+            <Route path="vouchers" element={<VoucherManager />} />
           </Routes>
         </div>
       </main>

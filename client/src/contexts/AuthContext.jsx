@@ -53,32 +53,32 @@ export const AuthProvider = ({ children }) => {
   // Hàm này để gọi API đăng nhập
   const loginWithCredentials = async (username, password) => {
     try {
-      console.log("Đang gọi API đăng nhập với username:", username);
-      
       const response = await fetch('http://localhost:5000/api/auth/login', {
-        method: 'POST',
+        method: 'POST',  
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ username, password }),
+        body: JSON.stringify({ username, password })
       });
 
       const data = await response.json();
-      console.log("Phản hồi từ API đăng nhập:", data);
-
-      if (!response.ok) throw new Error(data.message || "Lỗi đăng nhập");
-
-      if (!data.token || !data.user) {
-        throw new Error("API trả về dữ liệu không hợp lệ");
+      
+      if (!response.ok) {
+        throw new Error(data.message || 'Lỗi đăng nhập');
       }
 
-      // Gọi hàm login để lưu thông tin đăng nhập
+      // Cập nhật token mới vào localStorage
+      if (data.token) {
+        localStorage.setItem('token', data.token);
+      }
+
+      // Lưu thông tin user
       const userWithToken = {
         ...data.user,
-        token: data.token
+        token: data.token 
       };
-      
+
       return login(userWithToken);
     } catch (error) {
-      console.error("Lỗi khi gọi API đăng nhập:", error);
+      console.error('Login error:', error);
       throw error;
     }
   };

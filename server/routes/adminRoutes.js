@@ -18,6 +18,13 @@ const {
     resetUserPassword
 } = require('../controllers/adminController');
 
+const {
+    getVouchers,
+    createVoucher, 
+    updateVoucher,
+    deleteVoucher
+} = require('../controllers/voucherController');
+
 // Dashboard routes
 router.get('/stats', adminAuth, getDashboardStats);
 
@@ -40,5 +47,11 @@ router.delete('/products/:id', adminAuth, deleteProduct);
 router.get('/orders/stats', adminAuth, getOrderStats); // Đặt trước route orders
 router.get('/orders', adminAuth, getAllOrders);
 router.put('/orders/:id', adminAuth, updateOrderStatus);
+
+// Voucher routes 
+router.get('/vouchers', adminAuth, getVouchers);
+router.post('/vouchers', adminAuth, createVoucher);
+router.put('/vouchers/:id', adminAuth, updateVoucher);
+router.delete('/vouchers/:id', adminAuth, deleteVoucher);
 
 module.exports = router;
