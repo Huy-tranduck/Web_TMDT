@@ -1,0 +1,351 @@
+.bannerManager {
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  background: white;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  overflow-x: auto;
+}
+
+.table th,
+.table td {
+  padding: 12px;
+  text-align: left;
+  border-bottom: 1px solid #eee;
+  font-size: 14px;
+}
+
+.table th {
+  background: #f5f5f5;
+  font-weight: bold;
+  color: #333;
+}
+
+.bannerImage {
+  width: 120px;
+  height: 60px;
+  object-fit: cover;
+  border-radius: 4px;
+}
+
+.status {
+  padding: 5px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 13px;
+}
+
+.active {
+  background: #e6f7e6;
+  color: #388e3c;
+}
+
+.inactive {
+  background: #ffebee;
+  color: #d32f2f;
+}
+
+.addButton {
+  background: #4CAF50;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.addButton:hover {
+  background: #45a049;
+}
+
+.editButton,
+.deleteButton {
+  padding: 5px 10px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 13px;
+}
+
+.editButton {
+  background: #2196F3;
+  color: white;
+  margin-right: 5px;
+}
+
+.editButton:hover {
+  background: #1e88e5;
+}
+
+.deleteButton {
+  background: #f44336;
+  color: white;
+}
+
+.deleteButton:hover {
+  background: #e53935;
+}
+
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modalContent {
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  width: 90%;
+  max-width: 600px;
+  max-height: 90vh;
+  overflow-y: auto;
+}
+
+.modalHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.closeButton {
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  color: #333;
+}
+
+.addForm {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.formGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.formRow {
+  display: flex;
+  gap: 15px;
+}
+
+.formRow .formGroup {
+  flex: 1;
+}
+
+.formGroup label {
+  font-weight: 500;
+  font-size: 14px;
+}
+
+.formGroup input, 
+.formGroup textarea, 
+.formGroup select {
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+.checkboxLabel {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+}
+
+.checkboxLabel input {
+  width: 16px;
+  height: 16px;
+}
+
+.imageUploadSection {
+  margin-top: 10px;
+}
+
+.imageUpload {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.fileInput {
+  display: none;
+}
+
+.fileLabel {
+  background: #f0f0f0;
+  padding: 10px 15px;
+  border-radius: 4px;
+  cursor: pointer;
+  text-align: center;
+  border: 1px dashed #ccc;
+  transition: background 0.2s;
+  font-size: 14px;
+  font-weight: normal;
+}
+
+.fileLabel:hover {
+  background: #e0e0e0;
+}
+
+.imagePreviewContainer {
+  position: relative;
+  margin-top: 10px;
+  max-width: 300px;
+}
+
+.imagePreview {
+  width: 100%;
+  max-height: 150px;
+  object-fit: contain;
+  border-radius: 4px;
+}
+
+.removeImageBtn {
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  background: #f44336;
+  color: white;
+  border: none;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 16px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+.formActions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.cancelButton, 
+.saveButton {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.cancelButton {
+  background: #f5f5f5;
+  color: #333;
+}
+
+.saveButton {
+  background: #4caf50;
+  color: white;
+}
+
+.saveButton:hover {
+  background: #43a047;
+}
+
+.noData {
+  text-align: center;
+  padding: 20px;
+  color: #666;
+  font-style: italic;
+}
+
+.actions {
+  display: flex;
+  gap: 5px;
+}
+
+.infoSection {
+  margin-top: 20px;
+  padding: 12px;
+  background: #e3f2fd;
+  border-radius: 4px;
+  border-left: 4px solid #2196f3;
+}
+
+.infoSection p {
+  margin: 0;
+  font-size: 14px;
+  color: #0d47a1;
+}
+
+.loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 200px;
+  font-size: 18px;
+  color: #666;
+}
+
+.error {
+  background: #ffebee;
+  color: #d32f2f;
+  padding: 15px;
+  border-radius: 4px;
+  margin: 20px 0;
+  border-left: 4px solid #d32f2f;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .formRow {
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .table {
+    font-size: 12px;
+  }
+  
+  .bannerImage {
+    width: 80px;
+    height: 40px;
+  }
+  
+  .actions {
+    flex-direction: column;
+    gap: 5px;
+  }
+  
+  .editButton,
+  .deleteButton {
+    width: 100%;
+    margin-right: 0;
+  }
+}

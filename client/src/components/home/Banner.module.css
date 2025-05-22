@@ -167,3 +167,49 @@
     max-height: 400px;
   }
 }
+
+/* Loading state */
+.loading {
+  width: 100%;
+  max-width: 1050px;
+  height: 400px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f8f9fa;
+  color: #6c757d;
+  font-size: 18px;
+  border-radius: 8px;
+}
+
+/* Error state */
+.error {
+  width: 100%;
+  max-width: 1050px;
+  height: 400px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f8d7da;
+  color: #721c24;
+  font-size: 18px;
+  border-radius: 8px;
+  text-align: center;
+  padding: 0 20px;
+}
+
+/* Đảm bảo responsive cho loading và error */
+@media (max-width: 600px) {
+  .loading, .error {
+    height: 200px;
+    font-size: 16px;
+  }
+}
+
+@media (min-width: 601px) and (max-width: 768px) {
+  .loading, .error {
+    height: 300px;
+  }
+}

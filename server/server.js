@@ -6,6 +6,7 @@ const authRoutes = require('./routes/authRoutes');
 const cartRoutes = require('./routes/cartRoutes');
 const adminRoutes = require('./routes/adminRoutes');
 const orderRoutes = require('./routes/orderRoutes');
+const { getActiveBanners } = require('./controllers/adminController');
 require('dotenv').config();
 const app = express();
 
@@ -22,12 +23,27 @@ app.use((req, res, next) => {
     next();
 });
 
+// Cấu hình để phục vụ tệp tĩnh
+app.use(express.static('public'));
+
+// Đảm bảo thư mục tồn tại
+const fs = require('fs');
+const path = require('path');
+
+// Thay đổi đường dẫn sang thư mục client
+const bannerDir = path.join(__dirname, '../client/public/images/banners');
+if (!fs.existsSync(bannerDir)) {
+  fs.mkdirSync(bannerDir, { recursive: true });
+  console.log(`Đã tạo thư mục banner tại: ${bannerDir}`);
+}
+
 // Routes
 app.use('/api/products', productRoutes);
 app.use('/api/auth', authRoutes);
 app.use('/api/cart', cartRoutes);
 app.use('/api/orders', orderRoutes); 
 app.use('/api/admin', adminRoutes);
+app.get('/api/banners/active', getActiveBanners);
 
 // Error handling middleware
 app.use((err, req, res, next) => {

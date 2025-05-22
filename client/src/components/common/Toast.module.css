@@ -1,107 +1,65 @@
 /* Toast notification */
 .toast {
   position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  padding: 16px 24px;
-  border-radius: 8px;
-  background: white;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-  z-index: 1000;
+  top: 20px;
+  right: 20px;
+  padding: 12px 20px;
+  border-radius: 4px;
+  background-color: white;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16);
   display: flex;
   align-items: center;
-  gap: 12px;
-  animation: slideIn 0.3s ease;
-  max-width: 90%; /* Đảm bảo không vượt quá màn hình mobile */
-  min-width: 250px; /* Giới hạn kích thước tối thiểu */
+  justify-content: space-between;
+  z-index: 1050;
+  min-width: 250px;
+  max-width: 400px;
+  animation: slideIn 0.3s ease forwards;
 }
 
 /* Message content */
 .message {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  font-size: 16px;
-  color: #333; /* Màu chữ tối như CellphoneS */
+  margin-right: 20px;
+  color: #333;
+  font-size: 14px;
 }
 
 /* Success style */
 .success {
-  border-left: 4px solid #4caf50; /* Viền xanh thành công */
+  border-left: 4px solid #4caf50;
 }
 
-.success i {
-  color: #4caf50;
+/* Error style */
+.error {
+  border-left: 4px solid #f44336;
+}
+
+/* Warning style */
+.warning {
+  border-left: 4px solid #ff9800;
+}
+
+/* Info style */
+.info {
+  border-left: 4px solid #2196f3;
 }
 
 /* Close button */
 .closeButton {
   background: none;
   border: none;
-  font-size: 20px;
+  font-size: 18px;
   cursor: pointer;
   color: #666;
-  padding: 0 4px;
-  transition: color 0.3s ease;
-}
-
-.closeButton:hover {
-  color: #333;
 }
 
 /* Animation */
 @keyframes slideIn {
   from {
+    transform: translateX(100%);
     opacity: 0;
-    transform: translate(-50%, -60%);
   }
   to {
+    transform: translateX(0);
     opacity: 1;
-    transform: translate(-50%, -50%);
-  }
-}
-
-/* Responsive cho mobile */
-@media (max-width: 600px) {
-  .toast {
-    padding: 12px 16px; /* Giảm padding */
-    min-width: 200px; /* Thu nhỏ kích thước tối thiểu */
-    max-width: 95%; /* Tận dụng không gian màn hình */
-  }
-
-  .message {
-    font-size: 14px; /* Thu nhỏ font */
-    gap: 6px;
-  }
-
-  .closeButton {
-    font-size: 18px; /* Thu nhỏ nút đóng */
-  }
-}
-
-/* Responsive cho tablet */
-@media (min-width: 601px) and (max-width: 768px) {
-  .toast {
-    padding: 14px 20px;
-  }
-
-  .message {
-    font-size: 15px;
-  }
-
-  .closeButton {
-    font-size: 19px;
-  }
-}
-
-/* Desktop */
-@media (min-width: 1200px) {
-  .toast {
-    padding: 16px 24px;
-  }
-
-  .message {
-    font-size: 16px;
   }
 }

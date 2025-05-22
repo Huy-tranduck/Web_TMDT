@@ -1,4 +1,6 @@
-const { User, Product, Order } = require('../models/models');
+const { User, Product, Order, Banner } = require('../models/models');
+const fs = require('fs');
+const path = require('path');
 const bcrypt = require('bcryptjs');
 
 // Dashboard stats
@@ -319,6 +321,145 @@ const updateOrderStatus = async (req, res) => {
     }
 };
 
+
+
+// Lấy tất cả banner
+const getAllBanners = async (req, res) => {
+  try {
+    // Lấy tất cả banner, sắp xếp theo thứ tự
+    const banners = await Banner.find().sort({ order: 1 });
+    res.json(banners);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+// Lấy tất cả banner đang active
+const getActiveBanners = async (req, res) => {
+  try {
+    const banners = await Banner.find({ isActive: true }).sort({ order: 1 });
+    res.json(banners);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+// Tạo banner mới
+const createBanner = async (req, res) => {
+  try {
+    const { title, link, duration, isActive, order } = req.body;
+    
+    // Kiểm tra file upload
+    if (!req.file) {
+      return res.status(400).json({ message: 'Vui lòng tải lên ảnh banner' });
+    }
+    
+    // Tạo đường dẫn ảnh
+    const image = `/images/banners/${req.file.filename}`;
+    
+    // Tạo banner mới
+    const newBanner = new Banner({
+      title,
+      image,
+      link: link || '#',
+      duration: duration || 3000,
+      isActive: isActive !== undefined ? isActive : true,
+      order: order || 0
+    });
+    
+    // Lưu vào database
+    await newBanner.save();
+    
+    res.status(201).json({ 
+      success: true, 
+      message: 'Thêm banner thành công',
+      banner: newBanner
+    });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+// Cập nhật banner
+const updateBanner = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { title, link, duration, isActive, order } = req.body;
+    
+    // Tìm banner
+    const banner = await Banner.findById(id);
+    if (!banner) {
+      return res.status(404).json({ message: 'Không tìm thấy banner' });
+    }
+    
+    // Nếu có file mới, xóa file cũ và cập nhật
+    if (req.file) {
+      // Xóa file cũ (nếu không phải ảnh mặc định)
+      if (banner.image && !banner.image.includes('banner0.gif')) {
+        const oldImagePath = path.join(__dirname, '../../client/public', banner.image);
+        if (fs.existsSync(oldImagePath)) {
+          fs.unlinkSync(oldImagePath);
+        }
+      }
+      
+      // Cập nhật đường dẫn mới
+      banner.image = `/images/banners/${req.file.filename}`;
+    }
+    
+    // Cập nhật thông tin khác
+    if (title) banner.title = title;
+    if (link) banner.link = link;
+    if (duration) banner.duration = duration;
+    if (isActive !== undefined) banner.isActive = isActive;
+    if (order !== undefined) banner.order = order;
+    
+    // Lưu thay đổi
+    await banner.save();
+    
+    res.json({
+      success: true,
+      message: 'Cập nhật banner thành công',
+      banner
+    });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+// Xóa banner
+const deleteBanner = async (req, res) => {
+  try {
+    const { id } = req.params;
+    
+    // Tìm banner
+    const banner = await Banner.findById(id);
+    if (!banner) {
+      return res.status(404).json({ message: 'Không tìm thấy banner' });
+    }
+    
+    // Xóa file ảnh (nếu không phải ảnh mặc định)
+    if (banner.image && !banner.image.includes('banner0.gif')) {
+      const imagePath = path.join(__dirname, '../../client/public', banner.image);
+      if (fs.existsSync(imagePath)) {
+        fs.unlinkSync(imagePath);
+      }
+    }
+    
+    // Xóa banner khỏi database
+    await Banner.findByIdAndDelete(id);
+    
+    res.json({ 
+      success: true,
+      message: 'Xóa banner thành công' 
+    });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+
+
+
 module.exports = {
     getDashboardStats,
     getOrderStats,
@@ -332,5 +473,10 @@ module.exports = {
     updateProduct,
     deleteProduct,
     getAllOrders,
-    updateOrderStatus
+    updateOrderStatus,
+    getAllBanners,
+    getActiveBanners,
+    createBanner,
+    updateBanner,
+    deleteBanner
 };

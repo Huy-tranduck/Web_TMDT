@@ -2,6 +2,8 @@ const express = require('express');
 const router = express.Router();
 const adminAuth = require('../middleware/authAdmin');
 const { authMiddleware, adminMiddleware } = require('../middleware/authMiddleware');
+const multer = require('multer');
+const path = require('path');
 const {
     getDashboardStats,
     getUsers,
@@ -17,6 +19,42 @@ const {
     createUser,
     resetUserPassword
 } = require('../controllers/adminController');
+
+const {
+    getAllBanners,
+    createBanner,
+    updateBanner,
+    deleteBanner
+} = require('../controllers/adminController');
+
+// Cập nhật cấu hình multer cho upload banner
+
+// Cấu hình multer để upload hình ảnh banner
+const bannerStorage = multer.diskStorage({
+    destination: (req, file, cb) => {
+        // Đường dẫn tới thư mục client/public/images/banners
+        cb(null, path.join(__dirname, '../../client/public/images/banners'));
+    },
+    filename: (req, file, cb) => {
+        cb(null, `banner-${Date.now()}${path.extname(file.originalname)}`);
+    }
+});
+
+const uploadBanner = multer({
+    storage: bannerStorage,
+    limits: { fileSize: 5 * 1024 * 1024 }, // Giới hạn file 5MB
+    fileFilter: (req, file, cb) => {
+        const filetypes = /jpeg|jpg|png|gif/;
+        const extname = filetypes.test(path.extname(file.originalname).toLowerCase());
+        const mimetype = filetypes.test(file.mimetype);
+
+        if (extname && mimetype) {
+            return cb(null, true);
+        } else {
+            cb(new Error('Chỉ cho phép ảnh: jpg, jpeg, png, gif'));
+        }
+    }
+});
 
 // Dashboard routes
 router.get('/stats', adminAuth, getDashboardStats);
@@ -40,5 +78,11 @@ router.delete('/products/:id', adminAuth, deleteProduct);
 router.get('/orders/stats', adminAuth, getOrderStats); // Đặt trước route orders
 router.get('/orders', adminAuth, getAllOrders);
 router.put('/orders/:id', adminAuth, updateOrderStatus);
+
+// Banner routes
+router.get('/banners', adminAuth, getAllBanners);
+router.post('/banners', adminAuth, uploadBanner.single('image'), createBanner);
+router.put('/banners/:id', adminAuth, uploadBanner.single('image'), updateBanner);
+router.delete('/banners/:id', adminAuth, deleteBanner);
 
 module.exports = router;

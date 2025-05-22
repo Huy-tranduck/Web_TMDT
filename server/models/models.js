@@ -104,8 +104,42 @@ const OrderSchema = new mongoose.Schema({
 
 const Order = mongoose.model('Order', OrderSchema);
 
+const BannerSchema = new mongoose.Schema({
+  title: {
+    type: String,
+    required: true,
+  },
+  image: {
+    type: String,
+    required: true,
+  },
+  link: {
+    type: String,
+    default: '#'
+  },
+  duration: {
+    type: Number,
+    default: 3000
+  },
+  isActive: {
+    type: Boolean,
+    default: true
+  },
+  order: {
+    type: Number,
+    default: 0
+  },
+  createdAt: {
+    type: Date,
+    default: Date.now
+  }
+});
+
+const Banner = mongoose.model('Banner', BannerSchema);
+
 module.exports = {
     User,
     Product,
-    Order
+    Order, 
+    Banner
 };
